@@ -40,18 +40,18 @@ public class AppConfig {
     public final static String DEFAULT_SAVE_IMAGE_PATH = Environment
             .getExternalStorageDirectory()
             + File.separator
-            + "OSChina"
+            + "XCMG_XS"
             + File.separator
-            + "git"
+            + "Feedback"
             + File.separator;
 
     //默认存放图片的路径
     public final static String DEFAULT_SAVE_FILE_PATH = Environment
             .getExternalStorageDirectory()
             + File.separator
-            + "OSChina"
+            + "XCMG_XS"
             + File.separator
-            + "git"
+            + "Feedback"
             + File.separator
             + "download"
             + File.separator;
