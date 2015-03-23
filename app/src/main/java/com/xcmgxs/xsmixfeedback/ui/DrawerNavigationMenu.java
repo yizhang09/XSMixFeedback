@@ -20,7 +20,7 @@ import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.bean.URLs;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BroadcastController;
-import com.xcmgxs.xsmixfeedback.common.StringUtils;
+import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.interfaces.DrawerMenuCallBack;
 import com.xcmgxs.xsmixfeedback.widget.BadgeView;

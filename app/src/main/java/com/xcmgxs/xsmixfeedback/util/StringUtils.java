@@ -1,4 +1,4 @@
-package com.xcmgxs.xsmixfeedback.common;
+package com.xcmgxs.xsmixfeedback.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -19,7 +19,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -28,9 +27,8 @@ import static com.xcmgxs.xsmixfeedback.common.Contanst.*;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BroadcastController;
 import com.xcmgxs.xsmixfeedback.common.MethodsCompat;
-import com.xcmgxs.xsmixfeedback.common.StringUtils;
+import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
-import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
 
 /**
