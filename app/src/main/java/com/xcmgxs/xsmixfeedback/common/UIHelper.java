@@ -3,6 +3,7 @@ package com.xcmgxs.xsmixfeedback.common;
 import android.content.Context;
 
 import com.xcmgxs.xsmixfeedback.AppContext;
+import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.widget.CircleImageView;
 
 import static com.xcmgxs.xsmixfeedback.common.Contanst.*;
@@ -23,6 +24,10 @@ public class UIHelper {
 
 
     public static void showUserFace(CircleImageView view, String faceUrl) {
+
+    }
+
+    public static void showUserInfoDetail(Context context, User user, Object o) {
 
     }
 }

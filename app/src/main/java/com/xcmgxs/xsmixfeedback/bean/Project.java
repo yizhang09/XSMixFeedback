@@ -71,7 +71,18 @@ public class Project extends Entity {
     private Date updateon;
 
     @JsonProperty("manager")
-    private String manager;
+    private User manager;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @JsonProperty("manager")
+    private String description;
 
     public String getName() {
         return name;
@@ -233,11 +244,11 @@ public class Project extends Entity {
         this.updateon = updateon;
     }
 
-    public String getManager() {
+    public User getManager() {
         return manager;
     }
 
-    public void setManager(String manager) {
+    public void setManager(User manager) {
         this.manager = manager;
     }
 }

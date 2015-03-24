@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="6dip"
+    android:paddingTop="8dip"
+    android:paddingLeft="6dip"
+    android:paddingRight="6dip"
+    android:background="@drawable/list_layout_item_selector"
+    tools:context=".ui.fragments.ExploreListProjectFragment">
+
+    <CircleImageView
+        android:id="@+id/exploreproject_listitem_userface"
+        style="@style/UserFaceImageStyle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dip"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/exploreproject_listitem_title"
+            style="@style/project_list_title"/>
+
+        <TextView
+            android:id="@+id/exploreproject_listitem_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/project_list_description"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dip"
+            android:orientation="horizontal"
+            android:gravity="center">
+            
+            <ImageView
+                android:id="@+id/exploreproject_listitem_language_image"
+                style="@style/project_list_img"
+                android:contentDescription="@string/img_description"
+                android:src="@drawable/language" />
+            <TextView
+                android:id="@+id/exploreproject_listitem_language"
+                style="@style/project_list_someinfo" />
+
+            <!-- star nums -->
+            <ImageView
+                style="@style/project_list_img"
+                android:contentDescription="@string/img_description"
+                android:src="@drawable/unstar" />
+
+            <TextView
+                android:id="@+id/exploreproject_listitem_star"
+                style="@style/project_list_someinfo" />
+
+            <!-- fork nums -->
+            <ImageView
+                style="@style/project_list_img"
+                android:contentDescription="@string/img_description"
+                android:src="@drawable/fork" />
+
+            <TextView
+                android:id="@+id/exploreproject_listitem_fork"
+                style="@style/project_list_someinfo" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+</LinearLayout>
