@@ -1,5 +1,6 @@
 package com.xcmgxs.xsmixfeedback.ui.fragments;
 
+import static com.xcmgxs.xsmixfeedback.ui.fragments.ExploreListProjectFragment.*;
 import android.os.Bundle;
 
 import com.xcmgxs.xsmixfeedback.R;
@@ -19,6 +20,17 @@ public class ExploreViewPagerFragment extends BaseViewPagerFragment {
 
     @Override
     protected void onSetupTabAdapter(ViewPageFragmentAdapter adapter) {
+        String[] title = getResources().getStringArray(R.array.explore_title_array);
+        Bundle allBundle = new Bundle();
+        allBundle.putByte(EXPLORE_TYPE,TYPE_ALL);
+        adapter.addTab(title[0],"all",ExploreListProjectFragment.class,allBundle);
+        Bundle myBundle = new Bundle();
+        myBundle.putByte(EXPLORE_TYPE,TYPE_MY);
+        adapter.addTab(title[1],"all",ExploreListProjectFragment.class,myBundle);
+        Bundle latestBundle = new Bundle();
+        latestBundle.putByte(EXPLORE_TYPE,TYPE_LATEST);
+        adapter.addTab(title[2],"all",ExploreListProjectFragment.class,latestBundle);
+
 
     }
 }

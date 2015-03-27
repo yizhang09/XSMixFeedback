@@ -1,7 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.xcmgxs.xsmixfeedback.ui.MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <item
+        android:id="@+id/main_actionbar_menu_search"
+        android:orderInCategory="100"
+        android:icon="@mipmap/abc_ic_search"
+        android:title="创建日志"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/main_actionbar_menu_notification"
+        android:orderInCategory="100"
+        android:icon="@drawable/menu_icon_notice"
+        android:title="更多操作"
+        app:showAsAction="always"/>
+
 </menu>

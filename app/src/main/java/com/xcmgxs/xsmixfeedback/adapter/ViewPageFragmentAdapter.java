@@ -54,8 +54,9 @@ public class ViewPageFragmentAdapter extends FragmentPagerAdapter implements Vie
         this.mTabStrip.setViewPager(mViewPager);
     }
 
-    private void addTab(String title,String tag,Class<?> clss,Bundle args){
+    public void addTab(String title,String tag,Class<?> clss,Bundle args){
         ViewPageInfo info = new ViewPageInfo(title,tag,clss,args);
+        mTabs.add(info);
     }
 
 
