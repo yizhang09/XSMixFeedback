@@ -21,13 +21,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
 
 import com.xcmgxs.xsmixfeedback.AppContext;
-import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.AppManager;
 import com.xcmgxs.xsmixfeedback.R;
-import com.xcmgxs.xsmixfeedback.bean.CommonList;
-import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.common.DoubleClickExitHelper;
 import com.xcmgxs.xsmixfeedback.interfaces.DrawerMenuCallBack;
+import com.xcmgxs.xsmixfeedback.ui.fragments.DrawerNavigationMenu;
 import com.xcmgxs.xsmixfeedback.ui.fragments.ExploreViewPagerFragment;
 import com.xcmgxs.xsmixfeedback.ui.fragments.MySelfViewPagerFragment;
 import com.xcmgxs.xsmixfeedback.widget.BadgeView;

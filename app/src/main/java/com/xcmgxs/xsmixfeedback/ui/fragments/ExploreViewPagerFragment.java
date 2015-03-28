@@ -26,10 +26,10 @@ public class ExploreViewPagerFragment extends BaseViewPagerFragment {
         adapter.addTab(title[0],"all",ExploreListProjectFragment.class,allBundle);
         Bundle myBundle = new Bundle();
         myBundle.putByte(EXPLORE_TYPE,TYPE_MY);
-        adapter.addTab(title[1],"all",ExploreListProjectFragment.class,myBundle);
+        adapter.addTab(title[1],"my",ExploreListProjectFragment.class,myBundle);
         Bundle latestBundle = new Bundle();
         latestBundle.putByte(EXPLORE_TYPE,TYPE_LATEST);
-        adapter.addTab(title[2],"all",ExploreListProjectFragment.class,latestBundle);
+        adapter.addTab(title[2],"latest",ExploreListProjectFragment.class,latestBundle);
 
 
     }

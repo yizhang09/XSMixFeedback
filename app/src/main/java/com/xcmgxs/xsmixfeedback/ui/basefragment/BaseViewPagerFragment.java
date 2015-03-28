@@ -28,7 +28,7 @@ public abstract class BaseViewPagerFragment extends BaseFragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         mTabStrip = (PagerSlidingTabStrip)view.findViewById(R.id.pager_tabstrip);
         mViewPager = (ViewPager)view.findViewById(R.id.pager);
 

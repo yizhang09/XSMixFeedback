@@ -12,15 +12,18 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class URLs implements Serializable {
 
-    public final static String HOST = "git.oschina.net";
-    private static final String API_VERSION = "/api/v3";// API版本
+    //public final static String HOST = "git.oschina.net";
+    public final static String HOST  = "122.194.137.62";
+    //private static final String API_VERSION = "/api/v3";// API版本
+    private static final String API_VERSION = "/api";// API版本
     public final static String HTTPS = "https://";
+    public final static String HTTP = "http://";
 
     public final static String URL_SPLITTER = "/";
 
     // 拼接的api根地址
-    public final static String URL_HOST = HTTPS + HOST + URL_SPLITTER;
-    public final static String URL_API_HOST = HTTPS + HOST + API_VERSION + URL_SPLITTER;
+    public final static String URL_HOST = HTTP + HOST + URL_SPLITTER;
+    public final static String URL_API_HOST = HTTP + HOST + API_VERSION + URL_SPLITTER;
 
     // api URL地址
     public static String BRANCH = URL_API_HOST + "repository/branches";
@@ -35,7 +38,7 @@ public class URLs implements Serializable {
     // 用户个人最新动态
     public static String EVENTS = URL_API_HOST + "events";
     // 项目
-    public static String PROJECT = URL_API_HOST+ "projects";
+    public static String PROJECT = URL_API_HOST+ "project";
     // 最近更新项目列表
     public static String EXPLORELATESTPROJECT = PROJECT +URL_SPLITTER +  "latest";
     // 热门项目列表

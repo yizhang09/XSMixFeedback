@@ -24,6 +24,8 @@ import java.util.UUID;
 
 import static com.xcmgxs.xsmixfeedback.common.Contanst.*;
 
+import com.xcmgxs.xsmixfeedback.bean.CommonList;
+import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BroadcastController;
 import com.xcmgxs.xsmixfeedback.common.MethodsCompat;
@@ -661,6 +663,39 @@ public class AppContext extends Application {
             }
         }
         return deletedFiles;
+    }
+
+
+    /*
+    *获取项目列表信息
+     */
+    @SuppressWarnings("unchecked")
+    public CommonList<Project> getExploreAllProject(int page,boolean isrefresh) throws AppException{
+        CommonList<Project> list = null;
+        String cacheKey = "allProjectList_" + page +"_" + PAGE_SIZE;
+        if(!isReadDataCache(cacheKey) || isrefresh){
+            try {
+                list = ApiClient.getAllProjects(this, page);
+                if(list != null && page == 1){
+                    list.setCacheKey(cacheKey);
+                    saveObject(list,cacheKey);
+                }
+            }
+            catch (AppException e){
+                e.printStackTrace();
+                list = (CommonList<Project>)readObject(cacheKey);
+                if(list == null){
+                    throw e;
+                }
+            }
+        }
+        else {
+            list = (CommonList<Project>)readObject(cacheKey);
+            if(list == null){
+                list = new CommonList<Project>();
+            }
+        }
+        return list;
     }
 
 

@@ -1,7 +1,11 @@
 package com.xcmgxs.xsmixfeedback.ui.fragments;
 
+import android.os.Bundle;
 import android.widget.BaseAdapter;
 
+import com.xcmgxs.xsmixfeedback.AppException;
+import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.adapter.MyProjectListAdapter;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.MessageData;
 import com.xcmgxs.xsmixfeedback.bean.Project;
@@ -11,10 +15,11 @@ import java.util.List;
 
 /**
  * 所有项目页面推荐项目列表Fragment
- * @author zhangyi
  *
- * 最后更新
- * 更新者
+ * @author zhangyi
+ *         <p/>
+ *         最后更新
+ *         更新者
  */
 public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project, CommonList<Project>> {
 
@@ -28,13 +33,60 @@ public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project
 
     private byte type = 0;
 
-    @Override
-    public BaseAdapter getAdapter(List<Project> list) {
-        return null;
+    public static ExploreListProjectFragment newInstance(byte type) {
+        ExploreListProjectFragment exploreListProjectFragment = new ExploreListProjectFragment();
+        Bundle bundle = new Bundle();
+        bundle.putByte(EXPLORE_TYPE, type);
+        exploreListProjectFragment.setArguments(bundle);
+        return exploreListProjectFragment;
     }
 
     @Override
-    protected MessageData<CommonList<Project>> asyncLoadList(int page, boolean reflash) {
-        return null;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        type = args.getByte(EXPLORE_TYPE);
     }
+
+    @Override
+    public BaseAdapter getAdapter(List<Project> list) {
+        return new MyProjectListAdapter(getActivity(), list, R.layout.exploreproject_listitem);
+    }
+
+    @Override
+    protected MessageData<CommonList<Project>> asyncLoadList(int page, boolean reflesh) {
+        System.out.println("Begin get data");
+        MessageData<CommonList<Project>> msg = null;
+        try {
+            CommonList<Project> list = getList(type, page, reflesh);
+            msg = new MessageData<CommonList<Project>>(list);
+        } catch (AppException e) {
+            e.makeToast(mApplication);
+            e.printStackTrace();
+            msg = new MessageData<CommonList<Project>>(e);
+        }
+        return msg;
+    }
+
+    private CommonList<Project> getList(byte type, int page, boolean refresh) throws AppException {
+        CommonList<Project> list = null;
+        switch (type) {
+            case TYPE_ALL:
+                list = mApplication.getExploreAllProject(page,refresh);
+                break;
+            case TYPE_LATEST:
+                list = mApplication.getExploreAllProject(page,refresh);
+                break;
+            case TYPE_MY:
+                list = mApplication.getExploreAllProject(page,refresh);
+                break;
+        }
+        return list;
+    }
+
+    @Override
+    public void onItemClick(int position, Project project) {
+        super.onItemClick(position, project);
+    }
+
 }

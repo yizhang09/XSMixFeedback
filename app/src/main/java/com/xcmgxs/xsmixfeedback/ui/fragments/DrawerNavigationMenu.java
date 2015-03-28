@@ -1,4 +1,4 @@
-package com.xcmgxs.xsmixfeedback.ui;
+package com.xcmgxs.xsmixfeedback.ui.fragments;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

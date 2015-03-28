@@ -10,7 +10,7 @@ import com.xcmgxs.xsmixfeedback.AppContext;
  */
 public class BaseFragment extends Fragment {
 
-    public AppContext getApplication(){
+    public AppContext getXsApplication(){
         return (AppContext)getActivity().getApplication();
     }
 
