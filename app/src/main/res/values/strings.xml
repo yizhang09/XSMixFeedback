@@ -9,11 +9,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="main_menu_login_tips">点击登录</string>
-    <string name="main_menu_title_explore">发现</string>
-    <string name="main_menu_title_myself">我的</string>
+    <string name="main_menu_title_explore">搜索</string>
+    <string name="main_menu_title_myself">我的项目</string>
     <string name="main_menu_title_notice">通知</string>
-    <string name="main_menu_title_language">语言</string>
-    <string name="main_menu_title_shake">摇一摇</string>
+    <string name="main_menu_title_language">所有项目</string>
+    <string name="main_menu_title_shake">最近更新</string>
     <string name="main_menu_title_setting">设置</string>
     <string name="main_menu_title_exit">退出</string>
 

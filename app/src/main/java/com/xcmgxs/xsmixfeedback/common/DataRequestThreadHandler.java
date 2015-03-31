@@ -5,8 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-public class DataRequestThreadHandler extends HandlerThread
-        implements Handler.Callback{
+public class DataRequestThreadHandler extends HandlerThread implements Handler.Callback{
 
     private Handler mMainHandler;
     private Handler mThreadHandler;

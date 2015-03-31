@@ -1,6 +1,6 @@
 package com.xcmgxs.xsmixfeedback.ui;
 
-import android.annotation.TargetApi;
+
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -34,7 +34,6 @@ import com.xcmgxs.xsmixfeedback.widget.BadgeView;
  * Created by zhangyi on 2015-3-18.
  * @author zhangyi
  */
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class MainActivity extends ActionBarActivity implements DrawerMenuCallBack {
 
     static final String DRAWER_MENU_TAG = "drawer_menu";
@@ -211,8 +210,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
             default:
                 break;
         }
-        return mDrawerToggle.onOptionsItemSelected(item)
-                || super.onOptionsItemSelected(item);
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override

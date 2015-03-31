@@ -493,25 +493,10 @@ public class AppContext extends Application {
         user.setUsername(getProperty(PROP_KEY_USERNAME));
         user.setName(getProperty(PROP_KEY_NAME));
         user.setBio(getProperty(PROP_KEY_BIO));
-        user.setWeibo(getProperty(PROP_KEY_WEIBO));
-        user.setBlog(getProperty(PROP_KEY_BLOG));
-        user.setTheme_id(StringUtils.toInt(getProperty(PROP_KEY_THEME_ID), 1));
         user.setState(getProperty(PROP_KEY_STATE));
         user.setCreated_at(getProperty(PROP_KEY_CREATED_AT));
         user.setPortrait(getProperty(PROP_KEY_PORTRAIT));
         user.setIsAdmin(StringUtils.toBool(getProperty(PROP_KEY_IS_ADMIN)));
-        user.setCanCreateGroup(StringUtils
-                .toBool(getProperty(PROP_KEY_CAN_CREATE_GROUP)));
-        user.setCanCreateProject(StringUtils
-                .toBool(getProperty(PROP_KEY_CAN_CREATE_PROJECT)));
-        user.setCanCreateTeam(StringUtils
-                .toBool(getProperty(PROP_KEY_CAN_CREATE_TEAM)));
-//        Follow follow = new Follow();
-//        follow.setFollowers(StringUtils.toInt(getProperty(ROP_KEY_FOLLOWERS)));
-//        follow.setStarred(StringUtils.toInt(getProperty(ROP_KEY_STARRED)));
-//        follow.setFollowing(StringUtils.toInt(getProperty(ROP_KEY_FOLLOWING)));
-//        follow.setWatched(StringUtils.toInt(getProperty(ROP_KEY_WATCHED)));
-//        user.setFollow(follow);
         return user;
     }
 
@@ -544,16 +529,10 @@ public class AppContext extends Application {
                 setProperty(PROP_KEY_USERNAME, String.valueOf(user.getUsername()));
                 setProperty(PROP_KEY_NAME, String.valueOf(user.getName()));
                 setProperty(PROP_KEY_BIO, String.valueOf(user.getBio()));// 个人介绍
-                setProperty(PROP_KEY_WEIBO, String.valueOf(user.getWeibo()));
-                setProperty(PROP_KEY_BLOG, String.valueOf(user.getBlog()));
-                setProperty(PROP_KEY_THEME_ID, String.valueOf(user.getTheme_id()));
                 setProperty(PROP_KEY_STATE, String.valueOf(user.getState()));
                 setProperty(PROP_KEY_CREATED_AT, String.valueOf(user.getCreated_at()));
                 setProperty(PROP_KEY_PORTRAIT, String.valueOf(user.getPortrait()));// 个人头像
                 setProperty(PROP_KEY_IS_ADMIN, String.valueOf(user.isIsAdmin()));
-                setProperty(PROP_KEY_CAN_CREATE_GROUP, String.valueOf(user.isCanCreateGroup()));
-                setProperty(PROP_KEY_CAN_CREATE_PROJECT, String.valueOf(user.isCanCreateProject()));
-                setProperty(PROP_KEY_CAN_CREATE_TEAM, String.valueOf(user.isCanCreateTeam()));
 //                setProperty(ROP_KEY_FOLLOWERS, String.valueOf(user.getFollow().getFollowers()));
 //                setProperty(ROP_KEY_STARRED, String.valueOf(user.getFollow().getStarred()));
 //                setProperty(ROP_KEY_FOLLOWING, String.valueOf(user.getFollow().getFollowing()));

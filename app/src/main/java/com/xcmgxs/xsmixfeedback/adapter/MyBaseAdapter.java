@@ -12,7 +12,7 @@ import java.util.List;
  * @author zhangyi
  * Created by zhangyi on 2015-3-23.
  */
-public class MyBaseAdapter<T> extends BaseAdapter {
+public abstract class MyBaseAdapter<T> extends BaseAdapter {
 
     protected boolean isLinkViewClick = false;
     protected Context context;
@@ -22,9 +22,9 @@ public class MyBaseAdapter<T> extends BaseAdapter {
 
     public MyBaseAdapter(Context context, List<T> listData, int itemViewResource) {
         this.context = context;
-        this.listData = listData;
+        this.listContainer = LayoutInflater.from(context);	//创建视图容器并设置上下文
         this.itemViewResource = itemViewResource;
-        this.listContainer = LayoutInflater.from(context);
+        this.listData = listData;
     }
 
     public boolean isLinkViewClick(){
@@ -34,7 +34,6 @@ public class MyBaseAdapter<T> extends BaseAdapter {
     public void setLinkViewClick(boolean isLinkViewClick){
         this.isLinkViewClick = isLinkViewClick;
     }
-
 
     @Override
     public int getCount() {
@@ -51,8 +50,4 @@ public class MyBaseAdapter<T> extends BaseAdapter {
         return 0;
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
-    }
 }

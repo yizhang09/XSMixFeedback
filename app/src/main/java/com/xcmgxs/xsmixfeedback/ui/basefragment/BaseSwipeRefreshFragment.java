@@ -2,7 +2,6 @@ package com.xcmgxs.xsmixfeedback.ui.basefragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.bean.Entity;
@@ -10,7 +9,6 @@ import com.xcmgxs.xsmixfeedback.bean.MessageData;
 import com.xcmgxs.xsmixfeedback.bean.PageList;
 import com.xcmgxs.xsmixfeedback.common.DataRequestThreadHandler;
 import com.xcmgxs.xsmixfeedback.widget.NewDataToast;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -28,7 +26,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 /**
- * Created by zhangyi on 2015-3-27.
  * 说明 下拉刷新界面的基类
  */
 public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result extends PageList<Data>>
@@ -92,38 +89,13 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         mAdapter = getAdapter(mDataList);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        isPauseLife = true;
-    }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        isPauseLife = false;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mRequestThreadHandler.quit();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mHeaderView = getHeaderView(inflater);
         mFooterView = inflater.inflate(R.layout.listview_footer, null);
-        mFooterProgressBar = mFooterView
-                .findViewById(R.id.listview_foot_progress);
-        mFooterTextView = (TextView) mFooterView
-                .findViewById(R.id.listview_foot_more);
+        mFooterProgressBar = mFooterView.findViewById(R.id.listview_foot_progress);
+        mFooterTextView = (TextView) mFooterView.findViewById(R.id.listview_foot_more);
 
         return inflater.inflate(R.layout.fragment_base_swiperefresh, null);
     }
@@ -148,6 +120,31 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         loadList(1, LISTVIEW_ACTION_INIT);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isPauseLife = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isPauseLife = false;
+    }
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mRequestThreadHandler.quit();
+    }
+
     private void initView(View view) {
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.fragment_swiperefreshlayout);
         mListView = (ListView) view.findViewById(R.id.fragment_listview);
@@ -164,9 +161,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         mEmptyMessage = (TextView) mEmpty.findViewById(R.id.data_empty_message);
     }
 
-    /**
-     * 设置列表空数据时的显示信息
-     */
+    /** 设置列表空数据时的显示信息 */
     public void setEmptyInfo(int imageResId, int messageResId) {
         mEmptyImage.setBackgroundResource(imageResId);
         mEmptyMessage.setText(messageResId);
@@ -177,16 +172,12 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         super.setUserVisibleHint(isVisibleToUser);
     }
 
-    /**
-     * 获取HeaderView
-     */
+    /** 获取HeaderView */
     protected View getHeaderView(LayoutInflater inflater) {
         return null;
     }
 
-    /**
-     * 初始化ListView
-     */
+    /** 初始化ListView */
     protected void setupListView() {
         mListView.setOnScrollListener(this);
         mListView.setOnItemClickListener(this);
@@ -197,39 +188,28 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         }
     }
 
-    /**
-     * 获取适配器
-     */
+    /** 获取适配器 */
     public abstract BaseAdapter getAdapter(List<Data> list);
 
-    /**
-     * 异步加载数据
-     */
-    protected abstract MessageData<Result> asyncLoadList(int page,
-                                                         boolean reflash);
+    /** 异步加载数据 */
+    protected abstract MessageData<Result> asyncLoadList(int page, boolean reflash);
 
     @Override
     public void onRefresh() {
         loadList(1, LISTVIEW_ACTION_REFRESH);
     }
 
-    /**
-     * 更新数据，不显示toast
-     */
+    /** 更新数据，不显示toast */
     public void update() {
         loadList(1, LISTVIEW_ACTION_UPDATE);
     }
 
-    /**
-     * 返回是否正在加载
-     */
+    /** 返回是否正在加载 */
     public boolean isLoadding() {
         return mState == STATE_LOADING;
     }
 
-    /**
-     * 加载下一页
-     */
+    /** 加载下一页 */
     protected void onLoadNextPage() {
         // 当前pageIndex
         int pageIndex = mSumData / AppContext.PAGE_SIZE + 1;
@@ -239,17 +219,17 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
     /**
      * 加载数据
      *
-     * @param page   页码
-     * @param action 加载的触发事件
-     */
+     * @param page
+     *            页码
+     * @param action
+     *            加载的触发事件
+     * */
     void loadList(int page, int action) {
         mListViewAction = action;
         mRequestThreadHandler.request(page, new AsyncDataHandler(page, action));
     }
 
-    /**
-     * 设置顶部正在加载的状态
-     */
+    /** 设置顶部正在加载的状态 */
     void setSwipeRefreshLoadingState() {
         if (mSwipeRefreshLayout != null) {
             mSwipeRefreshLayout.setRefreshing(true);
@@ -259,9 +239,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         onRefreshLoadingStatus();
     }
 
-    /**
-     * 设置顶部加载完毕的状态
-     */
+    /** 设置顶部加载完毕的状态 */
     void setSwipeRefreshLoadedState() {
         if (mSwipeRefreshLayout != null) {
             mSwipeRefreshLayout.setRefreshing(false);
@@ -270,9 +248,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         onRefreshLoadedStatus();
     }
 
-    /**
-     * 设置底部有错误的状态
-     */
+    /** 设置底部有错误的状态 */
     void setFooterErrorState() {
         if (mFooterView != null) {
             mFooterProgressBar.setVisibility(View.GONE);
@@ -280,9 +256,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         }
     }
 
-    /**
-     * 设置底部有更多数据的状态
-     */
+    /** 设置底部有更多数据的状态 */
     void setFooterHasMoreState() {
         if (mFooterView != null) {
             mFooterProgressBar.setVisibility(View.GONE);
@@ -290,9 +264,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         }
     }
 
-    /**
-     * 设置底部已加载全部的状态
-     */
+    /** 设置底部已加载全部的状态 */
     void setFooterFullState() {
         if (mFooterView != null) {
             mFooterProgressBar.setVisibility(View.GONE);
@@ -300,9 +272,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         }
     }
 
-    /**
-     * 设置底部无数据的状态
-     */
+    /** 设置底部无数据的状态 */
     void setFooterNoMoreState() {
         if (mFooterView != null) {
             mFooterProgressBar.setVisibility(View.GONE);
@@ -310,9 +280,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         }
     }
 
-    /**
-     * 设置底部加载中的状态
-     */
+    /** 设置底部加载中的状态 */
     void setFooterLoadingState() {
         if (mFooterView != null) {
             mFooterProgressBar.setVisibility(View.VISIBLE);
@@ -338,29 +306,24 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         onItemClick(position, data);
     }
 
-    /**
-     * 点击了某个item
-     */
+    /** 点击了某个item */
     public void onItemClick(int position, Data data) {
     }
 
-    /**
-     * 正在加载的状态
-     */
+    /** 正在加载的状态 */
     public void onRefreshLoadingStatus() {
     }
 
-    /**
-     * 加载完毕的状态
-     */
+    /** 加载完毕的状态 */
     public void onRefreshLoadedStatus() {
     }
 
     /**
      * 返回某项的数据
      *
-     * @param position 数据位置
-     */
+     * @param position
+     *            数据位置
+     * */
     public Data getData(int position) {
         return mDataList.get(position);
     }
@@ -406,13 +369,11 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
     }
 
     @Override
-    public void onScroll(AbsListView view, int firstVisibleItem,
-                         int visibleItemCount, int totalItemCount) {
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
     }
 
     // 加载数据
-    private class AsyncDataHandler implements
-            DataRequestThreadHandler.AsyncDataHandler<MessageData<Result>> {
+    private class AsyncDataHandler implements DataRequestThreadHandler.AsyncDataHandler<MessageData<Result>> {
 
         private int mPage;
         private int mAction;
@@ -491,8 +452,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
                         for (Data data1 : result.getList()) {
                             boolean b = false;
                             for (Data data2 : mDataList) {
-                                if (data1.getId().equalsIgnoreCase(
-                                        data2.getId())) {
+                                if (data1.getId().equalsIgnoreCase(data2.getId())) {
                                     b = true;
                                     break;
                                 }
@@ -507,17 +467,9 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
                     if (mAction == LISTVIEW_ACTION_REFRESH && !isPauseLife) {
                         // 提示新添加的数据条数
                         if (newdata > 0) {
-                            NewDataToast
-                                    .makeText(
-                                            getActivity(),
-                                            getString(
-                                                    R.string.new_data_toast_message,
-                                                    newdata),
-                                            mApplication.isAppSound()).show();
+                            NewDataToast.makeText(getActivity(),getString(R.string.new_data_toast_message,newdata),mApplication.isAppSound()).show();
                         } else {
-                            NewDataToast.makeText(getActivity(),
-                                    getString(R.string.new_data_toast_none),
-                                    false).show();
+                            NewDataToast.makeText(getActivity(),getString(R.string.new_data_toast_none),false).show();
                         }
                     }
                 }

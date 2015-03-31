@@ -40,6 +40,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
+import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.URLs;
 
 /**
@@ -201,6 +202,7 @@ public class HTTPRequestor {
         httpMethod.setRequestHeader("Accept-Encoding", "gzip,deflate,sdch");
         httpMethod.setRequestHeader("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4");
         httpMethod.setRequestHeader("Connection","Keep-Alive");
+        httpMethod.setRequestHeader("Cache-Control","no-cache");
         httpMethod.setRequestHeader(HTTP.USER_AGENT, userAgent);
         return httpMethod;
     }
@@ -374,6 +376,7 @@ public class HTTPRequestor {
         }
         try {
             T[] _next = parse(inputStream, type, null);
+            //List<Project> _next = parse(inputStream,type,null);
             results.addAll(Arrays.asList(_next));
         } catch (IOException e) {
             throw AppException.io(e);

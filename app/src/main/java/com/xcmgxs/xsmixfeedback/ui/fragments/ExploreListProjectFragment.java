@@ -21,6 +21,7 @@ import java.util.List;
  *         最后更新
  *         更新者
  */
+
 public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project, CommonList<Project>> {
 
     public final static String EXPLORE_TYPE = "explore_type";
@@ -34,11 +35,11 @@ public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project
     private byte type = 0;
 
     public static ExploreListProjectFragment newInstance(byte type) {
-        ExploreListProjectFragment exploreListProjectFragment = new ExploreListProjectFragment();
+        ExploreListProjectFragment exploreFeaturedListProjectFragment = new ExploreListProjectFragment();
         Bundle bundle = new Bundle();
         bundle.putByte(EXPLORE_TYPE, type);
-        exploreListProjectFragment.setArguments(bundle);
-        return exploreListProjectFragment;
+        exploreFeaturedListProjectFragment.setArguments(bundle);
+        return exploreFeaturedListProjectFragment;
     }
 
     @Override
@@ -54,11 +55,10 @@ public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project
     }
 
     @Override
-    protected MessageData<CommonList<Project>> asyncLoadList(int page, boolean reflesh) {
-        System.out.println("Begin get data");
+    public MessageData<CommonList<Project>> asyncLoadList(int page, boolean refresh) {
         MessageData<CommonList<Project>> msg = null;
         try {
-            CommonList<Project> list = getList(type, page, reflesh);
+            CommonList<Project> list = getList(type, page, refresh);
             msg = new MessageData<CommonList<Project>>(list);
         } catch (AppException e) {
             e.makeToast(mApplication);
@@ -72,13 +72,13 @@ public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project
         CommonList<Project> list = null;
         switch (type) {
             case TYPE_ALL:
-                list = mApplication.getExploreAllProject(page,refresh);
-                break;
-            case TYPE_LATEST:
-                list = mApplication.getExploreAllProject(page,refresh);
+                list = mApplication.getExploreAllProject(page, refresh);
                 break;
             case TYPE_MY:
-                list = mApplication.getExploreAllProject(page,refresh);
+                //list = mApplication.getExploreAllProject(page, refresh);
+                break;
+            case TYPE_LATEST:
+                //list = mApplication.getExploreAllProject(page, refresh);
                 break;
         }
         return list;
@@ -86,7 +86,6 @@ public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project
 
     @Override
     public void onItemClick(int position, Project project) {
-        super.onItemClick(position, project);
+        //UIHelper.showProjectDetail(getActivity(), null, project.getId());
     }
-
 }

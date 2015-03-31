@@ -245,17 +245,17 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 
         final String crashReport = getCrashReport(context, ex);
         //显示异常信息&发送报告
-        new Thread() {
-            public void run() {
-                Looper.prepare();
-                // 上传错误信息到友盟的后台
-                //MobclickAgent.reportError(mContext, ex);
-
-                //UIHelper.sendAppCrashReport(context, crashReport);
-                Looper.loop();
-            }
-
-        }.start();
+//        new Thread() {
+//            public void run() {
+//                Looper.prepare();
+//                // 上传错误信息到友盟的后台
+//                //MobclickAgent.reportError(mContext, ex);
+//
+//                //UIHelper.sendAppCrashReport(context, crashReport);
+//                Looper.loop();
+//            }
+//
+//        }.start();
         return true;
     }
     /**

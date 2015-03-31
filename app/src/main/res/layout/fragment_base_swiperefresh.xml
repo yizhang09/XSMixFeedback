@@ -9,7 +9,7 @@
         android:layout_gravity="center"
         android:visibility="visible" />
 
-    <net.oschina.gitapp.widget.CBSwipeRefreshLayout
+    <com.xcmgxs.xsmixfeedback.widget.CBSwipeRefreshLayout
         android:id="@+id/fragment_swiperefreshlayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -21,7 +21,7 @@
             android:layout_height="fill_parent"
             android:background="@color/white"
             android:scrollingCache="false" />
-    </net.oschina.gitapp.widget.CBSwipeRefreshLayout>
+    </com.xcmgxs.xsmixfeedback.widget.CBSwipeRefreshLayout>
 
     <include
         android:id="@+id/fragment_swiperefresh_empty"

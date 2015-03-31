@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class URLs implements Serializable {
 
     //public final static String HOST = "git.oschina.net";
-    public final static String HOST  = "122.194.137.62";
+    public final static String HOST  = "122.194.137.62:8002";
     //private static final String API_VERSION = "/api/v3";// API版本
     private static final String API_VERSION = "/api";// API版本
     public final static String HTTPS = "https://";

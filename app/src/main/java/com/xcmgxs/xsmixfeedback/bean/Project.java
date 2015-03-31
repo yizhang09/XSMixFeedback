@@ -22,9 +22,6 @@ public class Project extends Entity {
     @JsonProperty("num")
     private Integer num;
 
-    @JsonProperty("base")
-    private String base;
-
     @JsonProperty("tank")
     private String tank;
 
@@ -73,6 +70,10 @@ public class Project extends Entity {
     @JsonProperty("manager")
     private User manager;
 
+    @JsonProperty("description")
+    private String description;
+
+
     public String getDescription() {
         return description;
     }
@@ -80,9 +81,6 @@ public class Project extends Entity {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    @JsonProperty("manager")
-    private String description;
 
     public String getName() {
         return name;
@@ -114,14 +112,6 @@ public class Project extends Entity {
 
     public void setNum(Integer num) {
         this.num = num;
-    }
-
-    public String getBase() {
-        return base;
-    }
-
-    public void setBase(String base) {
-        this.base = base;
     }
 
     public String getTank() {

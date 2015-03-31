@@ -160,7 +160,7 @@ public class ApiClient {
         Map<String,Object> params = new HashMap<>();
         params.put(PRIVATE_TOKEN,getToken(appContext));
         params.put("page",page);
-        String url = makeURL(URLs.PROJECT + URLs.URL_SPLITTER + "projects",params);
+        String url = makeURL(URLs.PROJECT,params);
         List<Project> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(Project[].class);
         lst.setCount(list.size());
         lst.setList(list);

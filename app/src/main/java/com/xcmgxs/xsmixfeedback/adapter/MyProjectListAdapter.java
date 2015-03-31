@@ -70,11 +70,16 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
         //加载头像
         String portraitURL = project.getManager().getNew_portrait();
 
-        if(portraitURL.endsWith("portrait.gif")){
-            listItemView.face.setImageResource(R.drawable.mini_avatar);
+
+        if(portraitURL != null) {
+            if (portraitURL.endsWith("portrait.gif")) {
+                listItemView.face.setImageResource(R.drawable.mini_avatar);
+            } else {
+                bitmapManager.loadBitmap(portraitURL, listItemView.face);
+            }
         }
-        else{
-            bitmapManager.loadBitmap(portraitURL,listItemView.face);
+        else {
+            listItemView.face.setImageResource(R.drawable.mini_avatar);
         }
         listItemView.face.setOnClickListener(new View.OnClickListener() {
             @Override
