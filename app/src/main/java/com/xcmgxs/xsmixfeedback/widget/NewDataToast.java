@@ -1,7 +1,6 @@
 package com.xcmgxs.xsmixfeedback.widget;
 
-
-
+import com.xcmgxs.xsmixfeedback.R;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.util.DisplayMetrics;
@@ -10,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.xcmgxs.xsmixfeedback.R;
 
 /**
  * 新数据Toast提示控件(带音乐播放)
@@ -33,7 +30,7 @@ public class NewDataToast extends Toast{
 
         this.isSound = isSound;
 
-        //mPlayer = MediaPlayer.create(context, R.raw.newdatatoast);
+        mPlayer = MediaPlayer.create(context, R.raw.newdatatoast);
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
             @Override
             public void onCompletion(MediaPlayer mp) {

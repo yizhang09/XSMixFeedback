@@ -289,8 +289,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // 点击了底部
         if (view == mFooterView) {
             return;
