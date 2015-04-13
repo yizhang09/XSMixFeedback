@@ -68,7 +68,8 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
         final Project project = listData.get(position);
 
         //加载头像
-        String portraitURL = project.getManager().getNew_portrait();
+        //String portraitURL = project.getManager().getNew_portrait();
+        String portraitURL = "portrait.gif";
 
 
         if(portraitURL != null) {
@@ -84,18 +85,18 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
         listItemView.face.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user = project.getManager();
-                if(user == null){
-                    return;
-                }
-                UIHelper.showUserInfoDetail(context, user, null);
+//                User user = project.getManager();
+//                if(user == null){
+//                    return;
+//                }
+//                UIHelper.showUserInfoDetail(context, user, null);
             }
         });
 
         //显示相关信息
-        listItemView.title.setText(project.getManager().getName() + " / " + project.getName());
+        listItemView.title.setText(project.getPersons() + " / " + project.getName());
 
-        String projectDesc = project.getDescription();
+        String projectDesc = project.getEmState();
         if(!StringUtils.isEmpty(projectDesc)){
             listItemView.description.setText(projectDesc);
         }

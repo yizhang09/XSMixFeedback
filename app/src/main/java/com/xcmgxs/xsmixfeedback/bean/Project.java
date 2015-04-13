@@ -10,77 +10,114 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class Project extends Entity {
 
-    @JsonProperty("name")
+    @JsonProperty("PName")
     private String name;
 
-    @JsonProperty("type")
+    @JsonProperty("PType")
     private String type;
 
-    @JsonProperty("batch")
+    @JsonProperty("PBacth")
     private String batch;
 
-    @JsonProperty("num")
+    @JsonProperty("PNum")
     private Integer num;
 
-    @JsonProperty("tank")
+    @JsonProperty("PBase")
+    private String base;
+
+    @JsonProperty("PTank")
     private String tank;
 
-    @JsonProperty("sendstate")
+    @JsonProperty("PSendState")
     private String sendstate;
 
-    @JsonProperty("debug")
+    @JsonProperty("PDebug")
     private String debug;
 
-    @JsonProperty("packag")
+    @JsonProperty("PPackag")
     private String packag;
 
-    @JsonProperty("emState")
+    @JsonProperty("PPic")
+    private String pic;
+
+    @JsonProperty("PEMState")
     private String emState;
 
-    @JsonProperty("persons")
+    @JsonProperty("PPersons")
     private String persons;
 
-    @JsonProperty("packagedate")
+    @JsonProperty("PPackagDate")
     private String packagedate;
 
-    @JsonProperty("basedate")
+    @JsonProperty("PBaseDate")
     private String basedate;
 
-    @JsonProperty("senddate")
+    @JsonProperty("PSendDate")
     private String senddate;
 
-    @JsonProperty("installdate")
+    @JsonProperty("PInstallDate")
     private String installdate;
 
-    @JsonProperty("address")
+    @JsonProperty("PInstallOverDate1")
+    private String installoverdate;
+
+    @JsonProperty("PInstallOverDate2")
+    private String installoverdate2;
+
+    @JsonProperty("PDebugOverDate1")
+    private String debugoverdate1;
+
+    @JsonProperty("PDebugOverDate2")
+    private String debugoverdate2;
+
+    @JsonProperty("PEnterDate1")
+    private String enterdate1;
+
+    @JsonProperty("PEnterDate2")
+    private String enterdate2;
+
+    @JsonProperty("PDisChargDate1")
+    private String dischargdate1;
+
+    @JsonProperty("PDisChargDate2")
+    private String dischargdate2;
+
+    @JsonProperty("PCheckDate1")
+    private String checkdate1;
+
+    @JsonProperty("PCheckDate2")
+    private String checkdate2;
+
+    @JsonProperty("PAmounts1")
+    private String amount1;
+
+    @JsonProperty("PAmounts2")
+    private String amount2;
+
+    @JsonProperty("PAllAmounts1")
+    private String allamount1;
+
+    @JsonProperty("PAllAmounts2")
+    private String allamount2;
+
+    @JsonProperty("PAddress")
     private String address;
 
-    @JsonProperty("customer")
+    @JsonProperty("PCustomer")
     private String customer;
 
-    @JsonProperty("contactno")
+    @JsonProperty("PContractNo")
     private String contactno;
+
+    @JsonProperty("PState")
+    private String state;
+
+    @JsonProperty("PDelState")
+    private String delstate;
 
     @JsonProperty("createon")
     private Date createon;
 
-    @JsonProperty("updateon")
-    private Date updateon;
-
-    @JsonProperty("manager")
-    private User manager;
-
-    @JsonProperty("description")
-    private String description;
-
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getName() {
         return name;
@@ -226,19 +263,148 @@ public class Project extends Entity {
         this.createon = createon;
     }
 
-    public Date getUpdateon() {
-        return updateon;
+
+    public String getBase() {
+        return base;
     }
 
-    public void setUpdateon(Date updateon) {
-        this.updateon = updateon;
+    public void setBase(String base) {
+        this.base = base;
     }
 
-    public User getManager() {
-        return manager;
+    public String getPic() {
+        return pic;
     }
 
-    public void setManager(User manager) {
-        this.manager = manager;
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
+    public String getInstalloverdate() {
+        return installoverdate;
+    }
+
+    public void setInstalloverdate(String installoverdate) {
+        this.installoverdate = installoverdate;
+    }
+
+    public String getInstalloverdate2() {
+        return installoverdate2;
+    }
+
+    public void setInstalloverdate2(String installoverdate2) {
+        this.installoverdate2 = installoverdate2;
+    }
+
+    public String getDebugoverdate1() {
+        return debugoverdate1;
+    }
+
+    public void setDebugoverdate1(String debugoverdate1) {
+        this.debugoverdate1 = debugoverdate1;
+    }
+
+    public String getDebugoverdate2() {
+        return debugoverdate2;
+    }
+
+    public void setDebugoverdate2(String debugoverdate2) {
+        this.debugoverdate2 = debugoverdate2;
+    }
+
+    public String getEnterdate1() {
+        return enterdate1;
+    }
+
+    public void setEnterdate1(String enterdate1) {
+        this.enterdate1 = enterdate1;
+    }
+
+    public String getEnterdate2() {
+        return enterdate2;
+    }
+
+    public void setEnterdate2(String enterdate2) {
+        this.enterdate2 = enterdate2;
+    }
+
+    public String getDischargdate1() {
+        return dischargdate1;
+    }
+
+    public void setDischargdate1(String dischargdate1) {
+        this.dischargdate1 = dischargdate1;
+    }
+
+    public String getDischargdate2() {
+        return dischargdate2;
+    }
+
+    public void setDischargdate2(String dischargdate2) {
+        this.dischargdate2 = dischargdate2;
+    }
+
+    public String getCheckdate1() {
+        return checkdate1;
+    }
+
+    public void setCheckdate1(String checkdate1) {
+        this.checkdate1 = checkdate1;
+    }
+
+    public String getCheckdate2() {
+        return checkdate2;
+    }
+
+    public void setCheckdate2(String checkdate2) {
+        this.checkdate2 = checkdate2;
+    }
+
+    public String getAmount1() {
+        return amount1;
+    }
+
+    public void setAmount1(String amount1) {
+        this.amount1 = amount1;
+    }
+
+    public String getAmount2() {
+        return amount2;
+    }
+
+    public void setAmount2(String amount2) {
+        this.amount2 = amount2;
+    }
+
+    public String getAllamount1() {
+        return allamount1;
+    }
+
+    public void setAllamount1(String allamount1) {
+        this.allamount1 = allamount1;
+    }
+
+    public String getAllamount2() {
+        return allamount2;
+    }
+
+    public void setAllamount2(String allamount2) {
+        this.allamount2 = allamount2;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getDelstate() {
+        return delstate;
+    }
+
+    public void setDelstate(String delstate) {
+        this.delstate = delstate;
     }
 }

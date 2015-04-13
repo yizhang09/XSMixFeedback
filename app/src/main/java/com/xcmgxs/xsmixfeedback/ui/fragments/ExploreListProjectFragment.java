@@ -9,6 +9,7 @@ import com.xcmgxs.xsmixfeedback.adapter.MyProjectListAdapter;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.MessageData;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.basefragment.BaseSwipeRefreshFragment;
 
 import java.util.List;
@@ -86,6 +87,6 @@ public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project
 
     @Override
     public void onItemClick(int position, Project project) {
-        //UIHelper.showProjectDetail(getActivity(), null, project.getId());
+        UIHelper.showProjectDetail(getActivity(), project, project.getId());
     }
 }

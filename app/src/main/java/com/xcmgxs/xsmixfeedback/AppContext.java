@@ -34,6 +34,7 @@ import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
 
 /**
+ * 全局应用程序类：用于保存和调用全局应用配置及访问网络数据
  * Created by zhangyi on 2015-3-18.
  * @author zhangyi
  * @version 1.0
@@ -675,6 +676,10 @@ public class AppContext extends Application {
             }
         }
         return list;
+    }
+
+    public Project getProject(String projectId) throws AppException {
+        return ApiClient.getProject(this,projectId);
     }
 
 

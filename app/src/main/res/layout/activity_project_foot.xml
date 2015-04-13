@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/project_info"
+        style="@style/project_detail_layout_style">
+
+        <ImageView
+            style="@style/project_detail_mid_grid_item_img"
+            android:contentDescription="@string/img_description"
+            android:background="@drawable/project_detail_icon_code"/>
+        
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="项目介绍"/>
+        
+        <ImageView
+            style="@style/project_detail_sorrow_img"
+            android:contentDescription="@string/img_description"/>
+
+        </LinearLayout>
+
+    <View style="@style/h_line" />
+
+    <LinearLayout
+        android:id="@+id/project_logs"
+        style="@style/project_detail_layout_style">
+
+        <ImageView
+            style="@style/project_detail_mid_grid_item_img"
+            android:contentDescription="@string/img_description"
+            android:background="@drawable/project_detail_icon_readme"/>
+
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="项目日志"/>
+
+        <ImageView
+            style="@style/project_detail_sorrow_img"
+            android:contentDescription="@string/img_description"/>
+
+    </LinearLayout>
+
+    <View style="@style/h_line" />
+
+    <LinearLayout
+        android:id="@+id/project_files"
+        style="@style/project_detail_layout_style">
+
+        <ImageView
+            style="@style/project_detail_mid_grid_item_img"
+            android:contentDescription="@string/img_description"
+            android:background="@drawable/project_detail_icon_commit"/>
+
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="项目附件"/>
+
+        <ImageView
+            style="@style/project_detail_sorrow_img"
+            android:contentDescription="@string/img_description"/>
+
+    </LinearLayout>
+
+    <View style="@style/h_line" />
+
+    <LinearLayout
+        android:id="@+id/project_issues"
+        style="@style/project_detail_layout_style">
+
+        <ImageView
+            style="@style/project_detail_mid_grid_item_img"
+            android:contentDescription="@string/img_description"
+            android:background="@drawable/project_detail_icon_issue"/>
+
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="问题反馈"/>
+
+        <ImageView
+            style="@style/project_detail_sorrow_img"
+            android:contentDescription="@string/img_description"/>
+
+    </LinearLayout>
+
+    <View style="@style/h_line" />
+
+</LinearLayout>

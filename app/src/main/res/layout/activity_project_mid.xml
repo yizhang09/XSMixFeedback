@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/project_base_info"
+    android:background="@color/white"
+    android:gravity="center">
+    
+    <TextView
+        android:id="@+id/project_description"
+        style="@style/project_detail_description"
+        android:text="徐工施维英搅拌站项目信息反馈App 项目详细介绍"/>
+
+    <View style="@style/project_detail_line_withtop" ></View>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout style="@style/project_detail_mid_grid_item">
+
+            <ImageView
+                style="@style/project_detail_mid_grid_item_img"
+                android:background="@drawable/time"
+                android:contentDescription="@string/img_description"/>
+            <TextView
+                android:id="@+id/project_created"
+                style="@style/project_detail_mid_grid_item_text"
+                android:text="2015-04-08"/>
+
+        </LinearLayout>
+
+        <View style="@style/v_line" />
+
+        <LinearLayout style="@style/project_detail_mid_grid_item" >
+
+            <ImageView
+                style="@style/project_detail_mid_grid_item_img"
+                android:background="@drawable/fork"
+                android:contentDescription="@string/img_description" />
+
+            <TextView
+                android:id="@+id/project_stationnum"
+                style="@style/project_detail_mid_grid_item_text"
+                android:text="2" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <View style="@style/h_line" />
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout style="@style/project_detail_mid_grid_item">
+
+            <ImageView
+                style="@style/project_detail_mid_grid_item_img"
+                android:background="@drawable/locked"
+                android:contentDescription="@string/img_description"/>
+            <TextView
+                android:id="@+id/project_state"
+                style="@style/project_detail_mid_grid_item_text"
+                android:text="进行中"/>
+
+        </LinearLayout>
+
+        <View style="@style/v_line" />
+
+        <LinearLayout style="@style/project_detail_mid_grid_item" >
+
+            <ImageView
+                style="@style/project_detail_mid_grid_item_img"
+                android:background="@drawable/language"
+                android:contentDescription="@string/img_description" />
+
+            <TextView
+                android:id="@+id/project_stationtype"
+                style="@style/project_detail_mid_grid_item_text"
+                android:text="HZS180K" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View style="@style/h_line" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/project_manager"
+            style="@style/project_detail_mid_grid_item">
+
+            <ImageView
+                style="@style/project_detail_mid_grid_item_img"
+                android:background="@drawable/project_detail_icon_owner"
+                android:contentDescription="@string/img_description" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:text="项目经理" />
+
+            <TextView
+                android:id="@+id/project_managername"
+                style="@style/project_detail_mid_info_text"
+                android:text="张某某"/>
+
+            <ImageView
+                style="@style/project_detail_sorrow_img"
+                android:contentDescription="@string/img_description" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View style="@style/h_line" />
+
+
+</LinearLayout>

@@ -307,6 +307,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
 
     /** 点击了某个item */
     public void onItemClick(int position, Data data) {
+
     }
 
     /** 正在加载的状态 */
@@ -415,8 +416,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
             }
 
             // 无数据的情况下(已经加载全部数据，与一开始没有数据)
-            if (msg.state == MessageData.MESSAGE_STATE_EMPTY
-                    && mDataList.size() != 0) {
+            if (msg.state == MessageData.MESSAGE_STATE_EMPTY && mDataList.size() != 0) {
                 msg.state = MessageData.MESSAGE_STATE_FULL;
             }
             if (msg.result != null && msg.result.getList().size() == 0) {
@@ -444,8 +444,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
             if (mPage == 1) {
                 int newdata = 0;
                 mSumData = result.getPageSize();
-                if (mAction == LISTVIEW_ACTION_REFRESH
-                        || mAction == LISTVIEW_ACTION_UPDATE) {
+                if (mAction == LISTVIEW_ACTION_REFRESH || mAction == LISTVIEW_ACTION_UPDATE) {
                     if (mDataList.size() > 0) {
                         // 计算新增数据条数
                         for (Data data1 : result.getList()) {
