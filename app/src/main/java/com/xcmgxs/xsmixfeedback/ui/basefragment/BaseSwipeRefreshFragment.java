@@ -29,8 +29,7 @@ import android.widget.TextView;
  * 说明 下拉刷新界面的基类
  */
 public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result extends PageList<Data>>
-        extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
-        OnItemClickListener, OnScrollListener {
+        extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,OnItemClickListener, OnScrollListener {
 
     // 没有状态
     public static final int LISTVIEW_ACTION_NONE = -1;
@@ -109,8 +108,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         // viewpager划动到第三页，会将第一页的界面销毁，这里判断是初始状态，还是划画后再次加载
         if (mState == STATE_LOADED && mAdapter.isEmpty()) {
             setFooterNoMoreState();
-        } else if (mState == STATE_LOADED
-                && mAdapter.getCount() < AppContext.PAGE_SIZE) {
+        } else if (mState == STATE_LOADED && mAdapter.getCount() < AppContext.PAGE_SIZE) {
             setFooterFullState();
         }
         // 正在刷新的状态

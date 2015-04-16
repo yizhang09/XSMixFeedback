@@ -18,6 +18,7 @@ import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
+import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
 
 /**
@@ -193,6 +194,28 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-
+        if (mProject == null ) {
+            return;
+        }
+        int id = v.getId();
+        switch (id) {
+            case R.id.project_manager:
+                if (mProject.getPersons() != null) {
+                    //UIHelper.showUserInfoDetail(ProjectActivity.this, mProject.getOwner(), mProject.getOwner().getId());
+                }
+                break;
+            case R.id.project_description:
+                //UIHelper.showProjectReadMeActivity(ProjectActivity.this, mProject);
+                break;
+            case R.id.project_logs:
+                //UIHelper.showProjectCodeActivity(ProjectActivity.this, mProject);
+                break;
+            case R.id.project_files:
+                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_COMMITS);
+                break;
+            case R.id.project_issues:
+                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_ISSUES);
+                break;
+        }
     }
 }

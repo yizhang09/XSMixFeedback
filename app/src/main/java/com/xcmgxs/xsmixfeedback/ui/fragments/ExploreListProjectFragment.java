@@ -76,10 +76,10 @@ public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project
                 list = mApplication.getExploreAllProject(page, refresh);
                 break;
             case TYPE_MY:
-                //list = mApplication.getExploreAllProject(page, refresh);
+                list = mApplication.getExploreAllProject(page, refresh);
                 break;
             case TYPE_LATEST:
-                //list = mApplication.getExploreAllProject(page, refresh);
+                list = mApplication.getExploreAllProject(page, refresh);
                 break;
         }
         return list;

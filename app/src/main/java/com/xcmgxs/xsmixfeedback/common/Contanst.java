@@ -33,6 +33,8 @@ public class Contanst {
 
     public static final String PROJECT = "project";
 
+    public static final String PROJECT_LOG = "log";
+
     public static final String BRANCH = "branch";
 
     public static final String PATH = "path";

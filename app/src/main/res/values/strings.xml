@@ -31,6 +31,8 @@
     <string name="list_empty_hint">暂无数据</string>
     <string name="avatar">Avatar</string>
     <string name="title_activity_project">ProjectActivity</string>
+    <string name="title_activity_project_logs">ProjectLogsActivity</string>
+    <string name="title_activity_log_edit">LogEditActivity</string>
 
 
 </resources>

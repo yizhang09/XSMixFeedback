@@ -47,7 +47,14 @@
             android:name=".ui.ProjectActivity"
             android:label="@string/title_activity_project" >
         </activity>
-
+        <activity
+            android:name=".ui.ProjectLogsActivity"
+            android:label="@string/title_activity_project_logs" >
+        </activity>
+        <activity
+            android:name=".ui.LogEditActivity"
+            android:label="@string/title_activity_log_edit" >
+        </activity>
     </application>
 
 </manifest>

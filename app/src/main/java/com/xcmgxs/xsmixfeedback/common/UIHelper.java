@@ -21,8 +21,12 @@ import com.xcmgxs.xsmixfeedback.AppManager;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.User;
+import com.xcmgxs.xsmixfeedback.ui.LogEditActivity;
+import com.xcmgxs.xsmixfeedback.ui.LoginActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectActivity;
+import com.xcmgxs.xsmixfeedback.ui.ProjectSomeInfoListActivity;
 import com.xcmgxs.xsmixfeedback.util.FileUtils;
 import com.xcmgxs.xsmixfeedback.util.ImageUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
@@ -177,7 +181,11 @@ public class UIHelper {
     }
 
     public static void showLoginActivity(Context context) {
-
+        Intent intent = new Intent(context, LoginActivity.class);
+        Bundle bundle = new Bundle();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
 
@@ -195,6 +203,26 @@ public class UIHelper {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         bundle.putSerializable(PROJECT,project);
         bundle.putString(PROJECTID,projectid);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    public static void showProjectListActivity(Context context,Project project,int type){
+        Intent intent = new Intent(context, ProjectSomeInfoListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Contanst.PROJECT,project);
+        bundle.putInt("project_list_type",type);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+
+    }
+
+    public static void showLogEditOrCreate(Context context,Project project,ProjectLog log){
+        Intent intent = new Intent(context, LogEditActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Contanst.PROJECT, project);
+        bundle.putSerializable(Contanst.PROJECT_LOG, log);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }

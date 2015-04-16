@@ -3,5 +3,5 @@ package com.xcmgxs.xsmixfeedback.bean;
 /**
  * Created by zhangyi on 2015-3-20.
  */
-public class ProjectLog {
+public class ProjectLog extends Entity {
 }
