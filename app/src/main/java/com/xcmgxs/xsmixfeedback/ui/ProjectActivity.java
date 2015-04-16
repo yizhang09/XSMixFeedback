@@ -211,7 +211,7 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
                 //UIHelper.showProjectCodeActivity(ProjectActivity.this, mProject);
                 break;
             case R.id.project_files:
-                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_COMMITS);
+                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_LOGS);
                 break;
             case R.id.project_issues:
                 UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_ISSUES);
