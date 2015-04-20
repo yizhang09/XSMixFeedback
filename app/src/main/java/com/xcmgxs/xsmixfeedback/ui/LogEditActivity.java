@@ -1,13 +1,13 @@
 package com.xcmgxs.xsmixfeedback.ui;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
 
-public class LogEditActivity extends ActionBarActivity {
+public class LogEditActivity extends BaseActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

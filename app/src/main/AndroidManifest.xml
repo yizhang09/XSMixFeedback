@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <android:uses-permission
+    <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
 
@@ -48,8 +48,8 @@
             android:label="@string/title_activity_project" >
         </activity>
         <activity
-            android:name=".ui.ProjectLogsActivity"
-            android:label="@string/title_activity_project_logs" >
+            android:name=".ui.ProjectSomeInfoListActivity"
+            android:label="@string/title_activity_project" >
         </activity>
         <activity
             android:name=".ui.LogEditActivity"

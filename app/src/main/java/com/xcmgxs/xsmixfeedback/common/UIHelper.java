@@ -210,8 +210,8 @@ public class UIHelper {
     public static void showProjectListActivity(Context context,Project project,int type){
         Intent intent = new Intent(context, ProjectSomeInfoListActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Contanst.PROJECT,project);
-        bundle.putInt("project_list_type",type);
+        bundle.putSerializable(Contanst.PROJECT, project);
+        bundle.putInt("project_list_type", type);
         intent.putExtras(bundle);
         context.startActivity(intent);
 

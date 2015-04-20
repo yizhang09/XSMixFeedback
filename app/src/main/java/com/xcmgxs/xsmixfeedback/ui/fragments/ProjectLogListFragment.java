@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.adapter.ProjectLogListAdapter;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.MessageData;
 import com.xcmgxs.xsmixfeedback.bean.Project;
@@ -50,7 +52,7 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
 
     @Override
     public BaseAdapter getAdapter(List<ProjectLog> list) {
-        return null;
+        return new ProjectLogListAdapter(getActivity(),list, R.layout.projectlog_listitem);
     }
 
     @Override

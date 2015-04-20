@@ -21,6 +21,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
 
 import com.xcmgxs.xsmixfeedback.AppContext;
+import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.AppManager;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.common.DoubleClickExitHelper;
@@ -79,6 +80,9 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         initView(savedInstanceState);
         AppManager.getAppManager().addActivity(this);
 
+        if(mContext.isReceiveNotice()){
+            foreachUserNotice();
+        }
 
     }
 

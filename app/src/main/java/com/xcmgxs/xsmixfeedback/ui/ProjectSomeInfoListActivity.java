@@ -58,7 +58,7 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
         if(intent != null){
             mProject = (Project)intent.getSerializableExtra(Contanst.PROJECT);
             mListType = intent.getIntExtra("project_list_type", 0);
-            mTitle = getTtile(mListType);
+            mTitle = getTitle(mListType);
             mSubTitle = mProject.getName();
         }
 
@@ -69,7 +69,7 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
         }
     }
 
-    private String getTtile(int type){
+    private String getTitle(int type){
         String title = "";
         switch (type){
             case PROJECT_LIST_TYPE_LOGS:
@@ -101,7 +101,7 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
             MenuItemCompat.setShowAsAction(createOption,MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         }
 
-        return super.onCreateOptionsMenu(menu);
+            return super.onCreateOptionsMenu(menu);
 
     }
 

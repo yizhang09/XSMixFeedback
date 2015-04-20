@@ -153,11 +153,11 @@ public class AppContext extends Application {
      * 是否是第一次启动App
      * @return
      */
-    public boolean isFristStart() {
+    public boolean isFirstStart() {
         boolean res = false;
-        String perf_frist = getProperty(AppConfig.CONF_FRIST_START);
+        String perf_first = getProperty(AppConfig.CONF_FRIST_START);
         // 默认是http
-        if (StringUtils.isEmpty(perf_frist)) {
+        if (StringUtils.isEmpty(perf_first)) {
             res = true;
             setProperty(AppConfig.CONF_FRIST_START, "false");
         }

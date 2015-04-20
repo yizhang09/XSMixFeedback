@@ -1,27 +1,75 @@
 package com.xcmgxs.xsmixfeedback.adapter;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
+import com.xcmgxs.xsmixfeedback.common.BitmapManager;
+import com.xcmgxs.xsmixfeedback.util.StringUtils;
+import com.xcmgxs.xsmixfeedback.widget.CircleImageView;
 
 import java.util.List;
 
 /**
  * Created by zhangyi on 2015-3-20.
  */
-public class ProjectLogListAdapter extends MyBaseAdapter<Project> {
+public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
 
+    private BitmapManager bmpManager;
 
-    public ProjectLogListAdapter(Context context, List<Project> listData, int itemViewResource) {
+    static class ListItemView{
+        public ImageView face;
+        public TextView username;
+        public TextView content;
+        public TextView date;
+    }
+
+    public ProjectLogListAdapter(Context context, List<ProjectLog> listData, int itemViewResource) {
         super(context, listData, itemViewResource);
+        this.bmpManager = new BitmapManager(BitmapFactory.decodeResource(context.getResources(), R.drawable.widget_dface_loading));
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        ListItemView listItemView = null;
+        if(convertView == null){
+            convertView = listContainer.inflate(this.itemViewResource,null);
 
-        return null;
+            listItemView = new ListItemView();
+            listItemView.face = (CircleImageView)convertView.findViewById(R.id.projectlog_listitem_face);
+            listItemView.date = (TextView)convertView.findViewById(R.id.projectlog_listitem_date);
+            listItemView.content = (TextView)convertView.findViewById(R.id.projectlog_listitem_content);
+            listItemView.username = (TextView)convertView.findViewById(R.id.projectlog_listitem_username);
+
+            convertView.setTag(listItemView);
+
+        }
+        else {
+            listItemView = (ListItemView)convertView.getTag();
+        }
+
+        ProjectLog log = listData.get(position);
+
+
+        // 1.加载头像
+        String portraitURL = log.getAuthor() == null ? "" : "";
+        if (portraitURL.endsWith("portrait.gif") || StringUtils.isEmpty(portraitURL)) {
+            listItemView.face.setImageResource(R.drawable.mini_avatar);
+        } else {
+            bmpManager.loadBitmap(portraitURL, listItemView.face);
+        }
+
+        // 2.显示相关信息
+        listItemView.username.setText(log.getAuthor());
+        listItemView.content.setText(log.getTitle());
+        listItemView.date.setText(StringUtils.friendly_time(log.getCreatedate()));
+
+        return convertView;
     }
 }
