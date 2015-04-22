@@ -8,16 +8,13 @@ import org.codehaus.jackson.annotate.JsonProperty;
 @SuppressWarnings("serial")
 public class ProjectLog extends Entity {
 
-
     @JsonProperty("Author")
     private String author;
-
 
     @JsonProperty("Content")
     private String content;
 
-    @JsonProperty("Createdate")
-
+    @JsonProperty("CreateDate")
     private String createdate;
 
     @JsonProperty("Projectid")

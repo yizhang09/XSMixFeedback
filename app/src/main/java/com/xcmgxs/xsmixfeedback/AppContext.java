@@ -26,6 +26,7 @@ import static com.xcmgxs.xsmixfeedback.common.Contanst.*;
 
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BroadcastController;
 import com.xcmgxs.xsmixfeedback.common.MethodsCompat;
@@ -680,6 +681,38 @@ public class AppContext extends Application {
 
     public Project getProject(String projectId) throws AppException {
         return ApiClient.getProject(this,projectId);
+    }
+
+    /*
+    *获取项目列表信息
+     */
+    @SuppressWarnings("unchecked")
+    public CommonList<ProjectLog> getProjectLogByProjectID(int page,boolean isrefresh,String projectid) throws AppException{
+        CommonList<ProjectLog> list = null;
+        String cacheKey = "allProjectList_" + page +"_" + PAGE_SIZE+"_" + projectid;
+        if(!isReadDataCache(cacheKey) || isrefresh){
+            try {
+                list = ApiClient.getProjectLogs(this, page,projectid);
+                if(list != null && page == 1){
+                    list.setCacheKey(cacheKey);
+                    saveObject(list,cacheKey);
+                }
+            }
+            catch (AppException e){
+                e.printStackTrace();
+                list = (CommonList<ProjectLog>)readObject(cacheKey);
+                if(list == null){
+                    throw e;
+                }
+            }
+        }
+        else {
+            list = (CommonList<ProjectLog>)readObject(cacheKey);
+            if(list == null){
+                list = new CommonList<ProjectLog>();
+            }
+        }
+        return list;
     }
 
 

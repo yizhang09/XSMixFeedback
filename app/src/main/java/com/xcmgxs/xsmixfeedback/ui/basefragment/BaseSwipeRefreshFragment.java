@@ -3,6 +3,7 @@ package com.xcmgxs.xsmixfeedback.ui.basefragment;
 import java.util.ArrayList;
 import java.util.List;
 import com.xcmgxs.xsmixfeedback.AppContext;
+import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.bean.Entity;
 import com.xcmgxs.xsmixfeedback.bean.MessageData;
@@ -190,7 +191,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
     public abstract BaseAdapter getAdapter(List<Data> list);
 
     /** 异步加载数据 */
-    protected abstract MessageData<Result> asyncLoadList(int page, boolean reflash);
+    protected abstract MessageData<Result> asyncLoadList(int page, boolean refresh);
 
     @Override
     public void onRefresh() {

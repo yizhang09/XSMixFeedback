@@ -6,6 +6,7 @@ import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.Session;
 import com.xcmgxs.xsmixfeedback.bean.URLs;
 import com.xcmgxs.xsmixfeedback.bean.User;
@@ -162,6 +163,21 @@ public class ApiClient {
         params.put("page",page);
         String url = makeURL(URLs.PROJECT,params);
         List<Project> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(Project[].class);
+        lst.setCount(list.size());
+        lst.setList(list);
+        lst.setPageSize(list.size());
+        return lst;
+    }
+
+
+    public static CommonList<ProjectLog> getProjectLogs(final AppContext appContext, int page,String projectid) throws AppException {
+        CommonList<ProjectLog> lst = new CommonList<ProjectLog>();
+        Map<String,Object> params = new HashMap<>();
+        params.put(PRIVATE_TOKEN,getToken(appContext));
+        params.put("page",page);
+        params.put("projectid",projectid);
+        String url = makeURL(URLs.PROJECTLOG,params);
+        List<ProjectLog> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(ProjectLog[].class);
         lst.setCount(list.size());
         lst.setList(list);
         lst.setPageSize(list.size());

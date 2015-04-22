@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.adapter.ProjectLogListAdapter;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
@@ -36,18 +37,10 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        mProject = (Project)args.getSerializable(Contanst.PROJECT);
     }
 
     @Override
@@ -56,8 +49,23 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
     }
 
     @Override
-    protected MessageData<CommonList<ProjectLog>> asyncLoadList(int page, boolean reflash) {
-        return null;
+    protected MessageData<CommonList<ProjectLog>> asyncLoadList(int page, boolean refresh){
+        MessageData<CommonList<ProjectLog>> msg = null;
+        try {
+            CommonList<ProjectLog> list = getList(page, refresh,mProject.getId());
+            msg = new MessageData<CommonList<ProjectLog>>(list);
+        } catch (AppException e) {
+            e.makeToast(mApplication);
+            e.printStackTrace();
+            msg = new MessageData<CommonList<ProjectLog>>(e);
+        }
+        return msg;
+    }
+
+
+    private CommonList<ProjectLog> getList(int page, boolean refresh,String projectid) throws AppException {
+        CommonList<ProjectLog> list = mApplication.getProjectLogByProjectID(page,refresh,projectid);
+        return list;
     }
 
 }

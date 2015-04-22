@@ -53,6 +53,10 @@ public class StringUtils {
      */
     public static String friendly_time(String sdate) {
 
+        if (isEmpty(sdate)) {
+            return "Unknown";
+        }
+
         Date time = toDate(sdate);
 
         if (time == null) {

@@ -48,7 +48,7 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
         setContentView(R.layout.base_activity_fragment);
         mAppContext = getXSApplication();
         this.mSavedInstanceState = savedInstanceState;
-
+        initView();
     }
 
     private void initView(){
@@ -63,6 +63,10 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
         }
 
         mProgressBar = (ProgressBar)findViewById(R.id.content_loading);
+
+        mActionBar.setTitle(mTitle);
+        mActionBar.setSubtitle(mSubTitle);
+
 
         if(null == mSavedInstanceState){
             setFragment(mListType);
