@@ -2,6 +2,8 @@ package com.xcmgxs.xsmixfeedback.api;
 
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,6 +16,7 @@ import java.util.zip.GZIPInputStream;
 
 import javax.net.ssl.SSLHandshakeException;
 
+import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -29,6 +32,7 @@ import org.apache.commons.httpclient.methods.OptionsMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.TraceMethod;
+import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
@@ -42,6 +46,7 @@ import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.URLs;
+import com.xcmgxs.xsmixfeedback.bean.Result;
 
 /**
  * gitlabApi网络请求类
@@ -70,6 +75,9 @@ public class HTTPRequestor {
 
     public final static int TIMEOUT_CONNECTION = 20000;// 连接超时时间
     public final static int TIMEOUT_SOCKET = 20000;// socket超时
+    private final static int RETRY_TIME = 3;
+
+    private static String appCookie;
 
     private AppContext mContext;
 
@@ -122,6 +130,17 @@ public class HTTPRequestor {
         String urser_agent = appContext != null ? getUserAgent(appContext) : "";
         _method = getMethod(methodType, url, urser_agent);
         return this;
+    }
+
+    public static void cleanCookie() {
+        appCookie = "";
+    }
+
+    private static String getCookie(AppContext appContext) {
+        if(appCookie == null || appCookie == "") {
+            appCookie = appContext.getProperty("cookie");
+        }
+        return appCookie;
     }
 
     /**
@@ -201,8 +220,8 @@ public class HTTPRequestor {
         httpMethod.setRequestHeader("Host", URLs.HOST);
         httpMethod.setRequestHeader("Accept-Encoding", "gzip,deflate,sdch");
         httpMethod.setRequestHeader("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4");
-        httpMethod.setRequestHeader("Connection","Keep-Alive");
-        httpMethod.setRequestHeader("Cache-Control","no-cache");
+        httpMethod.setRequestHeader("Connection", "Keep-Alive");
+        httpMethod.setRequestHeader("Cache-Control", "no-cache");
         httpMethod.setRequestHeader(HTTP.USER_AGENT, userAgent);
         return httpMethod;
     }
@@ -533,6 +552,132 @@ public class HTTPRequestor {
         }
         return res;
     }
+
+
+    private static PostMethod getHttpPost(String url, String cookie, String userAgent) {
+        PostMethod httpPost = new PostMethod(url);
+        // 设置 请求超时时间
+        httpPost.getParams().setSoTimeout(TIMEOUT_SOCKET);
+        httpPost.setRequestHeader("Host", URLs.HOST);
+        httpPost.setRequestHeader("Connection","Keep-Alive");
+        httpPost.setRequestHeader("Cookie", cookie);
+        httpPost.setRequestHeader("User-Agent", userAgent);
+        return httpPost;
+    }
+
+    /**
+     * 公用post方法
+     * @param url
+     * @param params
+     * @param files
+     * @throws AppException
+     */
+    private static InputStream _post(AppContext appContext, String url, Map<String, Object> params, Map<String,File> files) throws AppException {
+        //System.out.println("post_url==> "+url);
+        String cookie = getCookie(appContext);
+        String userAgent = getUserAgent(appContext);
+
+        HttpClient httpClient = null;
+        PostMethod httpPost = null;
+
+        //post表单参数处理
+        int length = (params == null ? 0 : params.size()) + (files == null ? 0 : files.size());
+        Part[] parts = new Part[length];
+        int i = 0;
+        if(params != null) {
+            for (String name : params.keySet()) {
+                parts[i++] = new StringPart(name, String.valueOf(params.get(name)), UTF_8);
+                //System.out.println("post_key==> "+name+"    value==>"+String.valueOf(params.get(name)));
+            }
+        }
+        if(files != null) {
+            for (String file : files.keySet()) {
+                try {
+                    parts[i++] = new FilePart(file, files.get(file));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                //System.out.println("post_key_file==> "+file);
+            }
+        }
+        String responseBody = "";
+        int time = 0;
+        do{
+            try
+            {
+                httpClient = getHttpClient();
+                httpPost = getHttpPost(url, cookie, userAgent);
+                httpPost.setRequestEntity(new MultipartRequestEntity(parts,httpPost.getParams()));
+                int statusCode = httpClient.executeMethod(httpPost);
+                if(statusCode != HttpStatus.SC_OK)
+                {
+                    throw AppException.http(statusCode);
+                }
+                else if(statusCode == HttpStatus.SC_OK)
+                {
+                    Cookie[] cookies = httpClient.getState().getCookies();
+                    String tmpcookies = "";
+                    for (Cookie ck : cookies) {
+                        tmpcookies += ck.toString()+";";
+                    }
+                    //保存cookie
+                    if(appContext != null && tmpcookies != ""){
+                        appContext.setProperty("cookie", tmpcookies);
+                        appCookie = tmpcookies;
+                    }
+                }
+                responseBody = httpPost.getResponseBodyAsString();
+                //System.out.println("XMLDATA=====>"+responseBody);
+                break;
+            } catch (HttpException e) {
+                time++;
+                if(time < RETRY_TIME) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e1) {}
+                    continue;
+                }
+                // 发生致命的异常，可能是协议不对或者返回的内容有问题
+                e.printStackTrace();
+                throw AppException.http(e);
+            } catch (IOException e) {
+                time++;
+                if(time < RETRY_TIME) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e1) {}
+                    continue;
+                }
+                // 发生网络异常
+                e.printStackTrace();
+                throw AppException.network(e);
+            } finally {
+                // 释放连接
+                httpPost.releaseConnection();
+                httpClient = null;
+            }
+        }while(time < RETRY_TIME);
+
+        responseBody = responseBody.replaceAll("\\p{Cntrl}", "");
+//        if(responseBody.contains("result") && responseBody.contains("errorCode") && appContext.containsProperty("user.uid")){
+//            try {
+//                Result res = parse(new ByteArrayInputStream(responseBody.getBytes()),Result.class,null);
+////                if(res.getErrorCode() == 0){
+////                    appContext.Logout();
+////                    appContext.getUnLoginHandler().sendEmptyMessage(1);
+////                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+        return new ByteArrayInputStream(responseBody.getBytes());
+    }
+
+
+    public Result http_post(AppContext appContext, String url, Map<String, Object> params, Map<String,File> files) throws AppException, IOException{
+        return parse(_post(appContext,url,params,files),Result.class,null);
+    }
+
 
     /**
      * 处理错误异常

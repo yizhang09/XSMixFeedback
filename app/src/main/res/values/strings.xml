@@ -32,7 +32,11 @@
     <string name="avatar">Avatar</string>
     <string name="title_activity_project">ProjectActivity</string>
     <string name="title_activity_project_logs">ProjectLogsActivity</string>
-    <string name="title_activity_log_edit">LogEditActivity</string>
+    <string name="title_activity_log_edit">项目日志</string>
+
+    <string name="img_from_camera">手机拍照</string>
+    <string name="img_from_album">手机相册</string>
+    <string name="ui_insert_image">插入图片</string>
 
 
 </resources>

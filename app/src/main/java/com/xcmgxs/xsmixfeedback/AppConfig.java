@@ -56,6 +56,9 @@ public class AppConfig {
             + "download"
             + File.separator;
 
+    public static final String TEMP_LOG = "temp_log";
+    public static final String TEMP_LOG_IMAGE = "temp_log_image";
+
     private Context mContext;
     private static AppConfig appConfig;
 

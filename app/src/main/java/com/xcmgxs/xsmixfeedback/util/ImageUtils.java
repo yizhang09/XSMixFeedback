@@ -674,6 +674,30 @@ public class ImageUtils {
         return null;
     }
 
+    /**
+     * 获取图片路径 2014年8月12日
+     *
+     * @param uri
+     * @param context
+     * @return E-mail:mr.huangwenwei@gmail.com
+     */
+    public static String getImagePath(Uri uri, Activity context) {
+
+        String[] projection = { MediaStore.MediaColumns.DATA };
+        Cursor cursor = context.getContentResolver().query(uri, projection,
+                null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int columIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+            String ImagePath = cursor.getString(columIndex);
+            cursor.close();
+            return ImagePath;
+        }
+
+        return uri.toString();
+    }
+
+
     private static boolean isJPEG(byte[] b) {
         if (b.length < 2) {
             return false;
@@ -703,5 +727,47 @@ public class ImageUtils {
             return false;
         }
         return (b[0] == 0x42) && (b[1] == 0x4d);
+    }
+
+
+    static Bitmap bitmap = null;
+
+    /**
+     *2014年8月13日
+     *@param uri
+     *@param context
+     * E-mail:mr.huangwenwei@gmail.com
+     */
+    public static Bitmap loadPicasaImageFromGalley(final Uri uri, final Activity context) {
+
+        String[] projection = { MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.DISPLAY_NAME };
+        Cursor cursor = context.getContentResolver().query(uri, projection,
+                null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+
+            int columIndex = cursor.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME);
+            if (columIndex != -1) {
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            bitmap = android.provider.MediaStore.Images.Media
+                                    .getBitmap(context.getContentResolver(),
+                                            uri);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }).start();
+            }
+            cursor.close();
+            return bitmap;
+        }else
+            return null;
     }
 }
