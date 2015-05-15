@@ -30,6 +30,7 @@ import android.widget.LinearLayout;
 import com.xcmgxs.xsmixfeedback.AppConfig;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.api.ApiClient;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
@@ -161,6 +162,8 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.log_actionbar_menu_save) {
+            String content = mContent.getText().toString();
+            pubLog(LOG_TYPE_CONTENT,content);
             return true;
         }
 
@@ -187,6 +190,8 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
             case R.id.log_pub_footbar_audio:
                 break;
             case R.id.log_actionbar_menu_save:
+                String content = mContent.getText().toString();
+                pubLog(LOG_TYPE_CONTENT,content);
                 break;
             default:break;
         }
@@ -356,10 +361,12 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
     //发布日志
     private void pubLog(final byte logType,String content){
         IS_OVERTIME = false;
-        if(!appContext.isLogin()){
-            UIHelper.showLoginActivity(LogEditActivity.this);
-            return;
-        }
+//        if(!appContext.isLogin()){
+//            UIHelper.showLoginActivity(LogEditActivity.this);
+//            return;
+//        }
+
+        log = new ProjectLog();
 
         mMessage.setVisibility(View.VISIBLE);
         mform.setVisibility(View.GONE);
@@ -368,8 +375,7 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String date = sDateFormat.format(new java.util.Date());
         log.setCreatedate(date);
-        log = new ProjectLog();
-        log.setAuthor(appContext.getLoginInfo().getName());
+        log.setAuthor(appContext.getLoginInfo().getName() == null?"admin":appContext.getLoginInfo().getName());
         log.setContent(content);
 
         if(logType == LOG_TYPE_CONTENT){
@@ -387,6 +393,7 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
                 Message msg = new Message();
                 try {
                     msg.what = 1;
+                    msg.obj = ApiClient.pubProjectLog(appContext,log);
                     //这里添加发送日志接口调用代码
 
                 }
@@ -406,6 +413,7 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
 
             @Override
             protected void onPostExecute(Message message) {
+                getActivity().finish();
                 super.onPostExecute(message);
             }
 

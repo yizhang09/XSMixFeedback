@@ -199,10 +199,12 @@ public class ApiClient {
      * @return
      * @throws AppException
      */
-    public static Result pubTweet(AppContext appContext, ProjectLog log) throws AppException {
+    public static Result pubProjectLog(AppContext appContext, ProjectLog log) throws AppException {
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("uid", log.getAuthor());
         params.put("msg", log.getContent());
+        params.put("projectid", log.getProjectid());
+        params.put("createdate",log.getCreatedate());
 
         Map<String, File> files = new HashMap<String, File>();
         if(log.getImagefile() != null)

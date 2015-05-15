@@ -13,7 +13,7 @@ public class ProjectLog extends Entity {
     @JsonProperty("Author")
     private String author;
 
-    @JsonProperty("Content")
+    @JsonProperty("LogContent")
     private String content;
 
     @JsonProperty("CreateDate")
