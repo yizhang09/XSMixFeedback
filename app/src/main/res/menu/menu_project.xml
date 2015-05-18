@@ -6,14 +6,8 @@
     <item
         android:id="@+id/project_menu_create_issue"
         android:orderInCategory="100"
-        android:icon="@drawable/action_create"
+        android:icon="@mipmap/actionbar_icon_add"
         android:title="创建日志"
         app:showAsAction="always" />
-
-    <item
-        android:id="@+id/project_menu_more"
-        android:orderInCategory="100"
-        android:title="更多操作"
-        app:showAsAction="always"/>
 
 </menu>

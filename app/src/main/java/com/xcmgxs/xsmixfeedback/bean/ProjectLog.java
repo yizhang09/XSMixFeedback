@@ -31,6 +31,16 @@ public class ProjectLog extends Entity {
     @JsonProperty("AMRFile")
     private File amrfile;
 
+    @JsonProperty("LogPic")
+    private String pic;
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
 
     public File getImagefile() {
         return imagefile;

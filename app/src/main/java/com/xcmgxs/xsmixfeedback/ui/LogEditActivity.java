@@ -49,22 +49,22 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
 
     private final static String TAG = "PROJECT_LOG";
 
-    // Â¼ÖÆ
+    // å½•åˆ¶
     private final static byte RECORDER_STATE_RECARDING = 0x0;
-    // Â¼ÖÆÊ±¼äÌ«¶Ì
+    // å½•åˆ¶æ—¶é—´å¤ªçŸ­
     private final static byte RECORDER_STATE_SHORT = 0x01;
-    // ·¢²¼ÖĞ
+    // å‘å¸ƒä¸­
     private final static byte LOG_PUBING = 0X02;
-    // È¡Ïû·¢²¼
+    // å–æ¶ˆå‘å¸ƒ
     private final static byte RECORDER_STATE_CANALE = 0x03;
-    // ÆÕÍ¨ÈÕÖ¾
+    // æ™®é€šæ—¥å¿—
     private final static byte LOG_TYPE_CONTENT = 0X04;
-    // ÓïÒôÈÕÖ¾
+    // è¯­éŸ³æ—¥å¿—
     private final static byte LOG_TYPE_VOICE = 0X05;
 
-    // ÓïÒô×î¶ÌÊ±¼ä(Ãë)
+    // è¯­éŸ³æœ€çŸ­æ—¶é—´(ç§’)
     private final static int RECORDER_TIME_MINTIME = 1;
-    // ÓïÒô×î³¤Ê±¼ä(Ãë)
+    // è¯­éŸ³æœ€é•¿æ—¶é—´(ç§’)
     private final static int RECORDER_TIME_MAXTIME = 60;
 
 
@@ -143,6 +143,35 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
         mFace.setOnClickListener(this);
         mPick.setOnClickListener(this);
         mAudio.setOnClickListener(this);
+
+
+        // ç¼–è¾‘å™¨ç‚¹å‡»äº‹ä»¶
+        mContent.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // æ˜¾ç¤ºè½¯é”®ç›˜
+                showIMM();
+            }
+        });
+
+    }
+
+    private void showIMM() {
+        mFace.setTag(1);
+        showOrHideIMM();
+    }
+
+    private void showOrHideIMM() {
+        if (mFace.getTag() == null) {
+            // éšè—è½¯é”®ç›˜
+            imm.hideSoftInputFromWindow(mContent.getWindowToken(), 0);
+            // æ˜¾ç¤ºè¡¨æƒ…
+            //showFace();
+        } else {
+            // æ˜¾ç¤ºè½¯é”®ç›˜
+            imm.showSoftInput(mContent, 0);
+            // éšè—è¡¨æƒ…
+            //hideFace();
+        }
     }
 
 
@@ -210,11 +239,11 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
                                 intent = new Intent();
                             intent.setAction(Intent.ACTION_GET_CONTENT);
                             intent.setType("image/*");
-                            startActivityForResult(Intent.createChooser(intent, "Ñ¡ÔñÕÕÆ¬"), ImageUtils.REQUEST_CODE_GETIMAGE_BYSDCARD);
+                            startActivityForResult(Intent.createChooser(intent, "é€‰æ‹©ç…§ç‰‡"), ImageUtils.REQUEST_CODE_GETIMAGE_BYSDCARD);
                         } else {
                             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             intent.setType("image/*");
-                            startActivityForResult(Intent.createChooser(intent, "Ñ¡ÔñÕÕÆ¬"), ImageUtils.REQUEST_CODE_GETIMAGE_BYSDCARD);
+                            startActivityForResult(Intent.createChooser(intent, "é€‰æ‹©ç…§ç‰‡"), ImageUtils.REQUEST_CODE_GETIMAGE_BYSDCARD);
                         }
                     } else if (which == 1) {
                             String savePath = "";
@@ -228,7 +257,7 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
                             }
 
                         if (StringUtils.isEmpty(savePath)) {
-                                UIHelper.ToastMessage(LogEditActivity.this,"ÎŞ·¨±£´æÕÕÆ¬£¬Çë¼ì²éSD¿¨ÊÇ·ñ¹ÒÔØ");
+                                UIHelper.ToastMessage(LogEditActivity.this,"æ— æ³•ä¿å­˜ç…§ç‰‡ï¼Œè¯·æ£€æŸ¥SDå¡æ˜¯å¦æŒ‚è½½");
                                 return;
                             }
 
@@ -348,17 +377,17 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
         }.start();
     }
 
-    // Â¼ÒôµÄÂ·¾¶
+    // å½•éŸ³çš„è·¯å¾„
     private String savePath;
-    // ÓïÒô¶¯µ¯ÎÄ¼şÃû
+    // è¯­éŸ³åŠ¨å¼¹æ–‡ä»¶å
     private String fileName;
-    // ÊÇ·ñÕıÔÚÂ¼ÒôÖĞ
+    // æ˜¯å¦æ­£åœ¨å½•éŸ³ä¸­
     private boolean isRecording = false;
-    // ÊÇ·ñ³¬Ê±
+    // æ˜¯å¦è¶…æ—¶
     private boolean IS_OVERTIME = false;
 
 
-    //·¢²¼ÈÕÖ¾
+    //å‘å¸ƒæ—¥å¿—
     private void pubLog(final byte logType,String content){
         IS_OVERTIME = false;
 //        if(!appContext.isLogin()){
@@ -394,7 +423,7 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
                 try {
                     msg.what = 1;
                     msg.obj = ApiClient.pubProjectLog(appContext,log);
-                    //ÕâÀïÌí¼Ó·¢ËÍÈÕÖ¾½Ó¿Úµ÷ÓÃ´úÂë
+                    //è¿™é‡Œæ·»åŠ å‘é€æ—¥å¿—æ¥å£è°ƒç”¨ä»£ç 
 
                 }
                 catch (Exception e){

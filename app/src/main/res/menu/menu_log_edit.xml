@@ -6,7 +6,7 @@
     <item
         android:id="@+id/log_actionbar_menu_save"
         android:orderInCategory="100"
-        android:icon="@drawable/widget_bar_mail_nor"
+        android:icon="@mipmap/actionbar_send_icon"
         android:title="发送"
         app:showAsAction="always"/>
 </menu>

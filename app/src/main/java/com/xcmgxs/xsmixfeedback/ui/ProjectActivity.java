@@ -184,7 +184,7 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
         int id = item.getItemId();
 
         switch (id){
-            case R.id.project_menu_more:
+            case R.id.project_menu_create_issue:
                 break;
             default:break;
         }
