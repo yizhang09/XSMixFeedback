@@ -1,305 +1,217 @@
 package com.xcmgxs.xsmixfeedback.ui;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import android.widget.TextView.OnEditorActionListener;
+import com.xcmgxs.xsmixfeedback.AppContext;
+import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.bean.User;
+import com.xcmgxs.xsmixfeedback.common.BroadcastController;
+import com.xcmgxs.xsmixfeedback.common.Contanst;
+import com.xcmgxs.xsmixfeedback.util.CyptoUtils;
+import com.xcmgxs.xsmixfeedback.util.StringUtils;
+import com.xcmgxs.xsmixfeedback.common.UIHelper;
+import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends BaseActionBarActivity implements View.OnClickListener,TextView.OnEditorActionListener {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
-
-    // UI references.
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    private AppContext mAppContext;
+    private AutoCompleteTextView mAccountEditText;
+    private EditText mPasswordEditText;
+    private ProgressDialog mLoginProgressDialog;
+    private Button mLogin;
+    private InputMethodManager imm;
+    private TextWatcher textWatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mAppContext = getXSApplication();
+        initView();
+    }
 
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
+    private void initView() {
+        mAccountEditText = (AutoCompleteTextView) findViewById(R.id.login_account);
+        mPasswordEditText = (EditText) findViewById(R.id.login_password);
+        mLogin = (Button) findViewById(R.id.login_btn_login);
+        mLogin.setOnClickListener(this);
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        textWatcher = new TextWatcher() {
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                // 若密码和帐号都为空，则登录按钮不可操作
+                String account = mAccountEditText.getText().toString();
+                String pwd = mPasswordEditText.getText().toString();
+                if (StringUtils.isEmpty(account) || StringUtils.isEmpty(pwd)) {
+                    mLogin.setEnabled(false);
+                } else {
+                    mLogin.setEnabled(true);
                 }
-                return false;
             }
-        });
+        };
+        // 添加文本变化监听事件
+        mAccountEditText.addTextChangedListener(textWatcher);
+        mPasswordEditText.addTextChangedListener(textWatcher);
+        mPasswordEditText.setOnEditorActionListener(this);
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        String account = CyptoUtils.decode(Contanst.ACCOUNT_EMAIL, mAppContext.getProperty(Contanst.ACCOUNT_EMAIL));
+        mAccountEditText.setText(account);
+        String pwd = CyptoUtils.decode(Contanst.ACCOUNT_PWD, mAppContext.getProperty(Contanst.ACCOUNT_PWD));
+        mPasswordEditText.setText(pwd);
     }
 
-    private void populateAutoComplete() {
-        getLoaderManager().initLoader(0, null, this);
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        //在输入法里点击了“完成”，则去登录
+        if(actionId == EditorInfo.IME_ACTION_DONE) {
+            checkLogin();
+            //将输入法隐藏
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mPasswordEditText.getWindowToken(), 0);
+            return true;
+        }
+        return false;
     }
-
 
     /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
+     * 检查登录
      */
-    public void attemptLogin() {
-        if (mAuthTask != null) {
+    private void checkLogin() {
+
+        String email = mAccountEditText.getText().toString();
+        String passwd = mPasswordEditText.getText().toString();
+
+        //检查用户输入的参数
+        if(StringUtils.isEmpty(email)){
+            UIHelper.ToastMessage(this, getString(R.string.msg_login_username_null));
             return;
         }
 
-        // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
-
-        // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
-
-        boolean cancel = false;
-        View focusView = null;
-
-
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
+        if(StringUtils.isEmpty(passwd)){
+            UIHelper.ToastMessage(this, getString(R.string.msg_login_pwd_null));
+            return;
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
+
+        // 保存用户名和密码
+        mAppContext.saveAccountInfo(CyptoUtils.encode(Contanst.ACCOUNT_EMAIL, email), CyptoUtils.encode(Contanst.ACCOUNT_PWD, passwd));
+
+        login(email, passwd);
+    }
+
+    // 登录验证
+    private void login(final String account, final String passwd) {
+        if(mLoginProgressDialog == null) {
+            mLoginProgressDialog = new ProgressDialog(this);
+            mLoginProgressDialog.setCancelable(true);
+            mLoginProgressDialog.setCanceledOnTouchOutside(false);
+            mLoginProgressDialog.setMessage(getString(R.string.login_tips));
         }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
-        }
-    }
-
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    public void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        //异步登录
+        new AsyncTask<Void, Void, Message>() {
+            @Override
+            protected Message doInBackground(Void... params) {
+                Message msg =new Message();
+                try {
+                    User user = mAppContext.loginVerify(account, passwd);
+                    msg.what = 1;
+                    msg.obj = user;
+                } catch (Exception e) {
+                    msg.what = -1;
+                    msg.obj = e;
+                    if(mLoginProgressDialog != null) {
+                        mLoginProgressDialog.dismiss();
+                    }
                 }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
-                // Retrieve data rows for the device user's 'profile' contact.
-                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
-
-                // Select only email addresses.
-                ContactsContract.Contacts.Data.MIMETYPE +
-                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-                .CONTENT_ITEM_TYPE},
-
-                // Show primary email addresses first. Note that there won't be
-                // a primary email address if the user hasn't specified one.
-                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<String>();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
-            cursor.moveToNext();
-        }
-
-        addEmailsToAutoComplete(emails);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
-    }
-
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
-    }
-
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
-    }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
+                return msg;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                if(mLoginProgressDialog != null) {
+                    mLoginProgressDialog.show();
                 }
             }
 
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+            @Override
+            protected void onPostExecute(Message msg) {
+                super.onPostExecute(msg);
+                //如果程序已经关闭，则不再执行以下处理
+                if(isFinishing()) {
+                    return;
+                }
+                if(mLoginProgressDialog != null) {
+                    mLoginProgressDialog.dismiss();
+                }
+                Context context = LoginActivity.this;
+                if(msg.what == 1){
+                    User user = (User)msg.obj;
+                    if(user != null){
+                        //提示登陆成功
+                        UIHelper.ToastMessage(context, R.string.msg_login_success);
+                        //返回标识，成功登录
+                        setResult(RESULT_OK);
+                        // 发送用户登录成功的广播
+                        BroadcastController.sendUserChangeBroadcast(getActivity());
+                        finish();
+                    }
+                } else if(msg.what == 0){
+                    UIHelper.ToastMessage(context, getString(
+                            R.string.msg_login_fail) + msg.obj);
+                } else if(msg.what == -1){
+                    if (msg.obj instanceof AppException) {
+                        AppException e = ((AppException)msg.obj);
+                        if (e.getCode() == 401) {
+                            UIHelper.ToastMessage(context, R.string.msg_login_error);
+                        } else {
+                            ((AppException)msg.obj).makeToast(context);
+                        }
+                    } else {
+                        UIHelper.ToastMessage(context, R.string.msg_login_error);
+                    }
+                }
             }
-        }
+        }.execute();
+    }
 
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
+    @Override
+    public void onClick(View v) {
+        imm.hideSoftInputFromWindow(mPasswordEditText.getWindowToken(), 0);
+        checkLogin();
     }
 }
 

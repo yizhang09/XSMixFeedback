@@ -25,6 +25,7 @@ import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.ui.LogEditActivity;
 import com.xcmgxs.xsmixfeedback.ui.LoginActivity;
+import com.xcmgxs.xsmixfeedback.ui.MySelfInfoActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectSomeInfoListActivity;
 import com.xcmgxs.xsmixfeedback.util.FileUtils;
@@ -118,7 +119,7 @@ public class UIHelper {
      * @param faceURL
      */
     public static void showUserFace(final ImageView imgFace,final String faceURL) {
-        showLoadImage(imgFace, faceURL,imgFace.getContext().getString(R.string.msg_load_userface_fail));
+        showLoadImage(imgFace, faceURL, imgFace.getContext().getString(R.string.msg_load_userface_fail));
     }
 
     public static void showLoadImage(final ImageView imgView,final String imgURL,final String errMsg){
@@ -195,6 +196,16 @@ public class UIHelper {
 
     public static void showUserInfoDetail(Context context, User user, Object o) {
 
+    }
+
+    /**
+     * 显示用户信息详情
+     *
+     * @param context
+     */
+    public static void showMySelfInfoDetail(Context context) {
+        Intent intent = new Intent(context, MySelfInfoActivity.class);
+        context.startActivity(intent);
     }
 
     public static void showProjectDetail(Context context, Project project, String projectid) {

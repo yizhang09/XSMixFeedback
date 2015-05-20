@@ -25,6 +25,7 @@ import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.AppManager;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.common.DoubleClickExitHelper;
+import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.interfaces.DrawerMenuCallBack;
 import com.xcmgxs.xsmixfeedback.ui.fragments.DrawerNavigationMenu;
 import com.xcmgxs.xsmixfeedback.ui.fragments.ExploreViewPagerFragment;
@@ -224,7 +225,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
             startActivity(intent);
         }
         else{
-
+            UIHelper.showMySelfInfoDetail(MainActivity.this);
         }
     }
 
@@ -240,7 +241,12 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
 
     @Override
     public void onClickMySelf() {
-
+        if (!mContext.isLogin()) {
+            UIHelper.showLoginActivity(this);
+            return;
+        } else {
+            //showMainContent(1);
+        }
     }
 
     @Override

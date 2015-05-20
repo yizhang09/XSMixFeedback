@@ -2,99 +2,117 @@ package com.xcmgxs.xsmixfeedback.bean;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.util.Date;
+
 /**
  * Created by zhangyi on 2015-3-18.
  */
 @SuppressWarnings("serial")
 public class User extends Entity {
 
-    @JsonProperty("username")
-    private String _username;
+    @JsonProperty("ULoginName")
+    private String username;
 
-    @JsonProperty("name")
-    private String _name;
+    @JsonProperty("UName")
+    private String name;
 
-    @JsonProperty("bio")
-    private String _bio;
+    @JsonProperty("PhoneNo")
+    private String phoneNumber;
 
-    @JsonProperty("state")
-    private String _state;
+    @JsonProperty("UPwd")
+    private String password;
 
-    @JsonProperty("created_at")
-    private String _created_at;
+    @JsonProperty("UEnable")
+    private boolean enabled;
 
-    @JsonProperty("portrait")
-    private String _portrait;// 头像
+    @JsonProperty("OfficePhone")
+    private String officeNumber;
 
-    @JsonProperty("new_portrait")
-    private String _new_portrait;// 新头像
+    @JsonProperty("USort")
+    private int usersort;
 
-    @JsonProperty("is_admin")
-    private boolean _isAdmin;
+    @JsonProperty("AddTime")
+    private Date addTime;
+
+    @JsonProperty("Portrait")
+    private String portrait;// 头像
+
 
 
     public String getUsername() {
-        return _username;
+        return username;
     }
 
-    public void setUsername(String _username) {
-        this._username = _username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {
-        return _name;
+        return name;
     }
 
-    public void setName(String _name) {
-        this._name = _name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getBio() {
-        return _bio;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setBio(String _bio) {
-        this._bio = _bio;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getState() {
-        return _state;
+    public String getPassword() {
+        return password;
     }
 
-    public void setState(String _state) {
-        this._state = _state;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getCreated_at() {
-        return _created_at;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setCreated_at(String _created_at) {
-        this._created_at = _created_at;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getOfficeNumber() {
+        return officeNumber;
+    }
+
+    public void setOfficeNumber(String officeNumber) {
+        this.officeNumber = officeNumber;
+    }
+
+    public int getUsersort() {
+        return usersort;
+    }
+
+    public void setUsersort(int usersort) {
+        this.usersort = usersort;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
     }
 
     public String getPortrait() {
-        return _portrait;
+        return portrait;
     }
 
-    public void setPortrait(String _portrait) {
-        this._portrait = _portrait;
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
     }
 
-    public String getNew_portrait() {
-        return _new_portrait;
-    }
 
-    public void setNew_portrait(String new_portrait) {
-        this._new_portrait = new_portrait;
-    }
 
-    public boolean isIsAdmin() {
-        return _isAdmin;
-    }
 
-    public void setIsAdmin(boolean _isAdmin) {
-        this._isAdmin = _isAdmin;
-    }
 
 }

@@ -55,7 +55,8 @@ public class URLs implements Serializable {
     public static String SEARCHPROJECT = PROJECT + URL_SPLITTER + "search";
     public static String PROJECTHOOK = URL_API_HOST + "hooks";
     public static String PROJECTMEMBER = URL_API_HOST + "members";
-    public final static String LOGIN_HTTPS = HTTPS + HOST + API_VERSION + URL_SPLITTER + "session";
+    public final static String LOGIN_HTTPS = HTTPS + HOST + API_VERSION + URL_SPLITTER + "user";
+    public final static String LOGIN_HTTP = HTTP + HOST + API_VERSION + URL_SPLITTER + "user";
     public static String USER = URL_API_HOST + "user";
     public static String UPLOAD = URL_API_HOST + "upload";
     // 获得通知

@@ -97,12 +97,15 @@ public class ApiClient {
     }
 
     public static User login(AppContext appContext, String username, String pwd) throws AppException {
-        String urlString = URLs.LOGIN_HTTPS;
-        Session session = getHttpRequester().init(appContext,HTTPRequestor.POST_METHOD,urlString)
-                .with("username", username).with("password",pwd).to(Session.class);
+        Map<String,Object> params = new HashMap<>();
+        params.put(PRIVATE_TOKEN,getToken(appContext));
+        params.put("username",username);
+        params.put("password",pwd);
+        String urlString = makeURL(URLs.LOGIN_HTTP,params);
+        User session = getHttpRequester().init(appContext, HTTPRequestor.GET_METHOD, urlString).to(User.class);
 
-        if(session != null && session.get_privateToken() != null){
-            String token = CyptoUtils.encode(FEEDBACK_PRIVATE_TOKEN,session.get_privateToken());
+        if (session != null ){
+            String token = CyptoUtils.encode(FEEDBACK_PRIVATE_TOKEN,session.getName());
             appContext.setProperty(PRIVATE_TOKEN, token);
         }
 
