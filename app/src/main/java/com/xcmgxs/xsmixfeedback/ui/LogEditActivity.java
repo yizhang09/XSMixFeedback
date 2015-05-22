@@ -249,7 +249,7 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
                             String savePath = "";
                             String storageState = Environment.getExternalStorageState();
                             if (storageState.equals(Environment.MEDIA_MOUNTED)) {
-                                savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/XSFeedbak/Camera/";
+                                savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/XSFeedback/Camera/";
                                 File saveDir = new File(savePath);
                                 if (!saveDir.exists()) {
                                     saveDir.mkdirs();

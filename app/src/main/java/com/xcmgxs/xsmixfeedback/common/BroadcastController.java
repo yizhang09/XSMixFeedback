@@ -16,12 +16,12 @@ public class BroadcastController {
 
     public static final String ACTION_USERCHANGE = "com.xcmgxs.feedback.ACTION_USERCHANGE";
 
-    //发送用户变化的广播
+    //鍙戦�佺敤鎴峰彉鍖栫殑骞挎挱
     public static void sendUserChangeBroadcast(Context context) {
         context.sendBroadcast(new Intent(ACTION_USERCHANGE));
     }
 
-    //注册一个监听用户变化的广播
+    //娉ㄥ唽涓�涓洃鍚敤鎴峰彉鍖栫殑骞挎挱
     public static void registerUserChangeReceiver(Context context, BroadcastReceiver receiver) {
         IntentFilter filter = new IntentFilter(ACTION_USERCHANGE);
         context.registerReceiver(receiver,filter);

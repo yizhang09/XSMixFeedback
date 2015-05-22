@@ -34,9 +34,30 @@ public class User extends Entity {
     @JsonProperty("AddTime")
     private Date addTime;
 
+    @JsonProperty("DepartmentID")
+    private String departmentid;// 头像
+
+    @JsonProperty("Department")
+    private Department department;
+
     @JsonProperty("Portrait")
     private String portrait;// 头像
 
+    public String getDepartmentid() {
+        return departmentid;
+    }
+
+    public void setDepartmentid(String departmentid) {
+        this.departmentid = departmentid;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
 
     public String getUsername() {

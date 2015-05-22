@@ -189,11 +189,6 @@ public class UIHelper {
         context.startActivity(intent);
     }
 
-
-    public static void showUserFace(CircleImageView view, String faceUrl) {
-
-    }
-
     public static void showUserInfoDetail(Context context, User user, Object o) {
 
     }

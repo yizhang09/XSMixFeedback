@@ -27,6 +27,8 @@ import static com.xcmgxs.xsmixfeedback.common.Contanst.*;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
+import com.xcmgxs.xsmixfeedback.bean.Result;
+import com.xcmgxs.xsmixfeedback.bean.UpLoadFile;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BroadcastController;
 import com.xcmgxs.xsmixfeedback.common.MethodsCompat;
@@ -93,8 +95,7 @@ public class AppContext extends Application {
     private void init() {
         // 初始化用记的登录信息
         User loginUser = getLoginInfo();
-        if (null != loginUser && StringUtils.toInt(loginUser.getId()) > 0
-                && !StringUtils.isEmpty(getProperty(PROP_KEY_PRIVATE_TOKEN))) {
+        if (null != loginUser && StringUtils.toInt(loginUser.getId()) > 0 && !StringUtils.isEmpty(getProperty(PROP_KEY_PRIVATE_TOKEN))) {
             // 记录用户的id和状态
             this.loginUid = StringUtils.toInt(loginUser.getId());
             this.login = true;
@@ -575,6 +576,22 @@ public class AppContext extends Application {
         this.loginUid = 0;
         // 发送广播通知
         BroadcastController.sendUserChangeBroadcast(this);
+    }
+
+    /**
+     * 上传文件
+     *
+     * @param file
+     * @return
+     * @throws AppException
+     */
+    public Result upLoad(File file) throws AppException,IOException {
+        Result result = ApiClient.uploadFile(this, file);
+        if(result != null) {
+            setProperty(PROP_KEY_PORTRAIT,file.getName());
+            return result;
+        }
+        return null;
     }
 
     /**

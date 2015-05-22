@@ -1,10 +1,18 @@
 package com.xcmgxs.xsmixfeedback.bean;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
+import java.io.Serializable;
+
 /**
  * Created by zhangyi on 2015-05-14.
  */
-public class Result {
+public class Result implements Serializable {
+
+    @JsonProperty("ErrorCode")
     private int errorCode;
+
+    @JsonProperty("ErrorMessage")
     private String errorMessage;
 
     public boolean OK() {

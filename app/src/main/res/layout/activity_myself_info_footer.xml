@@ -14,7 +14,7 @@
             android:text="加入时间:" />
 
         <TextView
-            android:id="@+id/myself_info_detail_text"
+            android:id="@+id/myself_info_detail_jointime"
             style="@style/User_info_detail_text" />
 
     </LinearLayout>
@@ -29,6 +29,20 @@
 
         <TextView
             android:id="@+id/myself_info_detail_dept"
+            style="@style/User_info_detail_text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/User_info_layout"
+        android:background="@drawable/table_above_nor">
+
+        <TextView
+            style="@style/User_info_title"
+            android:text="电话号码:" />
+
+        <TextView
+            android:id="@+id/myself_info_detail_phonenumber"
             style="@style/User_info_detail_text" />
 
     </LinearLayout>

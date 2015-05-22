@@ -10,6 +10,7 @@ import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.Result;
 import com.xcmgxs.xsmixfeedback.bean.Session;
 import com.xcmgxs.xsmixfeedback.bean.URLs;
+import com.xcmgxs.xsmixfeedback.bean.UpLoadFile;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.util.CyptoUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
@@ -96,6 +97,16 @@ public class ApiClient {
         return url.toString().replace("?&", "?");
     }
 
+    public static Result uploadFile(AppContext appContext,File file) throws AppException,IOException{
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put(PRIVATE_TOKEN,getToken(appContext));
+        Map<String,File> files = new HashMap<String,File>();
+        files.put("file",file);
+        //String url = makeURL(URLs.UPLOAD,params);
+        return getHttpRequester().http_post(appContext, URLs.UPLOAD, params, files);
+        //return getHttpRequester().init(appContext,HTTPRequestor.POST_METHOD,url).with("file",file).to(UpLoadFile.class);
+    }
+
     public static User login(AppContext appContext, String username, String pwd) throws AppException {
         Map<String,Object> params = new HashMap<>();
         params.put(PRIVATE_TOKEN,getToken(appContext));
@@ -105,7 +116,7 @@ public class ApiClient {
         User session = getHttpRequester().init(appContext, HTTPRequestor.GET_METHOD, urlString).to(User.class);
 
         if (session != null ){
-            String token = CyptoUtils.encode(FEEDBACK_PRIVATE_TOKEN,session.getName());
+            String token = CyptoUtils.encode(FEEDBACK_PRIVATE_TOKEN,session.getId());
             appContext.setProperty(PRIVATE_TOKEN, token);
         }
 

@@ -1,12 +1,14 @@
 package com.xcmgxs.xsmixfeedback.ui;
 
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -36,6 +38,7 @@ import com.xcmgxs.xsmixfeedback.widget.BadgeView;
  * Created by zhangyi on 2015-3-18.
  * @author zhangyi
  */
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class MainActivity extends ActionBarActivity implements DrawerMenuCallBack {
 
     static final String DRAWER_MENU_TAG = "drawer_menu";
@@ -62,7 +65,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
     private static DrawerNavigationMenu mMenu = DrawerNavigationMenu.newInstance();
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-    private FragmentManager mFramgmentManager;
+    private FragmentManager mFragmentManager;
     private DoubleClickExitHelper mDoubleClickExitHelper;
 
     private String mCurrentContentTag;
@@ -80,30 +83,30 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         mContext = (AppContext)getApplicationContext();
         initView(savedInstanceState);
         AppManager.getAppManager().addActivity(this);
-
         if(mContext.isReceiveNotice()){
             foreachUserNotice();
         }
-
     }
 
     private void initView(Bundle savedInstanceState) {
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
+
         mDoubleClickExitHelper = new DoubleClickExitHelper(this);
+
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mDrawerLayout.setDrawerListener(new DrawerMenuListener());
 
         mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.drawable.ic_drawer,0,0);
-        mFramgmentManager = getSupportFragmentManager();
+        mFragmentManager = getSupportFragmentManager();
         if(null == savedInstanceState){
             setExploreView();
         }
     }
 
     private void setExploreView(){
-        FragmentTransaction fragmentTransaction = mFramgmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_slidingmenu_frame,mMenu,DRAWER_MENU_TAG)
                 .replace(R.id.main_content,ExploreViewPagerFragment.newInstance(),DRAWER_CONTENT_TAG).commit();
         mTitle = "发现";
@@ -158,6 +161,17 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
     @Override
     protected void onResume() {
         super.onResume();
+        if (mTitle != null) {
+            mActionBar.setTitle(mTitle);
+        }
+        if (mCurrentContentTag != null && mContext !=null && mMenu != null) {
+            if (mCurrentContentTag.equalsIgnoreCase(CONTENTS[1])) {
+                if (!mContext.isLogin()) {
+                    onClickExplore();
+                    mMenu.highlightExplore();
+                }
+            }
+        }
     }
 
     @Override
@@ -195,6 +209,37 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         return super.onKeyDown(keyCode, event);
     }
 
+
+    /** 显示内容*/
+    private void showMainContent(int pos) {
+        mDrawerLayout.closeDrawers();
+        String tag = CONTENTS[pos];
+        if (tag.equalsIgnoreCase(mCurrentContentTag)) return;
+
+        FragmentTransaction ft = mFragmentManager.beginTransaction();
+        if(mCurrentContentTag != null) {
+            Fragment fragment = mFragmentManager.findFragmentByTag(mCurrentContentTag);
+            if(fragment != null) {
+                ft.remove(fragment);
+            }
+        }
+        ft.replace(R.id.main_content, Fragment.instantiate(this, FRAGMENTS[pos]), tag);
+        ft.commit();
+
+        mActionBar.setTitle(TITLES[pos]);
+        mTitle = mActionBar.getTitle().toString();//记录主界面的标题
+        mCurrentContentTag = tag;
+    }
+
+    private void showLoginActivity() {
+        if (!mContext.isLogin()) {
+            Intent intent = new Intent(mContext, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            UIHelper.showMySelfInfoDetail(MainActivity.this);
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -220,13 +265,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
 
     @Override
     public void onClickLogin() {
-        if(!mContext.isLogin()){
-            Intent intent = new Intent(mContext,LoginActivity.class);
-            startActivity(intent);
-        }
-        else{
-            UIHelper.showMySelfInfoDetail(MainActivity.this);
-        }
+        showLoginActivity();
     }
 
     @Override
@@ -236,7 +275,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
 
     @Override
     public void onClickExplore() {
-
+        showMainContent(0);
     }
 
     @Override
@@ -245,7 +284,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
             UIHelper.showLoginActivity(this);
             return;
         } else {
-            //showMainContent(1);
+            showMainContent(1);
         }
     }
 
