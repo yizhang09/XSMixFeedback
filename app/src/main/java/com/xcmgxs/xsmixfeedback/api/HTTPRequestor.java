@@ -39,12 +39,13 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.protocol.HTTP;
+import org.codehaus.jackson.map.DeserializationConfig;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
-import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.URLs;
 import com.xcmgxs.xsmixfeedback.bean.Result;
 
@@ -93,6 +94,10 @@ public class HTTPRequestor {
     private HttpMethod _method;
     //private String _method = "GET"; // 默认用GET方式请求
     private Map<String, Object> _data = new HashMap<String, Object>();// 请求表单参数
+
+    //Json处理器
+    public static final ObjectMapper MAPPER = new ObjectMapper().configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
 
     private enum METHOD {
         GET, PUT, POST, PATCH, DELETE, HEAD, OPTIONS, TRACE;
@@ -456,9 +461,9 @@ public class HTTPRequestor {
             String data = IOUtils.toString(reader);
 
             if (type != null) {
-                return ApiClient.MAPPER.readValue(data, type);
+                return MAPPER.readValue(data, type);
             } else if (instance != null) {
-                return ApiClient.MAPPER.readerForUpdating(instance).readValue(data);
+                return MAPPER.readerForUpdating(instance).readValue(data);
             } else {
                 return null;
             }

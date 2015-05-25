@@ -52,6 +52,8 @@ public class AppContext extends Application {
     public static final int PAGE_SIZE = 20;// 默认分页大小
     private static final int CACHE_TIME = 60 * 60000;// 缓存失效时间
 
+    private static AppContext instance;
+
     private boolean login = false; // 登录状态
     private int loginUid = 0; // 登录用户的id
     private Hashtable<String, Object> memCacheRegion = new Hashtable<String, Object>();
@@ -65,11 +67,21 @@ public class AppContext extends Application {
 //        }
 //    };
 
+    /**
+     * 获得当前app运行的AppContext
+     *
+     * @return
+     */
+    public static AppContext getInstance() {
+        return instance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         // 注册App异常崩溃处理器
         Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler(this));
+        instance = this;
         init();
     }
 

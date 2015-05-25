@@ -8,6 +8,8 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="you_have_news_messages">你有%s条最新消息</string>
+
     <string name="main_menu_login_tips">点击登录</string>
     <string name="main_menu_title_explore">搜索</string>
     <string name="main_menu_title_myself">我的项目</string>
@@ -40,6 +42,17 @@
     <string name="ui_insert_image">插入图片</string>
     <string name="title_activity_user_info">UserInfoActivity</string>
     <string name="title_activity_my_self_info">我的信息</string>
+    <string name="title_activity_project_issue">项目问题反馈</string>
+    <string name="title_activity_issue_edit">问题反馈</string>
+    <string name="title_activity_project_edit">项目状态</string>
+    <string name="title_activity_project_state_edit">项目状态</string>
+    <string name="title_activity_about">关于</string>
+    <string name="title_activity_notification">通知</string>
+    <string name="title_activity_welcome_page">WelcomePage</string>
+    <string name="title_activity_splash_page">SplashPage</string>
+    <string name="title_activity_app_start">AppStart</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
 
 
 </resources>

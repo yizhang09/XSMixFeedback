@@ -71,6 +71,68 @@
             android:name=".ui.MySelfInfoActivity"
             android:label="@string/title_activity_my_self_info" >
         </activity>
+        <activity
+            android:name=".ui.IssueEditActivity"
+            android:label="@string/title_activity_issue_edit"
+            android:parentActivityName=".ui.baseactivity.BaseActionBarActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity" />
+        </activity>
+        <activity
+            android:name=".ui.ProjectStateEditActivity"
+            android:label="@string/title_activity_project_state_edit"
+            android:parentActivityName=".ui.baseactivity.BaseActionBarActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity" />
+        </activity>
+        <activity
+            android:name=".ui.AboutActivity"
+            android:label="@string/title_activity_about" >
+        </activity>
+        <activity
+            android:name=".ui.NotificationActivity"
+            android:label="@string/title_activity_notification"
+            android:parentActivityName=".ui.baseactivity.BaseActionBarActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity" />
+        </activity>
+        <activity
+            android:name=".WelcomePage"
+            android:label="@string/title_activity_welcome_page" >
+        </activity>
+        <activity
+            android:name=".SplashPage"
+            android:label="@string/title_activity_splash_page" >
+        </activity>
+        <activity
+            android:name=".AppStart"
+            android:label="@string/title_activity_app_start" >
+        </activity>
+        <activity
+            android:name=".ui.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".ui.baseactivity.BaseActionBarActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity" />
+        </activity>
+        <activity
+            android:name=".ui.SettingActivity"
+            android:label="@string/title_activity_setting"
+            android:parentActivityName=".ui.baseactivity.BaseActionBarActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity" />
+        </activity>
+
+        <service
+            android:name=".service.NotificationService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

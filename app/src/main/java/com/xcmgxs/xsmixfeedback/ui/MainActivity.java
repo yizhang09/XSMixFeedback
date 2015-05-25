@@ -78,6 +78,10 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (!mContext.isLogin()) {
+            Intent intent = new Intent(mContext, LoginActivity.class);
+            startActivity(intent);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = (AppContext)getApplicationContext();
