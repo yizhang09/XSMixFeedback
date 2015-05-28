@@ -36,6 +36,9 @@ public class AppConfig {
 
     public final static String CONF_FRIST_START = "isFristStart";
 
+    public final static String KEY_NOTIFICATION_DISABLE_WHEN_EXIT = "isFristStart";
+
+
     //默认存放图片的路径
     public final static String DEFAULT_SAVE_IMAGE_PATH = Environment
             .getExternalStorageDirectory()

@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,8 +12,6 @@ import android.os.Environment;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,10 +20,8 @@ import android.widget.TextView;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.bean.Result;
-import com.xcmgxs.xsmixfeedback.bean.URLs;
-import com.xcmgxs.xsmixfeedback.bean.UpLoadFile;
+import com.xcmgxs.xsmixfeedback.api.URLs;
 import com.xcmgxs.xsmixfeedback.bean.User;
-import com.xcmgxs.xsmixfeedback.common.BroadcastController;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
 import com.xcmgxs.xsmixfeedback.util.FileUtils;
@@ -128,8 +123,10 @@ public class MySelfInfoActivity extends BaseActionBarActivity implements View.On
 
     private void logOut(){
         getXSApplication().loginout();
-        BroadcastController.sendUserChangeBroadcast(getXSApplication());
+        //BroadcastController.sendUserChangeBroadcast(getXSApplication());
+        UIHelper.showLoginActivity(this);
         this.finish();
+
     }
 
     private void imageChooseItem(CharSequence[] items){

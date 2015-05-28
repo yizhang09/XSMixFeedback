@@ -9,6 +9,7 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import com.xcmgxs.xsmixfeedback.AppContext;
+import com.xcmgxs.xsmixfeedback.util.TLog;
 
 import java.util.HashMap;
 
@@ -57,11 +58,13 @@ public class NotificationUtils {
     public static void requestNotification(Context context){
         if(notificationService != null){
             try {
+                TLog.log("requestNotification ->notificationService.requestNotice");
                 notificationService.requestNotice();
             }catch (RemoteException e){
                 e.printStackTrace();
             }
         } else {
+            TLog.log("requestNotification ->sendBroadcast");
             context.sendBroadcast(new Intent(NotificationService.INTENT_ACTION_REQUEST));
         }
     }
@@ -77,7 +80,10 @@ public class NotificationUtils {
     }
 
     public static void tryToShutDown(Context context){
-
+//        if (AppContext.get(AppConfig.KEY_NOTIFICATION_DISABLE_WHEN_EXIT, true)) {
+//            context.sendBroadcast(new Intent(
+//                    NotificationService.INTENT_ACTION_SHUTDOWN));
+//        }
     }
 
     public static void startNotificationService(Context context){
@@ -99,6 +105,7 @@ public class NotificationUtils {
             if(mCallback != null){
                 mCallback.onServiceConnected(name,service);
             }
+
         }
 
         @Override

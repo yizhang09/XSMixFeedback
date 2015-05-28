@@ -23,16 +23,18 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
 
 import com.xcmgxs.xsmixfeedback.AppContext;
-import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.AppManager;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.common.DoubleClickExitHelper;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.interfaces.DrawerMenuCallBack;
+import com.xcmgxs.xsmixfeedback.service.NotificationUtils;
 import com.xcmgxs.xsmixfeedback.ui.fragments.DrawerNavigationMenu;
 import com.xcmgxs.xsmixfeedback.ui.fragments.ExploreViewPagerFragment;
 import com.xcmgxs.xsmixfeedback.ui.fragments.MySelfViewPagerFragment;
 import com.xcmgxs.xsmixfeedback.widget.BadgeView;
+
+import org.apache.http.Header;
 
 /**
  * Created by zhangyi on 2015-3-18.
@@ -62,7 +64,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
             "我的"
     };
 
-    private static DrawerNavigationMenu mMenu = DrawerNavigationMenu.newInstance();
+    private static DrawerNavigationMenu mMenu;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private FragmentManager mFragmentManager;
@@ -78,21 +80,21 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (!mContext.isLogin()) {
-            Intent intent = new Intent(mContext, LoginActivity.class);
-            startActivity(intent);
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = (AppContext)getApplicationContext();
         initView(savedInstanceState);
         AppManager.getAppManager().addActivity(this);
-        if(mContext.isReceiveNotice()){
-            foreachUserNotice();
-        }
+//        if(mContext.isReceiveNotice()){
+//            foreachUserNotice();
+//        }
+
+        //绑定Service
+        NotificationUtils.bindToService(this);
     }
 
     private void initView(Bundle savedInstanceState) {
+
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
@@ -107,15 +109,19 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         if(null == savedInstanceState){
             setExploreView();
         }
+
     }
 
     private void setExploreView(){
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_slidingmenu_frame,mMenu,DRAWER_MENU_TAG)
-                .replace(R.id.main_content,ExploreViewPagerFragment.newInstance(),DRAWER_CONTENT_TAG).commit();
+        mMenu = DrawerNavigationMenu.newInstance();
+        fragmentTransaction.replace(R.id.main_slidingmenu_frame,mMenu , DRAWER_MENU_TAG)
+                .replace(R.id.main_content, ExploreViewPagerFragment.newInstance(), DRAWER_CONTENT_TAG).commit();
+
         mTitle = "发现";
         mActionBar.setTitle(mTitle);
         mCurrentContentTag = CONTENT_TAG_EXPLORE;
+
     }
 
     //轮询消息
@@ -160,6 +166,10 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        NotificationUtils.unBindFromService(this);
+        //unregisterReceiver(mReceiver);
+        //mReceiver = null;
+        NotificationUtils.tryToShutDown(this);
     }
 
     @Override
@@ -168,13 +178,16 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         if (mTitle != null) {
             mActionBar.setTitle(mTitle);
         }
+
         if (mCurrentContentTag != null && mContext !=null && mMenu != null) {
-            if (mCurrentContentTag.equalsIgnoreCase(CONTENTS[1])) {
-                if (!mContext.isLogin()) {
-                    onClickExplore();
-                    mMenu.highlightExplore();
-                }
-            }
+            //setExploreView();
+            mMenu.highlightProjects();
+//            if (mCurrentContentTag.equalsIgnoreCase(CONTENTS[1])) {
+//                if (!mContext.isLogin()) {
+//                    onClickProjects();
+//                    mMenu.highlightProjects();
+//                }
+//            }
         }
     }
 
@@ -273,34 +286,32 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
     }
 
     @Override
+    public void onClickProjects() {
+        setExploreView();
+        //showMainContent(0);
+    }
+
+    @Override
+    public void onClickLogs() {
+
+    }
+
+
+    @Override
+    public void onClickIssues() {
+
+    }
+
+    @Override
+    public void onClickFiles() {
+
+    }
+
+    @Override
     public void onClickSetting() {
 
     }
 
-    @Override
-    public void onClickExplore() {
-        showMainContent(0);
-    }
-
-    @Override
-    public void onClickMySelf() {
-        if (!mContext.isLogin()) {
-            UIHelper.showLoginActivity(this);
-            return;
-        } else {
-            showMainContent(1);
-        }
-    }
-
-    @Override
-    public void onClickLanguage() {
-
-    }
-
-    @Override
-    public void onClickShake() {
-
-    }
 
     @Override
     public void onClickExit() {

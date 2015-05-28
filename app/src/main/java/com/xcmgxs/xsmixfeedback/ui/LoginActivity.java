@@ -2,11 +2,13 @@ package com.xcmgxs.xsmixfeedback.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,10 +21,12 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
+import com.xcmgxs.xsmixfeedback.AppManager;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BroadcastController;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
+import com.xcmgxs.xsmixfeedback.common.DoubleClickExitHelper;
 import com.xcmgxs.xsmixfeedback.util.CyptoUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
@@ -43,13 +47,27 @@ public class LoginActivity extends BaseActionBarActivity implements View.OnClick
     private InputMethodManager imm;
     private TextWatcher textWatcher;
 
+    private DoubleClickExitHelper mDoubleClickExitHelper;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAppContext = getXSApplication();
-        initView();
+        mDoubleClickExitHelper = new DoubleClickExitHelper(this);
+        if (mAppContext.isLogin()) {
+            Intent intent = new Intent(mAppContext, MainActivity.class);
+            startActivity(intent);
+        }
+        else {
+            initView();
+        }
+
+        AppManager.getAppManager().addActivity(this);
     }
+
+
 
     private void initView() {
         mAccountEditText = (AutoCompleteTextView) findViewById(R.id.login_account);
@@ -183,10 +201,18 @@ public class LoginActivity extends BaseActionBarActivity implements View.OnClick
                     if(user != null){
                         //提示登陆成功
                         UIHelper.ToastMessage(context, R.string.msg_login_success);
-                        //返回标识，成功登录
-                        setResult(RESULT_OK);
-                        // 发送用户登录成功的广播
-                        BroadcastController.sendUserChangeBroadcast(getActivity());
+
+                        UIHelper.showMainActivity(context);
+
+//                        if(isChangeUser) {
+//                            //返回标识，成功登录
+//                            setResult(RESULT_OK);
+//                            // 发送用户登录成功的广播
+//                            BroadcastController.sendUserChangeBroadcast(getActivity());
+//                        }
+//                        else {
+//                            UIHelper.showMainActivity(context);
+//                        }
                         finish();
                     }
                 } else if(msg.what == 0){
@@ -212,6 +238,15 @@ public class LoginActivity extends BaseActionBarActivity implements View.OnClick
     public void onClick(View v) {
         imm.hideSoftInputFromWindow(mPasswordEditText.getWindowToken(), 0);
         checkLogin();
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            return mDoubleClickExitHelper.onKeyDown(keyCode,event);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
 

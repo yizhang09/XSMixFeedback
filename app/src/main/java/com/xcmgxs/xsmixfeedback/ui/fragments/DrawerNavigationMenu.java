@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
-import com.xcmgxs.xsmixfeedback.bean.URLs;
+import com.xcmgxs.xsmixfeedback.api.URLs;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BroadcastController;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
@@ -43,9 +43,9 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
     private CircleImageView mUser_info_userface;
     private TextView mUser_info_username;
 
-    private LinearLayout mMenu_item_explore;
-    private LinearLayout mMenu_item_myself;
-    private LinearLayout mMenu_item_language;
+    private LinearLayout mMenu_item_projects;
+    private LinearLayout mMenu_item_logs;
+    private LinearLayout mMenu_item_issues;
     private LinearLayout mMenu_item_shake;
     private LinearLayout mMenu_item_setting;
     private View mMenu_item_exit;
@@ -114,17 +114,17 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
         mMenu_user_layout = (RelativeLayout) view.findViewById(R.id.menu_user_layout);
         mMenu_user_login_tips = (LinearLayout) view.findViewById(R.id.menu_user_info_login_tips_layout);
 
-        mMenu_item_explore = (LinearLayout) view.findViewById(R.id.menu_item_explore);
-        mMenu_item_myself = (LinearLayout) view.findViewById(R.id.menu_item_myself);
-        mMenu_item_language = (LinearLayout) view.findViewById(R.id.menu_item_language);
-        mMenu_item_shake = (LinearLayout) view.findViewById(R.id.menu_item_shake);
+        mMenu_item_projects = (LinearLayout) view.findViewById(R.id.menu_item_projects);
+        mMenu_item_logs = (LinearLayout) view.findViewById(R.id.menu_item_logs);
+        mMenu_item_issues = (LinearLayout) view.findViewById(R.id.menu_item_issues);
+        mMenu_item_shake = (LinearLayout) view.findViewById(R.id.menu_item_files);
         mMenu_item_setting = (LinearLayout) view.findViewById(R.id.menu_item_setting);
         mMenu_item_exit = view.findViewById(R.id.menu_item_exit);
 
         mMenu_user_layout.setOnClickListener(this);
-        mMenu_item_explore.setOnClickListener(this);
-        mMenu_item_myself.setOnClickListener(this);
-        mMenu_item_language.setOnClickListener(this);
+        mMenu_item_projects.setOnClickListener(this);
+        mMenu_item_logs.setOnClickListener(this);
+        mMenu_item_issues.setOnClickListener(this);
         mMenu_item_shake.setOnClickListener(this);
         mMenu_item_setting.setOnClickListener(this);
         mMenu_item_exit.setOnClickListener(this);
@@ -179,8 +179,8 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
         setSelected(v, true);
     }
 
-    public void highlightExplore() {
-        highlightSelectedItem(mMenu_item_explore);
+    public void highlightProjects() {
+        highlightSelectedItem(mMenu_item_projects);
     }
 
     private void setSelected(View v, boolean selected) {
@@ -214,21 +214,18 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
             case R.id.menu_user_layout:
                 onClickLogin();
                 break;
-            case R.id.menu_item_explore:
-                onClickExplore();
+            case R.id.menu_item_projects:
+                onClickProjects();
                 highlightSelectedItem(v);
                 break;
-            case R.id.menu_item_myself:
-                onClickMySelf();
-                if (mApplication.isLogin()) {
-                    highlightSelectedItem(v);
-                }
+            case R.id.menu_item_logs:
+                onClickLogs();
                 break;
-            case R.id.menu_item_language:
-                onClickLanguage();
+            case R.id.menu_item_issues:
+                onClickIssues();
                 break;
-            case R.id.menu_item_shake:
-                onClickmShake();
+            case R.id.menu_item_files:
+                onClickFiles();
                 break;
             case R.id.menu_item_setting:
                 onClickSetting();
@@ -251,27 +248,27 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
         }
     }
 
-    private void onClickExplore() {
+    private void onClickProjects() {
         if (mCallBack != null) {
-            mCallBack.onClickExplore();
+            mCallBack.onClickProjects();
         }
     }
 
-    private void onClickMySelf() {
+    private void onClickLogs() {
         if (mCallBack != null) {
-            mCallBack.onClickMySelf();
+            mCallBack.onClickLogs();
         }
     }
 
-    private void onClickLanguage() {
+    private void onClickIssues() {
         if (mCallBack != null) {
-            mCallBack.onClickLanguage();
+            mCallBack.onClickIssues();
         }
     }
 
-    private void onClickmShake() {
+    private void onClickFiles() {
         if (mCallBack != null) {
-            mCallBack.onClickShake();
+            mCallBack.onClickFiles();
         }
     }
 

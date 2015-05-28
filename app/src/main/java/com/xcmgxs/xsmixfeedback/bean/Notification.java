@@ -8,16 +8,40 @@ import java.io.Serializable;
  * Created by zhangyi on 2015-05-25.
  */
 @SuppressWarnings("serial")
-public class Notification implements Serializable {
+public class Notification extends Entity implements Serializable {
 
-    @JsonProperty("MsgCount")
-    private int msgCount;
+    @JsonProperty("Title")
+    private String title;
 
-    public int getMsgCount() {
-        return msgCount;
+    @JsonProperty("Content")
+    private String content;
+
+    @JsonProperty("Type")
+    private String type;
+
+    public String getTitle() {
+        return title;
     }
 
-    public void setMsgCount(int msgCount) {
-        this.msgCount = msgCount;
+    public void setTitle(String title) {
+        this.title = title;
     }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
 }

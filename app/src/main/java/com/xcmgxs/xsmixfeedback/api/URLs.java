@@ -1,4 +1,4 @@
-package com.xcmgxs.xsmixfeedback.bean;
+package com.xcmgxs.xsmixfeedback.api;
 
 
 import java.io.Serializable;

@@ -31,6 +31,8 @@ public class Contanst {
     public static final String ROP_KEY_FOLLOWING = "following";
     public static final String ROP_KEY_WATCHED = "watched";
 
+    public static final String INTENT_ACTION_NOTICE = "com.xcmgxs.action.APPWIDGET_UPDATE";
+
     public static final String PROJECT = "project";
 
     public static final String PROJECT_LOG = "log";

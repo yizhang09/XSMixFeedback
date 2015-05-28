@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/menu_item_explore"
+        android:id="@+id/menu_item_projects"
         style="@style/MenuItemLayoutStyle">
         
         <ImageView
@@ -15,30 +15,30 @@
 
         <TextView
             style="@style/MenuItemTextViewStyle"
-            android:text="@string/main_menu_title_explore" />
+            android:text="@string/main_menu_title_projects" />
 
         </LinearLayout>
 
     <include layout="@layout/horizontal_divider_view"></include>
 
     <LinearLayout
-        android:id="@+id/menu_item_myself"
+        android:id="@+id/menu_item_logs"
         style="@style/MenuItemLayoutStyle">
 
         <ImageView
             style="@style/MenuItemImageViewStyle"
             android:contentDescription="@string/img_description"
-            android:background="@drawable/menu_icon_my" />
+            android:background="@drawable/more_menu_icon_edit" />
 
         <TextView
             style="@style/MenuItemTextViewStyle"
-            android:text="@string/main_menu_title_myself" />
+            android:text="@string/main_menu_title_logs" />
 
         </LinearLayout>
 
     <include layout="@layout/horizontal_divider_view" />
     <LinearLayout
-        android:id="@+id/menu_item_language"
+        android:id="@+id/menu_item_issues"
         style="@style/MenuItemLayoutStyle" >
 
         <ImageView
@@ -48,23 +48,23 @@
 
         <TextView
             style="@style/MenuItemTextViewStyle"
-            android:text="@string/main_menu_title_language" />
+            android:text="@string/main_menu_title_issues" />
     </LinearLayout>
 
     <include layout="@layout/horizontal_divider_view" />
 
     <LinearLayout
-        android:id="@+id/menu_item_shake"
+        android:id="@+id/menu_item_files"
         style="@style/MenuItemLayoutStyle" >
 
         <ImageView
             style="@style/MenuItemImageViewStyle"
             android:contentDescription="@string/img_description"
-            android:background="@drawable/menu_icon_shark" />
+            android:background="@drawable/more_menu_icon_copy" />
 
         <TextView
             style="@style/MenuItemTextViewStyle"
-            android:text="@string/main_menu_title_shake" />
+            android:text="@string/main_menu_title_files" />
     </LinearLayout>
 
     <include layout="@layout/horizontal_divider_view" />

@@ -28,6 +28,8 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
 
     public final static int PROJECT_LIST_TYPE_LOGS = 1;
 
+    public final static int PROJECT_LIST_TYPE_FILES = 1;
+
     private final int MENU_CREATE_ID = 0;
 
     private FragmentManager fragmentManager;
@@ -93,6 +95,9 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
             fragmentTransaction.replace(R.id.content, ProjectIssueListFragment.newInstance(mProject)).commit();
         }
         if(type == PROJECT_LIST_TYPE_LOGS){
+            fragmentTransaction.replace(R.id.content, ProjectLogListFragment.newInstance(mProject)).commit();
+        }
+        if(type == PROJECT_LIST_TYPE_FILES){
             fragmentTransaction.replace(R.id.content, ProjectLogListFragment.newInstance(mProject)).commit();
         }
     }

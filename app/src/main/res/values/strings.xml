@@ -11,11 +11,11 @@
     <string name="you_have_news_messages">你有%s条最新消息</string>
 
     <string name="main_menu_login_tips">点击登录</string>
-    <string name="main_menu_title_explore">搜索</string>
-    <string name="main_menu_title_myself">我的项目</string>
+    <string name="main_menu_title_projects">工程项目</string>
+    <string name="main_menu_title_logs">项目日志</string>
     <string name="main_menu_title_notice">通知</string>
-    <string name="main_menu_title_language">所有项目</string>
-    <string name="main_menu_title_shake">最近更新</string>
+    <string name="main_menu_title_issues">问题反馈</string>
+    <string name="main_menu_title_files">项目附件</string>
     <string name="main_menu_title_setting">设置</string>
     <string name="main_menu_title_exit">退出</string>
 

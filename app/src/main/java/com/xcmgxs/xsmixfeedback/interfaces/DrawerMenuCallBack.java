@@ -6,9 +6,9 @@ package com.xcmgxs.xsmixfeedback.interfaces;
 public interface DrawerMenuCallBack {
     public void onClickLogin();
     public void onClickSetting();
-    public void onClickExplore();
-    public void onClickMySelf();
-    public void onClickLanguage();
-    public void onClickShake();
+    public void onClickProjects();
+    public void onClickLogs();
+    public void onClickIssues();
+    public void onClickFiles();
     public void onClickExit();
 }

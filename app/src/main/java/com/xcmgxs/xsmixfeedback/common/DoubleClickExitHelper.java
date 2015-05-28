@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+import com.xcmgxs.xsmixfeedback.AppManager;
 import com.xcmgxs.xsmixfeedback.R;
 
 /**
@@ -35,6 +36,7 @@ public class DoubleClickExitHelper {
                 mBackToast.cancel();
             }
             mActivity.finish();
+            AppManager.getAppManager().finishAllActivity();
             return true;
         }
         else {
@@ -43,7 +45,7 @@ public class DoubleClickExitHelper {
                 mBackToast = Toast.makeText(mActivity, R.string.back_exit_tips ,Toast.LENGTH_LONG);
             }
             mBackToast.show();
-            mHandler.postDelayed(onBackTimeRunnable,2000);
+            mHandler.postDelayed(onBackTimeRunnable, 2000);
             return true;
         }
     }

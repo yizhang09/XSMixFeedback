@@ -46,7 +46,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
-import com.xcmgxs.xsmixfeedback.bean.URLs;
 import com.xcmgxs.xsmixfeedback.bean.Result;
 
 /**

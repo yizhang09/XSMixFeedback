@@ -2,7 +2,6 @@ package com.xcmgxs.xsmixfeedback.adapter;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
-import com.xcmgxs.xsmixfeedback.bean.URLs;
+import com.xcmgxs.xsmixfeedback.api.URLs;
 import com.xcmgxs.xsmixfeedback.common.BitmapManager;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.widget.CircleImageView;

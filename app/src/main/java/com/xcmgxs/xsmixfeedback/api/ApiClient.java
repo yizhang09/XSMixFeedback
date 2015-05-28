@@ -2,13 +2,14 @@ package com.xcmgxs.xsmixfeedback.api;
 
 import android.graphics.Bitmap;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.Result;
-import com.xcmgxs.xsmixfeedback.bean.URLs;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.util.CyptoUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
@@ -203,7 +204,7 @@ public class ApiClient {
         params.put("uid", log.getAuthor());
         params.put("msg", log.getContent());
         params.put("projectid", log.getProjectid());
-        params.put("createdate",log.getCreatedate());
+        params.put("createdate", log.getCreatedate());
 
         Map<String, File> files = new HashMap<String, File>();
         if(log.getImagefile() != null)
@@ -220,5 +221,22 @@ public class ApiClient {
             throw AppException.network(e);
         }
     }
+
+    public static void clearNotice(int uid, int type, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", uid);
+        params.put("type", type);
+        ApiHttpClient.post("/notification", params, handler);
+    }
+
+    public static void getNotices(AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", AppContext.getInstance().getLoginUid());
+        ApiHttpClient.get("notification", params, handler);
+    }
+
+
+
+
 
 }

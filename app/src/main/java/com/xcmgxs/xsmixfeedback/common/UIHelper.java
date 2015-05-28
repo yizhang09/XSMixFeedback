@@ -10,7 +10,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,18 +19,19 @@ import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.AppManager;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
+import com.xcmgxs.xsmixfeedback.bean.Notification;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.ui.LogEditActivity;
 import com.xcmgxs.xsmixfeedback.ui.LoginActivity;
+import com.xcmgxs.xsmixfeedback.ui.MainActivity;
 import com.xcmgxs.xsmixfeedback.ui.MySelfInfoActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectSomeInfoListActivity;
 import com.xcmgxs.xsmixfeedback.util.FileUtils;
 import com.xcmgxs.xsmixfeedback.util.ImageUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
-import com.xcmgxs.xsmixfeedback.widget.CircleImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -112,6 +112,20 @@ public class UIHelper {
         Toast.makeText(cont, msg, time).show();
     }
 
+    public static void sendBroadcast(Context context,Notification notification){
+        if(!((AppContext)context.getApplicationContext()).isLogin() || notification == null){
+            return;
+        }
+        Intent intent = new Intent(Contanst.INTENT_ACTION_NOTICE);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("notification_bean",notification);
+        intent.putExtras(bundle);
+        context.sendBroadcast(intent);
+    }
+
+
+
+
     /**
      * 加载显示用户头像
      *
@@ -181,11 +195,15 @@ public class UIHelper {
 
     }
 
+    public static void showMainActivity(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
+
     public static void showLoginActivity(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
-        Bundle bundle = new Bundle();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtras(bundle);
+        //intent.putExtra("isChangeUser",true);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
