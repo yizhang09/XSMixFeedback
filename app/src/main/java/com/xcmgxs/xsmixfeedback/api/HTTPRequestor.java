@@ -154,7 +154,7 @@ public class HTTPRequestor {
      */
     private static String getUserAgent(AppContext appContext) {
         if(appUserAgent == null || appUserAgent == "") {
-            StringBuilder ua = new StringBuilder("Git@OSC.NET");
+            StringBuilder ua = new StringBuilder("XCMG");
             ua.append('/'+appContext.getPackageInfo().versionName+'_'+appContext.getPackageInfo().versionCode);//App版本
             ua.append("/Android");//手机系统平台
             ua.append("/"+android.os.Build.VERSION.RELEASE);//手机系统版本

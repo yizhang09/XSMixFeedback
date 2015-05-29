@@ -8,6 +8,8 @@ import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.ProjectFile;
+import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.Result;
 import com.xcmgxs.xsmixfeedback.bean.User;
@@ -184,7 +186,9 @@ public class ApiClient {
         Map<String,Object> params = new HashMap<>();
         params.put(PRIVATE_TOKEN,getToken(appContext));
         params.put("page",page);
-        params.put("projectid",projectid);
+        if(projectid != "-1") {
+            params.put("projectid", projectid);
+        }
         String url = makeURL(URLs.PROJECTLOG,params);
         List<ProjectLog> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(ProjectLog[].class);
         lst.setCount(list.size());
@@ -201,7 +205,7 @@ public class ApiClient {
      */
     public static Result pubProjectLog(AppContext appContext, ProjectLog log) throws AppException {
         Map<String,Object> params = new HashMap<String,Object>();
-        params.put("uid", log.getAuthor());
+        params.put("uid", appContext.getLoginUid());
         params.put("msg", log.getContent());
         params.put("projectid", log.getProjectid());
         params.put("createdate", log.getCreatedate());
@@ -220,6 +224,56 @@ public class ApiClient {
                 throw (AppException)e;
             throw AppException.network(e);
         }
+    }
+
+
+    public static CommonList<ProjectIssue> getProjectIssues(final AppContext appContext, int page,String projectid) throws AppException {
+        CommonList<ProjectIssue> lst = new CommonList<ProjectIssue>();
+        Map<String,Object> params = new HashMap<>();
+        params.put(PRIVATE_TOKEN,getToken(appContext));
+        params.put("page",page);
+        if(projectid != "-1") {
+            params.put("projectid", projectid);
+        }
+        String url = makeURL(URLs.PROJECTISSUE,params);
+        List<ProjectIssue> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(ProjectIssue[].class);
+        lst.setCount(list.size());
+        lst.setList(list);
+        lst.setPageSize(list.size());
+        return lst;
+    }
+
+    public static void pubProjectIssue(AppContext appContext, ProjectIssue issue) throws AppException {
+        RequestParams params = new RequestParams();
+        params.put("uid", appContext.getLoginUid());
+        params.put("title", issue.getTitle());
+        params.put("content", issue.getContent());
+        params.put("projectid", issue.getProjectid());
+        params.put("type", issue.getType());
+
+        try{
+            ApiHttpClient.post(URLs.PROJECTISSUE,params,null);
+        }catch(Exception e){
+            if(e instanceof AppException)
+                throw (AppException)e;
+            throw AppException.network(e);
+        }
+    }
+
+    public static CommonList<ProjectFile> getProjectFiles(final AppContext appContext, int page,String projectid) throws AppException {
+        CommonList<ProjectFile> lst = new CommonList<ProjectFile>();
+        Map<String,Object> params = new HashMap<>();
+        params.put(PRIVATE_TOKEN,getToken(appContext));
+        params.put("page",page);
+        if(projectid != "-1") {
+            params.put("projectid", projectid);
+        }
+        String url = makeURL(URLs.PROJECTFILE,params);
+        List<ProjectFile> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(ProjectFile[].class);
+        lst.setCount(list.size());
+        lst.setList(list);
+        lst.setPageSize(list.size());
+        return lst;
     }
 
     public static void clearNotice(int uid, int type, AsyncHttpResponseHandler handler) {

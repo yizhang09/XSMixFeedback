@@ -50,6 +50,12 @@ public class URLs implements Serializable {
     // 项目日志
     public static String PROJECTLOG = URL_API_HOST+ "projectlog";
 
+    // 项目问题
+    public static String PROJECTISSUE = URL_API_HOST+ "projectissue";
+
+    // 项目文件
+    public static String PROJECTFILE = URL_API_HOST+ "projectfile";
+
     // 最近更新项目列表
     public static String EXPLORELATESTPROJECT = PROJECT +URL_SPLITTER +  "latest";
     // 热门项目列表

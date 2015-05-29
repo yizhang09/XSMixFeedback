@@ -293,18 +293,18 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
 
     @Override
     public void onClickLogs() {
-
+        UIHelper.showProjectListActivity(MainActivity.this, null, ProjectSomeInfoListActivity.ALL_LIST_TYPE_LOGS);
     }
 
 
     @Override
     public void onClickIssues() {
-
+        UIHelper.showProjectListActivity(MainActivity.this, null, ProjectSomeInfoListActivity.ALL_LIST_TYPE_ISSUES);
     }
 
     @Override
     public void onClickFiles() {
-
+        UIHelper.showProjectListActivity(MainActivity.this, null, ProjectSomeInfoListActivity.ALL_LIST_TYPE_FILES);
     }
 
     @Override

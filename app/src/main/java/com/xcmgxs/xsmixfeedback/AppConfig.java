@@ -36,7 +36,12 @@ public class AppConfig {
 
     public final static String CONF_FRIST_START = "isFristStart";
 
+    public static final String KEY_NOTIFICATION_ACCEPT = "KEY_NOTIFICATION_ACCEPT";
+    public static final String KEY_NOTIFICATION_SOUND = "KEY_NOTIFICATION_SOUND";
+    public static final String KEY_NOTIFICATION_VIBRATION = "KEY_NOTIFICATION_VIBRATION";
     public final static String KEY_NOTIFICATION_DISABLE_WHEN_EXIT = "isFristStart";
+
+
 
 
     //默认存放图片的路径

@@ -404,7 +404,7 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String date = sDateFormat.format(new java.util.Date());
         log.setCreatedate(date);
-        log.setAuthor(appContext.getLoginInfo().getName() == null?"admin":appContext.getLoginInfo().getName());
+        log.setAuthorid(appContext.getLoginUid());
         log.setContent(content);
 
         if(logType == LOG_TYPE_CONTENT){

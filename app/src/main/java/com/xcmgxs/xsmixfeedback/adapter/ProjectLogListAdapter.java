@@ -23,6 +23,8 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
 
     private BitmapManager bmpManager;
 
+    private boolean IS_SHOW_PROJECT_NAME = false;
+
     static class ListItemView{
         public ImageView face;
         public TextView username;
@@ -31,9 +33,10 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
         public ImageView picture;
     }
 
-    public ProjectLogListAdapter(Context context, List<ProjectLog> listData, int itemViewResource) {
+    public ProjectLogListAdapter(Context context, List<ProjectLog> listData, int itemViewResource,boolean isShowProjectName) {
         super(context, listData, itemViewResource);
         this.bmpManager = new BitmapManager(BitmapFactory.decodeResource(context.getResources(), R.drawable.widget_dface_loading));
+        IS_SHOW_PROJECT_NAME = isShowProjectName;
     }
 
     @Override
@@ -44,6 +47,7 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
             convertView = listContainer.inflate(this.itemViewResource,null);
 
             listItemView = new ListItemView();
+            listItemView.face = (CircleImageView)convertView.findViewById(R.id.projectlog_listitem_face);
             listItemView.face = (CircleImageView)convertView.findViewById(R.id.projectlog_listitem_face);
             listItemView.date = (TextView)convertView.findViewById(R.id.projectlog_listitem_date);
             listItemView.content = (TextView)convertView.findViewById(R.id.projectlog_listitem_content);
@@ -61,7 +65,7 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
 
 
         // 1.加载头像
-        String portraitURL = log.getAuthor() == null ? "" : "";
+        String portraitURL = log.getAuthor().getPortrait() == null ? "" : log.getAuthor().getPortrait();
         if (portraitURL.endsWith("portrait.gif") || StringUtils.isEmpty(portraitURL)) {
             listItemView.face.setImageResource(R.drawable.mini_avatar);
         } else {
@@ -79,7 +83,7 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
         }
 
         // 2.显示相关信息
-        listItemView.username.setText(log.getAuthor());
+        listItemView.username.setText(IS_SHOW_PROJECT_NAME ? log.getAuthor().getName() + " - " + log.getProject().getName(): log.getAuthor().getName());
         listItemView.content.setText(log.getContent());
         listItemView.date.setText(StringUtils.friendly_time(log.getCreatedate()));
 

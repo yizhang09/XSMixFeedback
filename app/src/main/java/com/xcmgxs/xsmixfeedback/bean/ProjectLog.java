@@ -10,8 +10,11 @@ import java.io.File;
 @SuppressWarnings("serial")
 public class ProjectLog extends Entity {
 
+    @JsonProperty("AuthorID")
+    private int authorid;
+
     @JsonProperty("Author")
-    private String author;
+    private User author;
 
     @JsonProperty("LogContent")
     private String content;
@@ -21,6 +24,9 @@ public class ProjectLog extends Entity {
 
     @JsonProperty("Projectid")
     private String projectid;
+
+    @JsonProperty("Project")
+    private Project project;
 
     @JsonProperty("Title")
     private String title;
@@ -33,6 +39,31 @@ public class ProjectLog extends Entity {
 
     @JsonProperty("LogPic")
     private String pic;
+
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public int getAuthorid() {
+        return authorid;
+    }
+
+    public void setAuthorid(int authorid) {
+        this.authorid = authorid;
+    }
 
     public String getPic() {
         return pic;
@@ -66,13 +97,6 @@ public class ProjectLog extends Entity {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 
     public String getContent() {
         return content;

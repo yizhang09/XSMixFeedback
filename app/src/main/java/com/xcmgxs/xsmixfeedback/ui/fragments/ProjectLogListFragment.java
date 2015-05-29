@@ -28,11 +28,20 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
 
     private Project mProject;
 
+    private static boolean IS_ALL = false;
+
     public static ProjectLogListFragment newInstance(Project project) {
         ProjectLogListFragment fragment = new ProjectLogListFragment();
         Bundle args = new Bundle();
         args.putSerializable(Contanst.PROJECT, project);
         fragment.setArguments(args);
+        IS_ALL = false;
+        return fragment;
+    }
+
+    public static ProjectLogListFragment newInstance() {
+        ProjectLogListFragment fragment = new ProjectLogListFragment();
+        IS_ALL = true;
         return fragment;
     }
 
@@ -40,19 +49,25 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        mProject = (Project)args.getSerializable(Contanst.PROJECT);
+        if(!IS_ALL) {
+            mProject = (Project) args.getSerializable(Contanst.PROJECT);
+        }
     }
 
     @Override
     public BaseAdapter getAdapter(List<ProjectLog> list) {
-        return new ProjectLogListAdapter(getActivity(),list, R.layout.projectlog_listitem);
+        return new ProjectLogListAdapter(getActivity(), list, R.layout.projectlog_listitem,IS_ALL);
     }
 
     @Override
     protected MessageData<CommonList<ProjectLog>> asyncLoadList(int page, boolean refresh){
         MessageData<CommonList<ProjectLog>> msg = null;
         try {
-            CommonList<ProjectLog> list = getList(page, refresh,mProject.getId());
+            String pid = "-1";
+            if(!IS_ALL){
+                pid = mProject.getId();
+            }
+            CommonList<ProjectLog> list = getList(page, refresh,pid);
             msg = new MessageData<CommonList<ProjectLog>>(list);
         } catch (AppException e) {
             e.makeToast(mApplication);

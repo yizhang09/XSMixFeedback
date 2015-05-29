@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.v4.app.NotificationCompat;
@@ -15,6 +16,8 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.xcmgxs.xsmixfeedback.AppConfig;
+import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
 import com.xcmgxs.xsmixfeedback.bean.Notification;
@@ -75,7 +78,7 @@ public class NotificationService extends Service {
         super.onCreate();
         mAlarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         startRequestAlarm();
-        //requestNotification();
+        requestNotification();
 
         IntentFilter filter = new IntentFilter(INTENT_ACTION_BROADCAST);
 
@@ -147,6 +150,16 @@ public class NotificationService extends Service {
                 .setAutoCancel(true)
                 .setContentIntent(pi)
                 .setSmallIcon(R.drawable.xcmg);
+
+        if (AppContext.get(AppConfig.KEY_NOTIFICATION_SOUND, true)) {
+            builder.setSound(Uri.parse("android.resource://"
+                    + AppContext.getInstance().getPackageName() + "/"
+                    + R.raw.notificationsound));
+        }
+        if (AppContext.get(AppConfig.KEY_NOTIFICATION_VIBRATION, true)) {
+            long[] vibrate = { 0, 10, 20, 30 };
+            builder.setVibrate(vibrate);
+        }
 
         android.app.Notification appNotify = builder.build();
         NotificationManagerCompat.from(this).notify(R.string.you_have_news_messages,appNotify);

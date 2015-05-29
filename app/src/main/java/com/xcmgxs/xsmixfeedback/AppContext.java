@@ -1,12 +1,15 @@
 package com.xcmgxs.xsmixfeedback;
 
+import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import java.io.File;
@@ -24,8 +27,13 @@ import java.util.UUID;
 
 import static com.xcmgxs.xsmixfeedback.common.Contanst.*;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.PersistentCookieStore;
+import com.xcmgxs.xsmixfeedback.api.ApiHttpClient;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.ProjectFile;
+import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.Result;
 import com.xcmgxs.xsmixfeedback.bean.UpLoadFile;
@@ -35,6 +43,7 @@ import com.xcmgxs.xsmixfeedback.common.MethodsCompat;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
+import com.xcmgxs.xsmixfeedback.util.TLog;
 
 /**
  * 全局应用程序类：用于保存和调用全局应用配置及访问网络数据
@@ -43,6 +52,8 @@ import com.xcmgxs.xsmixfeedback.api.ApiClient;
  * @version 1.0
  */
 public class AppContext extends Application {
+
+    private static String PREF_NAME = "creativelocker.pref";
 
     // 手机网络类型
     public static final int NETTYPE_WIFI = 0x01;
@@ -105,6 +116,17 @@ public class AppContext extends Application {
      * 初始化Application
      */
     private void init() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
+        client.setCookieStore(myCookieStore);
+        ApiHttpClient.setHttpClient(client);
+        ApiHttpClient.setCookie(ApiHttpClient.getCookie(this));
+
+        // Log控制器
+        //KJLoger.openDebutLog(true);
+        TLog.DEBUG = BuildConfig.DEBUG;
+
+
         // 初始化用记的登录信息
         User loginUser = getLoginInfo();
         if (null != loginUser && StringUtils.toInt(loginUser.getId()) > 0 && !StringUtils.isEmpty(getProperty(PROP_KEY_PRIVATE_TOKEN))) {
@@ -138,6 +160,37 @@ public class AppContext extends Application {
 
     public void removeProperty(String... key) {
         AppConfig.getAppConfig(this).remove(key);
+    }
+
+    public static boolean get(String key, boolean defValue) {
+        return getPreferences().getBoolean(key, defValue);
+    }
+
+    public static String get(String key, String defValue) {
+        return getPreferences().getString(key, defValue);
+    }
+
+    public static int get(String key, int defValue) {
+        return getPreferences().getInt(key, defValue);
+    }
+
+    public static long get(String key, long defValue) {
+        return getPreferences().getLong(key, defValue);
+    }
+
+    public static float get(String key, float defValue) {
+        return getPreferences().getFloat(key, defValue);
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static SharedPreferences getPreferences() {
+        SharedPreferences pre = getInstance().getSharedPreferences(PREF_NAME, Context.MODE_MULTI_PROCESS);
+        return pre;
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static SharedPreferences getPreferences(String prefName) {
+        return getInstance().getSharedPreferences(prefName, Context.MODE_MULTI_PROCESS);
     }
 
     /**
@@ -701,7 +754,7 @@ public class AppContext extends Application {
     }
 
     /*
-    *获取项目列表信息
+    *获取项目日志列表信息
      */
     @SuppressWarnings("unchecked")
     public CommonList<ProjectLog> getProjectLogByProjectID(int page,boolean isrefresh,String projectid) throws AppException{
@@ -727,6 +780,70 @@ public class AppContext extends Application {
             list = (CommonList<ProjectLog>)readObject(cacheKey);
             if(list == null){
                 list = new CommonList<ProjectLog>();
+            }
+        }
+        return list;
+    }
+
+    /*
+    *获取项目反馈信息
+     */
+    @SuppressWarnings("unchecked")
+    public CommonList<ProjectIssue> getProjectIssuesByProjectID(int page,boolean isrefresh,String projectid) throws AppException{
+        CommonList<ProjectIssue> list = null;
+        String cacheKey = "allProjectIssueList_" + page +"_" + PAGE_SIZE+"_" + projectid;
+        if(!isReadDataCache(cacheKey) || isrefresh){
+            try {
+                list = ApiClient.getProjectIssues(this, page, projectid);
+                if(list != null && page == 1){
+                    list.setCacheKey(cacheKey);
+                    saveObject(list,cacheKey);
+                }
+            }
+            catch (AppException e){
+                e.printStackTrace();
+                list = (CommonList<ProjectIssue>)readObject(cacheKey);
+                if(list == null){
+                    throw e;
+                }
+            }
+        }
+        else {
+            list = (CommonList<ProjectIssue>)readObject(cacheKey);
+            if(list == null){
+                list = new CommonList<ProjectIssue>();
+            }
+        }
+        return list;
+    }
+
+    /*
+   *获取项目文件信息
+    */
+    @SuppressWarnings("unchecked")
+    public CommonList<ProjectFile> getProjectFileByProjectID(int page,boolean isrefresh,String projectid) throws AppException{
+        CommonList<ProjectFile> list = null;
+        String cacheKey = "allProjectFileList_" + page +"_" + PAGE_SIZE+"_" + projectid;
+        if(!isReadDataCache(cacheKey) || isrefresh){
+            try {
+                list = ApiClient.getProjectFiles(this, page,projectid);
+                if(list != null && page == 1){
+                    list.setCacheKey(cacheKey);
+                    saveObject(list,cacheKey);
+                }
+            }
+            catch (AppException e){
+                e.printStackTrace();
+                list = (CommonList<ProjectFile>)readObject(cacheKey);
+                if(list == null){
+                    throw e;
+                }
+            }
+        }
+        else {
+            list = (CommonList<ProjectFile>)readObject(cacheKey);
+            if(list == null){
+                list = new CommonList<ProjectFile>();
             }
         }
         return list;
