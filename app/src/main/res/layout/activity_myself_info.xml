@@ -1,36 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/myself_info_scrollview"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_weight="1"
-    android:fadingEdge="none"
-    android:scrollbars="vertical"
-    tools:context="com.xcmgxs.xsmixfeedback.ui.MySelfInfoActivity">
+    android:scrollbars="none"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="15.0dip">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <include
-            layout="@layout/activity_myself_info_head"
-            android:visibility="visible" />
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/ll_user_portrait"
+            style="@style/myinfo_item">
 
-        <include layout="@layout/activity_myself_info_footer" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="头像" />
+
+            <com.xcmgxs.xsmixfeedback.widget.CircleImageView
+                android:id="@+id/myself_info_userface"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/mini_avatar" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/h_line"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_user_nickname"
+            style="@style/myinfo_item">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="姓名" />
+
+            <TextView
+                android:id="@+id/myself_info_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="张毅" />
+        </LinearLayout>
+
+        <View
+            style="@style/h_line"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_user_jointime"
+            style="@style/myinfo_item">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="加入时间" />
+
+            <TextView
+                android:id="@+id/myself_info_detail_jointime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                tools:text="两年前" />
+        </LinearLayout>
+
+
+        <View
+            style="@style/h_line"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <LinearLayout
+            android:id="@+id/myself_phonenumber"
+            style="@style/myinfo_item">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="电话号码" />
+
+            <TextView
+                android:id="@+id/myself_info_detail_phonenumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                tools:text="1" />
+        </LinearLayout>
+
+
+        <View
+            style="@style/h_line"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <LinearLayout
+            android:id="@+id/myself_department"
+            style="@style/myinfo_item">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="部门" />
+
+            <TextView
+                android:id="@+id/myself_info_detail_department"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                tools:text="1" />
+        </LinearLayout>
+
+        <!--<include-->
+            <!--layout="@layout/activity_myself_info_head"-->
+            <!--android:visibility="visible" />-->
+
+        <!--<include layout="@layout/activity_myself_info_footer" />-->
         
+        <!--<Button-->
+            <!--android:id="@+id/myself_info_logout_btn"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="20dip"-->
+            <!--android:minHeight="45dip"-->
+            <!--android:background="@drawable/btn_style_red"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="@dimen/space_15"-->
+            <!--android:text="@string/main_menu_logout"/>-->
+
+
         <Button
             android:id="@+id/myself_info_logout_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:minHeight="45dip"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="20dip"
             android:background="@drawable/btn_style_red"
+            android:text="@string/main_menu_logout"
             android:textColor="@color/white"
-            android:textSize="@dimen/space_15"
-            android:text="@string/main_menu_logout"/>
+            android:textSize="@dimen/space_15" />
 
     </LinearLayout>
 

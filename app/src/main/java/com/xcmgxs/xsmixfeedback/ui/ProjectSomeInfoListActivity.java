@@ -169,7 +169,7 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
                 UIHelper.showLogEditOrCreate(getXSApplication(),mProject,null);
                 break;
             case MENU_CREATE_ISSUE_ID:
-                UIHelper.showLogEditOrCreate(getXSApplication(),mProject,null);
+                UIHelper.showIssueEditOrCreate(getXSApplication(),mProject,null);
                 break;
         }
 

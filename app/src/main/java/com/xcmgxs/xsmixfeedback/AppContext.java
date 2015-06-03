@@ -29,14 +29,13 @@ import static com.xcmgxs.xsmixfeedback.common.Contanst.*;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
-import com.xcmgxs.xsmixfeedback.api.ApiHttpClient;
+import com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.ProjectFile;
 import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.Result;
-import com.xcmgxs.xsmixfeedback.bean.UpLoadFile;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BroadcastController;
 import com.xcmgxs.xsmixfeedback.common.MethodsCompat;
@@ -119,8 +118,8 @@ public class AppContext extends Application {
         AsyncHttpClient client = new AsyncHttpClient();
         PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
         client.setCookieStore(myCookieStore);
-        ApiHttpClient.setHttpClient(client);
-        ApiHttpClient.setCookie(ApiHttpClient.getCookie(this));
+        //AsyncHttpHelper.setHttpClient(client);
+        AsyncHttpHelper.setCookie(AsyncHttpHelper.getCookie(this));
 
         // Log控制器
         //KJLoger.openDebutLog(true);

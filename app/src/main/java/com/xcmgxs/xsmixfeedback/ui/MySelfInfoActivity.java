@@ -74,10 +74,11 @@ public class MySelfInfoActivity extends BaseActionBarActivity implements View.On
         mUserName = (TextView)findViewById(R.id.myself_info_username);
         mJoinTime = (TextView)findViewById(R.id.myself_info_detail_jointime);
         mPhoneNumber = (TextView)findViewById(R.id.myself_info_detail_phonenumber);
-        mEditName = (Button)findViewById(R.id.myself_info_editor);
+        mDepartment = (TextView)findViewById(R.id.myself_info_detail_department);
+        //mEditName = (Button)findViewById(R.id.myself_info_editor);
         mLogout = (Button)findViewById(R.id.myself_info_logout_btn);
 
-        mEditName.setOnClickListener(this);
+        //mEditName.setOnClickListener(this);
         mLogout.setOnClickListener(this);
         mUserFace.setOnClickListener(this);
 
@@ -90,6 +91,7 @@ public class MySelfInfoActivity extends BaseActionBarActivity implements View.On
             mUserName.setText(mUser.getName());
             mJoinTime.setText(mUser.getAddTime() == null ? "" : mUser.getAddTime().toString());
             mPhoneNumber.setText(mUser.getPhoneNumber());
+            mDepartment.setText(mUser.getDepartment() != null ?mUser.getDepartment().getName():"");
         }
 
         String portrait = mUser.getPortrait() == null || mUser.getPortrait().equals("null") ? "" : mUser.getPortrait();

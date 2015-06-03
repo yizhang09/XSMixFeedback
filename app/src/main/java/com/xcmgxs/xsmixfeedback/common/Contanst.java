@@ -37,23 +37,15 @@ public class Contanst {
 
     public static final String PROJECT_LOG = "log";
 
-    public static final String BRANCH = "branch";
+    public static final String PROJECT_ISSUE = "issue";
+
+    public static final String PROJECT_FILE = "file";
 
     public static final String PATH = "path";
 
     public static final String PROJECTID = "project_id";
 
-    public static final String COMMIT = "commit";
-
-    public static final String COMMITID = "commit_id";
-
-    public static final String COMMITDIFF = "commitDiff";
-
-    public static final String ISSUE = "issue";
-
     public static final String ISSUEID = "issue_id";
-
-    public static final String COMMENT = "comment";
 
     public static final String CURRENTITEM = "currentItem";
 

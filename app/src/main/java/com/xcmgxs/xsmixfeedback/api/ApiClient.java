@@ -252,7 +252,7 @@ public class ApiClient {
         params.put("type", issue.getType());
 
         try{
-            ApiHttpClient.post(URLs.PROJECTISSUE,params,null);
+            AsyncHttpHelper.post(URLs.PROJECTISSUE, params, null);
         }catch(Exception e){
             if(e instanceof AppException)
                 throw (AppException)e;
@@ -280,14 +280,14 @@ public class ApiClient {
         RequestParams params = new RequestParams();
         params.put("uid", uid);
         params.put("type", type);
-        ApiHttpClient.post("/notification", params, handler);
+        AsyncHttpHelper.post("/notification", params, handler);
     }
 
-    public static void getNotices(AsyncHttpResponseHandler handler) {
-        RequestParams params = new RequestParams();
-        params.put("uid", AppContext.getInstance().getLoginUid());
-        ApiHttpClient.get("notification", params, handler);
-    }
+//    public static void getNotices(AsyncHttpResponseHandler handler) {
+//        RequestParams params = new RequestParams();
+//        params.put("uid", AppContext.getInstance().getLoginUid());
+//        AsyncHttpHelper.get("notification", params, handler);
+//    }
 
 
 

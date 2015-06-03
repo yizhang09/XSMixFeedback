@@ -20,6 +20,7 @@ import com.xcmgxs.xsmixfeedback.AppConfig;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
+import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
 import com.xcmgxs.xsmixfeedback.bean.Notification;
 import com.xcmgxs.xsmixfeedback.broadcast.AlarmReceiver;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
@@ -128,7 +129,7 @@ public class NotificationService extends Service {
 
     private void requestNotification(){
         TLog.log("ApiClient ->requestNotification");
-        ApiClient.getNotices(mGetNotificationHandler);
+        XsFeedbackApi.getNotification(mGetNotificationHandler);
     }
 
     private int lastNotifyCount;
@@ -170,7 +171,7 @@ public class NotificationService extends Service {
         @Override
         public void onSuccess(int i, Header[] headers, byte[] bytes) {
             try {
-                List<Notification> notifications = JsonUtils.toList(Notification[].class, bytes);
+                List<Notification> notifications = JsonUtils.getList(Notification[].class, bytes);
                 if(notifications != null && !notifications.isEmpty()){
                     for(Notification n : notifications){
                         UIHelper.sendBroadcast(NotificationService.this, n);

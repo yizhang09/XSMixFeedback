@@ -21,8 +21,10 @@ import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
 import com.xcmgxs.xsmixfeedback.bean.Notification;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.User;
+import com.xcmgxs.xsmixfeedback.ui.IssueEditActivity;
 import com.xcmgxs.xsmixfeedback.ui.LogEditActivity;
 import com.xcmgxs.xsmixfeedback.ui.LoginActivity;
 import com.xcmgxs.xsmixfeedback.ui.MainActivity;
@@ -247,6 +249,16 @@ public class UIHelper {
         Bundle bundle = new Bundle();
         bundle.putSerializable(Contanst.PROJECT, project);
         bundle.putSerializable(Contanst.PROJECT_LOG, log);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    public static void showIssueEditOrCreate(Context context,Project project,ProjectIssue issue){
+        Intent intent = new Intent(context, IssueEditActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Contanst.PROJECT, project);
+        bundle.putSerializable(Contanst.PROJECT_ISSUE, issue);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
