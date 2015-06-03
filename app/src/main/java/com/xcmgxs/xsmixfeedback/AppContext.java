@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -29,6 +30,16 @@ import static com.xcmgxs.xsmixfeedback.common.Contanst.*;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.Project;
@@ -93,6 +104,7 @@ public class AppContext extends Application {
         Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler(this));
         instance = this;
         init();
+        initImageLoader();
     }
 
     /**
@@ -133,6 +145,46 @@ public class AppContext extends Application {
             this.loginUid = StringUtils.toInt(loginUser.getId());
             this.login = true;
         }
+    }
+
+
+    private void initImageLoader() {
+        DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.color.gray)
+                .showImageOnFail(R.drawable.ic_picture_loadfailed)
+                .cacheInMemory(true).cacheOnDisk(true)
+                .resetViewBeforeLoading(true).considerExifParams(false)
+                .bitmapConfig(Bitmap.Config.RGB_565).build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .memoryCacheExtraOptions(400, 400)
+                        // default = device screen dimensions
+                .diskCacheExtraOptions(400, 400, null)
+                .threadPoolSize(5)
+                        // default Thread.NORM_PRIORITY - 1
+                .threadPriority(Thread.NORM_PRIORITY)
+                        // default FIFO
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                        // default
+                .denyCacheImageMultipleSizesInMemory()
+                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+                .memoryCacheSize(2 * 1024 * 1024)
+                .memoryCacheSizePercentage(13)
+                        // default
+                .diskCache(new UnlimitedDiscCache(StorageUtils.getCacheDirectory(this, true)))
+                        // default
+                .diskCacheSize(50 * 1024 * 1024).diskCacheFileCount(100)
+                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                        // default
+                .imageDownloader(new BaseImageDownloader(this))
+                        // default
+                .imageDecoder(new BaseImageDecoder(false))
+                        // default
+                .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
+                        // default
+                .defaultDisplayImageOptions(imageOptions).build();
+
+        ImageLoader.getInstance().init(config);
     }
 
     public boolean containsProperty(String key) {

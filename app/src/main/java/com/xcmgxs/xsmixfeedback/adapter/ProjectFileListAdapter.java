@@ -7,9 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.api.URLs;
 import com.xcmgxs.xsmixfeedback.bean.ProjectFile;
 import com.xcmgxs.xsmixfeedback.common.BitmapManager;
+import com.xcmgxs.xsmixfeedback.util.ImageLoaderUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.widget.CircleImageView;
 
@@ -19,8 +22,6 @@ import java.util.List;
  * Created by zhangyi on 2015-3-20.
  */
 public class ProjectFileListAdapter extends MyBaseAdapter<ProjectFile> {
-
-    private BitmapManager bmpManager;
 
     private boolean IS_SHOW_PROJECT_NAME = false;
 
@@ -34,7 +35,6 @@ public class ProjectFileListAdapter extends MyBaseAdapter<ProjectFile> {
 
     public ProjectFileListAdapter(Context context, List<ProjectFile> listData, int itemViewResource ,boolean isShowProjectName) {
         super(context, listData, itemViewResource);
-        this.bmpManager = new BitmapManager(BitmapFactory.decodeResource(context.getResources(), R.drawable.widget_dface_loading));
         IS_SHOW_PROJECT_NAME = isShowProjectName;
     }
 
@@ -66,7 +66,8 @@ public class ProjectFileListAdapter extends MyBaseAdapter<ProjectFile> {
         if (portraitURL.endsWith("portrait.gif") || StringUtils.isEmpty(portraitURL)) {
             listItemView.face.setImageResource(R.drawable.mini_avatar);
         } else {
-            bmpManager.loadBitmap(portraitURL, listItemView.face);
+            portraitURL = URLs.URL_PORTRAIT + portraitURL;
+            ImageLoader.getInstance().displayImage(portraitURL, listItemView.face, ImageLoaderUtils.getOption());
         }
 
         // 2.显示相关信息

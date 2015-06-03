@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.api.URLs;
 import com.xcmgxs.xsmixfeedback.common.BitmapManager;
+import com.xcmgxs.xsmixfeedback.util.ImageLoaderUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.widget.CircleImageView;
 
@@ -20,8 +22,6 @@ import java.util.List;
  * Created by zhangyi on 2015-3-20.
  */
 public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
-
-    private BitmapManager bmpManager;
 
     private boolean IS_SHOW_PROJECT_NAME = false;
 
@@ -35,7 +35,6 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
 
     public ProjectLogListAdapter(Context context, List<ProjectLog> listData, int itemViewResource,boolean isShowProjectName) {
         super(context, listData, itemViewResource);
-        this.bmpManager = new BitmapManager(BitmapFactory.decodeResource(context.getResources(), R.drawable.widget_dface_loading));
         IS_SHOW_PROJECT_NAME = isShowProjectName;
     }
 
@@ -69,7 +68,9 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
         if (portraitURL.endsWith("portrait.gif") || StringUtils.isEmpty(portraitURL)) {
             listItemView.face.setImageResource(R.drawable.mini_avatar);
         } else {
-            bmpManager.loadBitmap(portraitURL, listItemView.face);
+            portraitURL = URLs.URL_PORTRAIT + portraitURL;
+            //bmpManager.loadBitmap(portraitURL, listItemView.face);
+            ImageLoader.getInstance().displayImage(portraitURL, listItemView.face, ImageLoaderUtils.getOption());
         }
 
         // 加载图片
@@ -79,7 +80,8 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
         } else {
             listItemView.picture.setVisibility(View.VISIBLE);
             picURL = URLs.URL_UPLOAD_LOGPIC + picURL;
-            bmpManager.loadBitmap(picURL, listItemView.picture);
+            //bmpManager.loadBitmap(picURL, listItemView.picture);
+            ImageLoader.getInstance().displayImage(picURL, listItemView.picture, ImageLoaderUtils.getOption());
         }
 
         // 2.显示相关信息

@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BitmapManager;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
+import com.xcmgxs.xsmixfeedback.util.ImageLoaderUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.widget.CircleImageView;
 
@@ -76,7 +78,7 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
             if (portraitURL.endsWith("portrait.gif")) {
                 listItemView.face.setImageResource(R.drawable.mini_avatar);
             } else {
-                bitmapManager.loadBitmap(portraitURL, listItemView.face);
+                ImageLoader.getInstance().displayImage(portraitURL, listItemView.face, ImageLoaderUtils.getOption());
             }
         }
         else {
