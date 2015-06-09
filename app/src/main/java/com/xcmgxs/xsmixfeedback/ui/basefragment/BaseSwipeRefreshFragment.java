@@ -9,6 +9,7 @@ import com.xcmgxs.xsmixfeedback.bean.Entity;
 import com.xcmgxs.xsmixfeedback.bean.MessageData;
 import com.xcmgxs.xsmixfeedback.bean.PageList;
 import com.xcmgxs.xsmixfeedback.common.DataRequestThreadHandler;
+import com.xcmgxs.xsmixfeedback.util.TLog;
 import com.xcmgxs.xsmixfeedback.widget.NewDataToast;
 import android.app.Activity;
 import android.os.Bundle;
@@ -102,21 +103,27 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        try {
+            TLog.log("创建frgment");
+            initView(view);
+            setupListView();
 
-        initView(view);
-        setupListView();
-
-        // viewpager划动到第三页，会将第一页的界面销毁，这里判断是初始状态，还是划画后再次加载
-        if (mState == STATE_LOADED && mAdapter.isEmpty()) {
-            setFooterNoMoreState();
-        } else if (mState == STATE_LOADED && mAdapter.getCount() < AppContext.PAGE_SIZE) {
-            setFooterFullState();
+            // viewpager划动到第三页，会将第一页的界面销毁，这里判断是初始状态，还是划画后再次加载
+            if (mState == STATE_LOADED && mAdapter.isEmpty()) {
+                setFooterNoMoreState();
+            } else if (mState == STATE_LOADED && mAdapter.getCount() < AppContext.PAGE_SIZE) {
+                setFooterFullState();
+            }
+            // 正在刷新的状态
+            if (mListViewAction == LISTVIEW_ACTION_REFRESH) {
+                setSwipeRefreshLoadingState();
+            }
+            loadList(1, LISTVIEW_ACTION_INIT);
+            //loadList(1, LISTVIEW_ACTION_REFRESH);
         }
-        // 正在刷新的状态
-        if (mListViewAction == LISTVIEW_ACTION_REFRESH) {
-            setSwipeRefreshLoadingState();
+        catch (Exception ex){
+            ex.printStackTrace();
         }
-        loadList(1, LISTVIEW_ACTION_INIT);
     }
 
     @Override
@@ -304,7 +311,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
         onItemClick(position, data);
     }
 
-    /** 点击了某个item */
+      /** 点击了某个item */
     public void onItemClick(int position, Data data) {
 
     }
@@ -389,6 +396,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
 
         @Override
         public MessageData<Result> execute() {
+            TLog.log("请求数据");
             boolean refresh = true;
             if (mAction == LISTVIEW_ACTION_INIT) {
                 refresh = false;
@@ -398,6 +406,8 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
 
         @Override
         public void onPostExecute(MessageData<Result> msg) {
+            TLog.log("请求结束");
+            TLog.log(String.valueOf(msg.result.getCount()));
             // 加载结束
             mState = STATE_LOADED;
             if (mAction == LISTVIEW_ACTION_INIT) {
@@ -494,6 +504,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
                     mDataList.addAll(result.getList());
                 }
             }
+            TLog.log("通知adapter");
             // 通知listview去刷新界面
             mAdapter.notifyDataSetChanged();
         }

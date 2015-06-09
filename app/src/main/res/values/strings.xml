@@ -17,7 +17,7 @@
     <string name="main_menu_title_issues">问题反馈</string>
     <string name="main_menu_title_files">项目附件</string>
     <string name="main_menu_title_setting">设置</string>
-    <string name="main_menu_title_exit">退出</string>
+    <string name="main_menu_title_about">关于</string>
 
     <string name="msg_load_userface_fail">加载头像失败</string>
     <string name="msg_load_image_fail">加载图像失败</string>
@@ -40,7 +40,7 @@
     <string name="img_from_camera">手机拍照</string>
     <string name="img_from_album">手机相册</string>
     <string name="ui_insert_image">插入图片</string>
-    <string name="title_activity_user_info">UserInfoActivity</string>
+    <string name="title_activity_user_info">用户信息</string>
     <string name="title_activity_my_self_info">我的信息</string>
     <string name="title_activity_project_issue">项目问题反馈</string>
     <string name="title_activity_issue_edit">问题反馈</string>
@@ -51,8 +51,39 @@
     <string name="title_activity_welcome_page">WelcomePage</string>
     <string name="title_activity_splash_page">SplashPage</string>
     <string name="title_activity_app_start">AppStart</string>
-    <string name="title_activity_search">SearchActivity</string>
-    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_search">搜索</string>
+    <string name="title_activity_setting">设置</string>
+
+
+    <string name="enhance_list_empty_data">暂无数据</string>
+    <string name="enhance_list_header_pull_text">下拉刷新</string>
+    <string name="enhance_list_header_release_text">松开刷新</string>
+    <string name="enhance_list_header_refreshing_text">刷新中…</string>
+    <string name="enhance_list_header_refresh_success_text">刷新成功</string>
+    <string name="enhance_list_footer_more_text">点击加载更多</string>
+    <string name="enhance_list_footer_loading_text">加载中…</string>
+    <string name="enhance_list_footer_no_more_text">已加载全部</string>
+
+
+
+    <string name="sem_watch">\uf06e</string>
+    <string name="sem_empty_watch">\uf070</string>
+    <string name="sem_star">\uf005</string>
+    <string name="sem_empty_star">\uf006</string>
+    <string name="sem_fork">\uf126</string>
+    <string name="sem_tag">\uf02b</string>
+    <string name="sem_lock">\uf023</string>
+    <string name="sem_user">\uf007</string>
+    <string name="sem_wait">\uf017</string>
+    <string name="sem_loading">\uf110</string>
+    <string name="sem_folder">\uf07b</string>
+    <string name="sem_file_text">\uf0f6</string>
+    <string name="sem_download_disk">\uf019</string>
+
+
+    <string name="fa_wifi">\uf1eb</string>
+    <string name="fa_refresh">\uf021</string>
+    <string name="fa_clock_o">\uf017</string>
 
 
 </resources>

@@ -129,7 +129,7 @@ public class NotificationService extends Service {
 
     private void requestNotification(){
         TLog.log("ApiClient ->requestNotification");
-        XsFeedbackApi.getNotification(mGetNotificationHandler);
+        XsFeedbackApi.getNotification("",mGetNotificationHandler);
     }
 
     private int lastNotifyCount;

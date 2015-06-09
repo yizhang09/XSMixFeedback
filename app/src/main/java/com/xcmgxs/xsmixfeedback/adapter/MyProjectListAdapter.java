@@ -9,12 +9,12 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.adapter.base.MyBaseAdapter;
 import com.xcmgxs.xsmixfeedback.bean.Project;
-import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BitmapManager;
-import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.util.ImageLoaderUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
+import com.xcmgxs.xsmixfeedback.util.TLog;
 import com.xcmgxs.xsmixfeedback.widget.CircleImageView;
 
 import java.util.List;
@@ -32,9 +32,9 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
         public TextView title;
         public TextView description;
         public ImageView languageImage;
-        public TextView language;
-        public TextView star;
-        public TextView fork;
+        public TextView customer;
+        public TextView state;
+        public TextView station;
     }
 
     public MyProjectListAdapter(Context context, List<Project> listData, int itemViewResource) {
@@ -46,6 +46,7 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        TLog.log("绑定" + position);
         ListItemView listItemView = null;
         if(convertView == null){
             convertView = listContainer.inflate(this.itemViewResource,null);
@@ -55,10 +56,10 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
             listItemView.face = (CircleImageView)convertView.findViewById(R.id.exploreproject_listitem_userface);
             listItemView.title = (TextView)convertView.findViewById(R.id.exploreproject_listitem_title);
             listItemView.description = (TextView)convertView.findViewById(R.id.exploreproject_listitem_description);
-            listItemView.languageImage = (ImageView)convertView.findViewById(R.id.exploreproject_listitem_language_image);
-            listItemView.language = (TextView)convertView.findViewById(R.id.exploreproject_listitem_language);
-            listItemView.star = (TextView)convertView.findViewById(R.id.exploreproject_listitem_star);
-            listItemView.fork = (TextView)convertView.findViewById(R.id.exploreproject_listitem_fork);
+            listItemView.languageImage = (ImageView)convertView.findViewById(R.id.exploreproject_listitem_customer_image);
+            listItemView.customer = (TextView)convertView.findViewById(R.id.exploreproject_listitem_customer);
+            listItemView.state = (TextView)convertView.findViewById(R.id.exploreproject_listitem_state);
+            listItemView.station = (TextView)convertView.findViewById(R.id.exploreproject_listitem_station);
 
             convertView.setTag(listItemView);
 
@@ -107,8 +108,9 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
         }
 
         //显示star fork信息
-        listItemView.star.setText(project.getEmState());
-        listItemView.fork.setText(project.getCustomer());
+        listItemView.customer.setText(project.getCustomer());
+        listItemView.state.setText(project.getType());
+        listItemView.station.setText(project.getNum().toString());
 
         return convertView;
 

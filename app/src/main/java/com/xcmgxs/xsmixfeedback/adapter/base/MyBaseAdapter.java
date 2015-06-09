@@ -1,4 +1,4 @@
-package com.xcmgxs.xsmixfeedback.adapter;
+package com.xcmgxs.xsmixfeedback.adapter.base;
 
 import android.content.Context;
 import android.view.LayoutInflater;

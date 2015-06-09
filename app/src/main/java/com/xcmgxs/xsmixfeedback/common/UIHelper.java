@@ -18,19 +18,24 @@ import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.AppManager;
 import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.WelcomePage;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
 import com.xcmgxs.xsmixfeedback.bean.Notification;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.User;
+import com.xcmgxs.xsmixfeedback.ui.AboutActivity;
 import com.xcmgxs.xsmixfeedback.ui.IssueEditActivity;
 import com.xcmgxs.xsmixfeedback.ui.LogEditActivity;
 import com.xcmgxs.xsmixfeedback.ui.LoginActivity;
 import com.xcmgxs.xsmixfeedback.ui.MainActivity;
 import com.xcmgxs.xsmixfeedback.ui.MySelfInfoActivity;
+import com.xcmgxs.xsmixfeedback.ui.NotificationActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectSomeInfoListActivity;
+import com.xcmgxs.xsmixfeedback.ui.SearchActivity;
+import com.xcmgxs.xsmixfeedback.ui.SettingActivity;
 import com.xcmgxs.xsmixfeedback.util.FileUtils;
 import com.xcmgxs.xsmixfeedback.util.ImageUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
@@ -213,6 +218,26 @@ public class UIHelper {
 
     }
 
+    public static void showSearch(Context context) {
+        Intent intent = new Intent(context, SearchActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void showNotification(Context context) {
+        Intent intent = new Intent(context, NotificationActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void showSetting(Context context) {
+        Intent intent = new Intent(context, SettingActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void showAbout(Context context) {
+        Intent intent = new Intent(context, AboutActivity.class);
+        context.startActivity(intent);
+    }
+
     /**
      * 显示用户信息详情
      *
@@ -260,6 +285,37 @@ public class UIHelper {
         bundle.putSerializable(Contanst.PROJECT, project);
         bundle.putSerializable(Contanst.PROJECT_ISSUE, issue);
         intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    public static void clearAppCache(SettingActivity activity) {
+        final AppContext ac = (AppContext) activity.getApplication();
+        final Handler handler = new Handler() {
+            public void handleMessage(Message msg) {
+                if (msg.what == 1) {
+                    ToastMessage(ac, "缓存清除成功");
+                } else {
+                    ToastMessage(ac, "缓存清除失败");
+                }
+            }
+        };
+        new Thread() {
+            public void run() {
+                Message msg = new Message();
+                try {
+                    ac.clearAppCache();
+                    msg.what = 1;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    msg.what = -1;
+                }
+                handler.sendMessage(msg);
+            }
+        }.start();
+    }
+
+    public static void goMainActivity(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
 }

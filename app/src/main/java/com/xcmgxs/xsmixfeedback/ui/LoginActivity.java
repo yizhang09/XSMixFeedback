@@ -56,13 +56,8 @@ public class LoginActivity extends BaseActionBarActivity implements View.OnClick
         setContentView(R.layout.activity_login);
         mAppContext = getXSApplication();
         mDoubleClickExitHelper = new DoubleClickExitHelper(this);
-        if (mAppContext.isLogin()) {
-            Intent intent = new Intent(mAppContext, MainActivity.class);
-            startActivity(intent);
-        }
-        else {
-            initView();
-        }
+
+        initView();
 
         AppManager.getAppManager().addActivity(this);
     }

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/WelcomePage.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/adapter/ProjectAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/adapter/ProjectFileListAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/adapter/ProjectIssueListAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/adapter/base/CommonAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/adapter/base/ViewHolder.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/api/AsyncHttpHelper.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/api/XsFeedbackApi.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/broadcast/AlarmReceiver.java" charset="UTF-8" />
@@ -12,8 +16,16 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/LogEditActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/LoginActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/MySelfInfoActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/NotificationActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/SearchActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/SettingActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/fragments/NotificationFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/util/ImageLoaderUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/util/JsonUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/util/TypefaceUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/util/ViewUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/widget/EnhanceListView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/widget/TipInfoLayout.java" charset="UTF-8" />
     <file url="PROJECT" charset="GBK" />
   </component>
 </project>

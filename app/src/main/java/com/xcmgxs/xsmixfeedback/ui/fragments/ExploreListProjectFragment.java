@@ -11,6 +11,7 @@ import com.xcmgxs.xsmixfeedback.bean.MessageData;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.basefragment.BaseSwipeRefreshFragment;
+import com.xcmgxs.xsmixfeedback.util.TLog;
 
 import java.util.List;
 
@@ -61,6 +62,7 @@ public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project
         try {
             CommonList<Project> list = getList(type, page, refresh);
             msg = new MessageData<CommonList<Project>>(list);
+            TLog.log(String.valueOf(msg.result.getCount()));
         } catch (AppException e) {
             e.makeToast(mApplication);
             e.printStackTrace();

@@ -30,6 +30,7 @@ import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.interfaces.DrawerMenuCallBack;
 import com.xcmgxs.xsmixfeedback.service.NotificationUtils;
 import com.xcmgxs.xsmixfeedback.ui.fragments.DrawerNavigationMenu;
+import com.xcmgxs.xsmixfeedback.ui.fragments.ExploreListProjectFragment;
 import com.xcmgxs.xsmixfeedback.ui.fragments.ExploreViewPagerFragment;
 import com.xcmgxs.xsmixfeedback.ui.fragments.MySelfViewPagerFragment;
 import com.xcmgxs.xsmixfeedback.widget.BadgeView;
@@ -83,7 +84,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = (AppContext)getApplicationContext();
-        initView(savedInstanceState);
+        initView();
         AppManager.getAppManager().addActivity(this);
 //        if(mContext.isReceiveNotice()){
 //            foreachUserNotice();
@@ -93,7 +94,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         NotificationUtils.bindToService(this);
     }
 
-    private void initView(Bundle savedInstanceState) {
+    private void initView() {
 
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
@@ -106,9 +107,10 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
 
         mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.drawable.ic_drawer,0,0);
         mFragmentManager = getSupportFragmentManager();
-        if(null == savedInstanceState){
-            setExploreView();
-        }
+//        if(null == savedInstanceState){
+//            setExploreView();
+//        }
+        setExploreView();
 
     }
 
@@ -122,45 +124,6 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         mActionBar.setTitle(mTitle);
         mCurrentContentTag = CONTENT_TAG_EXPLORE;
 
-    }
-
-    //轮询消息
-    private void foreachUserNotice(){
-        final boolean isLogin = mContext.isLogin();
-        final Handler handler = new Handler(){
-            @SuppressWarnings("unchecked")
-            public void handleMessage(Message msg){
-                if(msg.what == 1){
-                    //CommonList<Project>
-                }
-                foreachUserNotice();
-            }
-        };
-
-        new Thread(){
-            public void run(){
-                Message msg = new Message();
-                try{
-                    sleep(60 * 1000);
-                    if(isLogin){
-                        msg.obj = null;
-                        msg.what = 1;
-                    }
-                    else {
-                        msg.what = 0;
-                    }
-                }
-//                catch (AppException e){
-//                    e.printStackTrace();
-//                    msg.what = -1;
-//                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    msg.what = -1;
-                }
-                handler.sendMessage(msg);
-            }
-        }.start();
     }
 
     @Override
@@ -269,10 +232,10 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         int id = item.getItemId();
         switch (id) {
             case R.id.main_actionbar_menu_search:
-                //UIHelper.showSearch(mContext);
+                UIHelper.showSearch(MainActivity.this);
                 return true;
             case R.id.main_actionbar_menu_notification:
-                //onClickNotice();
+                UIHelper.showNotification(MainActivity.this);
                 return true;
             default:
                 break;
@@ -309,13 +272,13 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
 
     @Override
     public void onClickSetting() {
-
+        UIHelper.showSetting(MainActivity.this);
     }
 
 
     @Override
-    public void onClickExit() {
-
+    public void onClickAbout() {
+        UIHelper.showAbout(MainActivity.this);
     }
 
     private class DrawerMenuListener implements DrawerLayout.DrawerListener {

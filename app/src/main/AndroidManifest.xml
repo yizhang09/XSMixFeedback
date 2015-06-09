@@ -25,19 +25,23 @@
     <application
         android:name=".AppContext"
         android:allowBackup="true"
-        android:icon="@drawable/xcmg"
+        android:icon="@drawable/xcmg_logo1"
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme" >
         <activity
-            android:name=".ui.LoginActivity"
-            android:label="@string/login_title"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified" >
+            android:name=".WelcomePage"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.LoginActivity"
+            android:label="@string/login_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified" >
         </activity>
         <activity
             android:name=".ui.MainActivity"
@@ -97,10 +101,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity" />
-        </activity>
-        <activity
-            android:name=".WelcomePage"
-            android:label="@string/title_activity_welcome_page" >
         </activity>
         <activity
             android:name=".SplashPage"

@@ -20,19 +20,19 @@ import java.util.ArrayList;
  * @author zhangyi
  * Created by zhangyi on 2015-3-19.
  */
-public class ViewPageFragmentAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
+public class ViewPageFragmentAdapter extends FragmentPagerAdapter
+        implements ViewPager.OnPageChangeListener {
 
     private final Context mContext;
-    protected PagerSlidingTabStrip mTabStrip;
+    protected PagerSlidingTabStrip mPagerStrip;
     private final ViewPager mViewPager;
     private final ArrayList<ViewPageInfo> mTabs = new ArrayList<ViewPageInfo>();
 
     static class DummyTabFactory implements TabHost.TabContentFactory {
-
         private final Context mContext;
 
-        DummyTabFactory(Context context) {
-            this.mContext = context;
+        public DummyTabFactory(Context context) {
+            mContext = context;
         }
 
         @Override
@@ -44,36 +44,29 @@ public class ViewPageFragmentAdapter extends FragmentPagerAdapter implements Vie
         }
     }
 
-    public ViewPageFragmentAdapter(FragmentManager fm, PagerSlidingTabStrip tabStrip, ViewPager viewPager) {
+    public ViewPageFragmentAdapter(FragmentManager fm, PagerSlidingTabStrip pageStrip, ViewPager pager) {
         super(fm);
-        this.mContext = viewPager.getContext();
-        this.mTabStrip = tabStrip;
-        this.mViewPager = viewPager;
-        this.mViewPager.setAdapter(this);
-        this.mViewPager.setOnPageChangeListener(this);
-        this.mTabStrip.setViewPager(mViewPager);
+        mContext = pager.getContext();
+        mPagerStrip = pageStrip;
+        mViewPager = pager;
+        mViewPager.setAdapter(this);
+        mViewPager.setOnPageChangeListener(this);
+        mPagerStrip.setViewPager(mViewPager);
     }
 
-    public void addTab(String title,String tag,Class<?> clss,Bundle args){
-        ViewPageInfo info = new ViewPageInfo(title,tag,clss,args);
+    public void addTab(String title, String tag, Class<?> clss, Bundle args) {
+        ViewPageInfo info = new ViewPageInfo(title, tag, clss, args);
         mTabs.add(info);
     }
-
 
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        for(ViewPageInfo info : mTabs){
-            TextView textView = (TextView) LayoutInflater.from(mContext).inflate(R.layout.sliding_tab_item,null);
-            textView.setText(info.title);
-            mTabStrip.addTab(textView);
+        for (ViewPageInfo viewPageInfo : mTabs) {
+            TextView v = (TextView) LayoutInflater.from(mContext).inflate(R.layout.sliding_tab_item, null);
+            v.setText(viewPageInfo.title);
+            mPagerStrip.addTab(v);
         }
-    }
-
-    @Override
-    public Fragment getItem(int position) {
-        ViewPageInfo info = mTabs.get(position);
-        return Fragment.instantiate(mContext,info.clss.getName(),info.args);
     }
 
     @Override
@@ -82,8 +75,18 @@ public class ViewPageFragmentAdapter extends FragmentPagerAdapter implements Vie
     }
 
     @Override
+    public Fragment getItem(int position) {
+        ViewPageInfo info = mTabs.get(position);
+        return Fragment.instantiate(mContext, info.clss.getName(), info.args);
+    }
+
+    @Override
     public CharSequence getPageTitle(int position) {
         return mTabs.get(position).title;
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
     }
 
     @Override
@@ -93,11 +96,5 @@ public class ViewPageFragmentAdapter extends FragmentPagerAdapter implements Vie
 
     @Override
     public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
     }
 }

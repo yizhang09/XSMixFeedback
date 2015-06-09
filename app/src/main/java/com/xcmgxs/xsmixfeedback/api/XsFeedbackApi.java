@@ -86,9 +86,10 @@ public class XsFeedbackApi {
     }
 
     //获得通知信息
-    public static void getNotification(AsyncHttpResponseHandler handler) {
+    public static void getNotification(String all,AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("uid", AppContext.getInstance().getLoginUid());
+        params.put("all", all);
         AsyncHttpHelper.get(NOTIFICATION, params, handler);
     }
 
@@ -98,7 +99,17 @@ public class XsFeedbackApi {
      */
     public static void setNotificationReaded(String notificationId, AsyncHttpResponseHandler handler) {
         RequestParams params = getPrivateTokenWithParams();
-        get(NOTIFICATION + notificationId, params, handler);
+        params.put("id", notificationId);
+        params.put("isRead", true);
+        AsyncHttpHelper.put(NOTIFICATION, params, handler);
+    }
+
+
+    public static void searchProjects(String query, int page, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+        params.put("query", query);
+        get(PROJECT, params, handler);
     }
 
 }

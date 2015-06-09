@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.api.URLs;
@@ -22,6 +23,7 @@ import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BroadcastController;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.interfaces.DrawerMenuCallBack;
+import com.xcmgxs.xsmixfeedback.util.ImageLoaderUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.widget.BadgeView;
 import com.xcmgxs.xsmixfeedback.widget.CircleImageView;
@@ -164,7 +166,8 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
                     mUser_info_userface.setImageResource(R.drawable.widget_dface);
                 } else {
                     String faceUrl = URLs.URL_PORTRAIT + user.getPortrait();
-                    UIHelper.showUserFace(mUser_info_userface, faceUrl);
+                    //UIHelper.showUserFace(mUser_info_userface, faceUrl);
+                    ImageLoader.getInstance().displayImage(faceUrl,mUser_info_userface, ImageLoaderUtils.getOption());
                 }
                 mUser_info_username.setText(user.getName());
 
@@ -274,7 +277,7 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
 
     private void onClickExit() {
         if (mCallBack != null) {
-            mCallBack.onClickExit();
+            mCallBack.onClickAbout();
         }
     }
 

@@ -96,7 +96,7 @@
 
         <TextView
             style="@style/MenuItemTextViewStyle"
-            android:text="@string/main_menu_title_exit" />
+            android:text="@string/main_menu_title_about" />
     </LinearLayout>
 
     <include layout="@layout/horizontal_divider_view" />

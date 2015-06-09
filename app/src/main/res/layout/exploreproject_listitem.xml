@@ -40,32 +40,32 @@
             android:gravity="center">
             
             <ImageView
-                android:id="@+id/exploreproject_listitem_language_image"
+                android:id="@+id/exploreproject_listitem_customer_image"
                 style="@style/project_list_img"
                 android:contentDescription="@string/img_description"
                 android:src="@drawable/language" />
             <TextView
-                android:id="@+id/exploreproject_listitem_language"
+                android:id="@+id/exploreproject_listitem_customer"
                 style="@style/project_list_someinfo" />
 
-            <!-- star nums -->
+            <!--  state  -->
             <ImageView
                 style="@style/project_list_img"
                 android:contentDescription="@string/img_description"
                 android:src="@drawable/unstar" />
 
             <TextView
-                android:id="@+id/exploreproject_listitem_star"
+                android:id="@+id/exploreproject_listitem_state"
                 style="@style/project_list_someinfo" />
 
-            <!-- fork nums -->
+            <!-- station nums -->
             <ImageView
                 style="@style/project_list_img"
                 android:contentDescription="@string/img_description"
                 android:src="@drawable/fork" />
 
             <TextView
-                android:id="@+id/exploreproject_listitem_fork"
+                android:id="@+id/exploreproject_listitem_station"
                 style="@style/project_list_someinfo" />
 
             </LinearLayout>

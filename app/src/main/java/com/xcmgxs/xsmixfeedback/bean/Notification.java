@@ -19,6 +19,28 @@ public class Notification extends Entity implements Serializable {
     @JsonProperty("Type")
     private String type;
 
+    @JsonProperty("IsRead")
+    private boolean isRead;
+
+    @JsonProperty("CreateDate")
+    private String createtime;
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setIsRead(boolean isRead) {
+        this.isRead = isRead;
+    }
+
     public String getTitle() {
         return title;
     }
