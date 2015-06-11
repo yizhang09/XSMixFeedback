@@ -94,6 +94,7 @@
 
     <View style="@style/h_line" />
 
+
     <LinearLayout
         android:gravity="center"
         android:orientation="horizontal"
@@ -130,6 +131,7 @@
     </LinearLayout>
 
     <View style="@style/h_line" />
+
 
 
 </LinearLayout>

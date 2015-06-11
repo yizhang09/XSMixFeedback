@@ -777,8 +777,67 @@ public class AppContext extends Application {
         String cacheKey = "allProjectList_" + page +"_" + PAGE_SIZE;
         if(!isReadDataCache(cacheKey) || isrefresh){
             try {
-                TLog.log("getExploreAllProject 请求网络");
                 list = ApiClient.getAllProjects(this, page);
+
+                if(list != null && page == 1){
+                    list.setCacheKey(cacheKey);
+                    saveObject(list,cacheKey);
+                }
+            }
+            catch (AppException e){
+                e.printStackTrace();
+                list = (CommonList<Project>)readObject(cacheKey);
+                if(list == null){
+                    throw e;
+                }
+            }
+        }
+        else {
+            TLog.log("读取缓存");
+            list = (CommonList<Project>)readObject(cacheKey);
+            if(list == null){
+                list = new CommonList<Project>();
+            }
+        }
+        return list;
+    }
+
+    public CommonList<Project> getExploreMyProject(int page,boolean isrefresh) throws AppException{
+        CommonList<Project> list = null;
+        String cacheKey = "MyProjectList_" + page +"_" + PAGE_SIZE;
+        if(!isReadDataCache(cacheKey) || isrefresh){
+            try {
+                list = ApiClient.getUserProjects(this, page);
+
+                if(list != null && page == 1){
+                    list.setCacheKey(cacheKey);
+                    saveObject(list,cacheKey);
+                }
+            }
+            catch (AppException e){
+                e.printStackTrace();
+                list = (CommonList<Project>)readObject(cacheKey);
+                if(list == null){
+                    throw e;
+                }
+            }
+        }
+        else {
+            TLog.log("读取缓存");
+            list = (CommonList<Project>)readObject(cacheKey);
+            if(list == null){
+                list = new CommonList<Project>();
+            }
+        }
+        return list;
+    }
+
+    public CommonList<Project> getExploreUpdateProject(int page,boolean isrefresh) throws AppException{
+        CommonList<Project> list = null;
+        String cacheKey = "allProjectList_" + page +"_" + PAGE_SIZE;
+        if(!isReadDataCache(cacheKey) || isrefresh){
+            try {
+                list = ApiClient.getUpdateProjects(this, page);
 
                 if(list != null && page == 1){
                     list.setCacheKey(cacheKey);

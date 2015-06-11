@@ -39,7 +39,7 @@ public class URLs implements Serializable {
     public static String PROJECTISSUE = URL_API_HOST+ "projectissue";
 
     // 项目文件
-    public static String PROJECTFILE = URL_API_HOST+ "projectfile";
+    public static String PROJECTFILE = URL_API_HOST+ "projectfiles";
 
     public final static String LOGIN_HTTPS = HTTPS + HOST + API_VERSION + URL_SPLITTER + "user";
     public final static String LOGIN_HTTP = HTTP + HOST + API_VERSION + URL_SPLITTER + "user";

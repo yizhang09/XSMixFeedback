@@ -20,6 +20,7 @@ import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
+import com.xcmgxs.xsmixfeedback.util.StringUtils;
 
 /**
  * 项目详情界面
@@ -128,18 +129,16 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
 
     private void initData(){
         mActionBar.setTitle(mProject.getName());
-        mActionBar.setSubtitle(mProject.getPersons().split("-")[0]);
+        mActionBar.setSubtitle(mProject.getManager() != null ? mProject.getManager().getName() : "");
 
         mProjectName.setText(mProject.getName());
-        mUpdateTime.setText(mProject.getCreateon() == null?"":mProject.getCreateon().toString());
-        mDescription.setText(mProject.getEmState());
-        mCreated.setText(mProject.getCreateon() == null?"":mProject.getCreateon().toString());
+        mUpdateTime.setText(mProject.getUpdatetime() == null?"": StringUtils.friendly_time(mProject.getCCTUpdatetime()));
+        mDescription.setText(mProject.getAddress() + mProject.getEmState());
+        mCreated.setText(mProject.getCreateon() == null?"":StringUtils.getString_date(mProject.getCreateon()));
         mStationNum.setText(mProject.getNum().toString());
-        mProjectManager.setText(mProject.getPersons().split("-")[0]);
-        mProjectState.setText(mProject.getEmState());
+        mProjectManager.setText(mProject.getManager() != null ? mProject.getManager().getName() : "");
+        mProjectState.setText(mProject.getState());
         mStationType.setText(mProject.getType());
-
-
 
     }
 
@@ -184,7 +183,8 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
         int id = item.getItemId();
 
         switch (id){
-            case R.id.project_menu_create_issue:
+            case R.id.project_menu_create_log:
+                UIHelper.showLogEditOrCreate(getXSApplication(),mProject,null);
                 break;
             default:break;
         }
@@ -201,11 +201,11 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
         switch (id) {
             case R.id.project_manager:
                 if (mProject.getPersons() != null) {
-                    //UIHelper.showUserInfoDetail(ProjectActivity.this, mProject.getOwner(), mProject.getOwner().getId());
+                    UIHelper.showUserInfoDetail(ProjectActivity.this, mProject.getManager(), mProject.getManager().getId());
                 }
                 break;
-            case R.id.project_description:
-                //UIHelper.showProjectReadMeActivity(ProjectActivity.this, mProject);
+            case R.id.project_info:
+                UIHelper.showProjectInfo(ProjectActivity.this, mProject);
                 break;
             case R.id.project_logs:
                 UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_LOGS);

@@ -21,12 +21,13 @@ public class ExploreViewPagerFragment extends BaseViewPagerFragment {
     @Override
     protected void onSetupTabAdapter(ViewPageFragmentAdapter adapter) {
         String[] title = getResources().getStringArray(R.array.explore_title_array);
-        Bundle allBundle = new Bundle();
-        allBundle.putByte(EXPLORE_TYPE,TYPE_ALL);
-        adapter.addTab(title[0],"all",ExploreListProjectFragment.class,allBundle);
+
         Bundle myBundle = new Bundle();
         myBundle.putByte(EXPLORE_TYPE,TYPE_MY);
-        adapter.addTab(title[1],"my",ExploreListProjectFragment.class,myBundle);
+        adapter.addTab(title[0],"my",ExploreListProjectFragment.class,myBundle);
+        Bundle allBundle = new Bundle();
+        allBundle.putByte(EXPLORE_TYPE,TYPE_ALL);
+        adapter.addTab(title[1],"all",ExploreListProjectFragment.class,allBundle);
         Bundle latestBundle = new Bundle();
         latestBundle.putByte(EXPLORE_TYPE,TYPE_LATEST);
         adapter.addTab(title[2],"latest",ExploreListProjectFragment.class,latestBundle);

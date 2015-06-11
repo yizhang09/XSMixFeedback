@@ -33,6 +33,7 @@ import com.xcmgxs.xsmixfeedback.ui.MainActivity;
 import com.xcmgxs.xsmixfeedback.ui.MySelfInfoActivity;
 import com.xcmgxs.xsmixfeedback.ui.NotificationActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectActivity;
+import com.xcmgxs.xsmixfeedback.ui.ProjectInfoActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectSomeInfoListActivity;
 import com.xcmgxs.xsmixfeedback.ui.SearchActivity;
 import com.xcmgxs.xsmixfeedback.ui.SettingActivity;
@@ -316,6 +317,15 @@ public class UIHelper {
 
     public static void goMainActivity(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void showProjectInfo(Context context, Project project) {
+        Intent intent = new Intent(context, ProjectInfoActivity.class);
+        Bundle bundle = new Bundle();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        bundle.putSerializable(PROJECT,project);
+        intent.putExtras(bundle);
         context.startActivity(intent);
     }
 }

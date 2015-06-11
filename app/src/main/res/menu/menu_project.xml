@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools" >
 
     <item
-        android:id="@+id/project_menu_create_issue"
+        android:id="@+id/project_menu_create_log"
         android:orderInCategory="100"
         android:icon="@mipmap/actionbar_icon_add"
         android:title="创建日志"

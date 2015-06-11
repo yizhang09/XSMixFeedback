@@ -7,11 +7,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.zip.GZIPInputStream;
 
 import javax.net.ssl.SSLHandshakeException;
@@ -458,7 +461,9 @@ public class HTTPRequestor {
         try {
             reader = new InputStreamReader(inputStream);
             String data = IOUtils.toString(reader);
-
+//            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//            dateFormat.setTimeZone(TimeZone.getTimeZone("CCT"));
+//            MAPPER.setDateFormat(dateFormat);
             if (type != null) {
                 return MAPPER.readValue(data, type);
             } else if (instance != null) {

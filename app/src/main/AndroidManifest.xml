@@ -30,7 +30,7 @@
         android:theme="@style/AppBaseTheme" >
         <activity
             android:name=".WelcomePage"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -127,12 +127,16 @@
                 android:value="com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity" />
         </activity>
 
-        <receiver android:name="com.xcmgxs.xsmixfeedback.broadcast.AlarmReceiver" />
+        <receiver android:name=".broadcast.AlarmReceiver" />
 
         <service
             android:name=".service.NotificationService"
             android:process=":notice" />
 
+        <activity
+            android:name=".ui.ProjectInfoActivity"
+            android:label="@string/title_activity_project_info" >
+        </activity>
     </application>
 
 </manifest>

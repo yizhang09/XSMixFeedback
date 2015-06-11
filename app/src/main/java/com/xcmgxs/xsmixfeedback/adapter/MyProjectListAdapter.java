@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.adapter.base.MyBaseAdapter;
+import com.xcmgxs.xsmixfeedback.api.URLs;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.common.BitmapManager;
 import com.xcmgxs.xsmixfeedback.util.ImageLoaderUtils;
@@ -46,7 +47,6 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        TLog.log("绑定" + position);
         ListItemView listItemView = null;
         if(convertView == null){
             convertView = listContainer.inflate(this.itemViewResource,null);
@@ -71,14 +71,14 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
         final Project project = listData.get(position);
 
         //加载头像
-        //String portraitURL = project.getManager().getNew_portrait();
-        String portraitURL = "portrait.gif";
+        String portraitURL = project.getManager()!=null? project.getManager().getPortrait():"portrait.gif";
 
 
         if(portraitURL != null) {
             if (portraitURL.endsWith("portrait.gif")) {
                 listItemView.face.setImageResource(R.drawable.mini_avatar);
             } else {
+                portraitURL = URLs.URL_PORTRAIT + portraitURL;
                 ImageLoader.getInstance().displayImage(portraitURL, listItemView.face, ImageLoaderUtils.getOption());
             }
         }
@@ -97,9 +97,10 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
         });
 
         //显示相关信息
-        listItemView.title.setText(project.getPersons() + " / " + project.getName());
+        String managerName = project.getManager()!=null?project.getManager().getName():"";
+        listItemView.title.setText(managerName + " / " + project.getName());
 
-        String projectDesc = project.getEmState();
+        String projectDesc = project.getAddress();
         if(!StringUtils.isEmpty(projectDesc)){
             listItemView.description.setText(projectDesc);
         }

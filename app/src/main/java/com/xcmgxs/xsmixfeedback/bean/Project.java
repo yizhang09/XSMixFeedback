@@ -1,7 +1,9 @@
 package com.xcmgxs.xsmixfeedback.bean;
 
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -115,9 +117,50 @@ public class Project extends Entity {
     @JsonProperty("PDelState")
     private String delstate;
 
-    @JsonProperty("createon")
+    @JsonProperty("PCreatedOn")
     private Date createon;
 
+
+    @JsonProperty("PManager")
+    private int managerid;
+
+
+    @JsonProperty("Manager")
+    private User manager;
+
+
+    @JsonProperty("UpdateTime")
+    private Date updatetime;
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public String getCCTUpdatetime() {
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return df.format(updatetime.getTime() - 8 * 60 * 60 * 1000);
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
+
+    public int getManagerid() {
+        return managerid;
+    }
+
+    public void setManagerid(int managerid) {
+        this.managerid = managerid;
+    }
+
+
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
+    }
 
     public String getName() {
         return name;

@@ -155,12 +155,13 @@ public class ApiClient {
      * @return
      * @throws AppException
      */
-    public static CommonList<Project> getUserProjects(final AppContext appContext,String userId,int page) throws AppException {
+    public static CommonList<Project> getUserProjects(final AppContext appContext,int page) throws AppException {
         CommonList<Project> lst = new CommonList<Project>();
         Map<String,Object> params = new HashMap<>();
         params.put(PRIVATE_TOKEN,getToken(appContext));
         params.put("page",page);
-        String url = makeURL(URLs.PROJECT + URLs.URL_SPLITTER + userId +URLs.URL_SPLITTER + "projects",params);
+        params.put("mode","MY");
+        String url = makeURL(URLs.PROJECT,params);
         List<Project> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(Project[].class);
         lst.setCount(list.size());
         lst.setList(list);
@@ -173,6 +174,21 @@ public class ApiClient {
         Map<String,Object> params = new HashMap<>();
         params.put(PRIVATE_TOKEN,getToken(appContext));
         params.put("page",page);
+        params.put("mode","ALL");
+        String url = makeURL(URLs.PROJECT,params);
+        List<Project> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(Project[].class);
+        lst.setCount(list.size());
+        lst.setList(list);
+        lst.setPageSize(list.size());
+        return lst;
+    }
+
+    public static CommonList<Project> getUpdateProjects(final AppContext appContext, int page) throws AppException {
+        CommonList<Project> lst = new CommonList<Project>();
+        Map<String,Object> params = new HashMap<>();
+        params.put(PRIVATE_TOKEN,getToken(appContext));
+        params.put("page",page);
+        params.put("mode","UPDATE");
         String url = makeURL(URLs.PROJECT,params);
         List<Project> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(Project[].class);
         lst.setCount(list.size());

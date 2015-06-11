@@ -45,7 +45,7 @@
                 android:contentDescription="@string/img_description"
                 android:src="@drawable/language" />
             <TextView
-                android:id="@+id/exploreproject_listitem_customer"
+                android:id="@+id/exploreproject_listitem_state"
                 style="@style/project_list_someinfo" />
 
             <!--  state  -->
@@ -53,9 +53,8 @@
                 style="@style/project_list_img"
                 android:contentDescription="@string/img_description"
                 android:src="@drawable/unstar" />
-
             <TextView
-                android:id="@+id/exploreproject_listitem_state"
+                android:id="@+id/exploreproject_listitem_customer"
                 style="@style/project_list_someinfo" />
 
             <!-- station nums -->

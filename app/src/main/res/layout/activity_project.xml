@@ -48,7 +48,7 @@
                     <TextView
                         android:id="@+id/project_update"
                         style="@style/project_detail_updatetime"
-                        android:text="4天前"/>
+                        android:text=""/>
                     </LinearLayout>
 
                     <ImageView
