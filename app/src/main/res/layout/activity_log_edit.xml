@@ -32,8 +32,9 @@
         android:id="@+id/log_pub_form"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:visibility="visible" >
+        android:layout_gravity="top"
+        android:visibility="visible"
+        android:layout_weight="1">
 
         <EditText
             android:id="@+id/log_pub_content"
@@ -42,23 +43,98 @@
             android:autoLink="web"
             android:gravity="top"
             android:hint="请输入内容"
-            android:background="@null"/>
+            android:background="@null" />
 
         <ImageView
             android:id="@+id/log_pub_image"
             android:layout_width="60.0dip"
             android:layout_height="45.0dip"
             android:layout_marginLeft="5.0dip"
-            android:layout_marginBottom="5.0dip"
+            android:layout_marginBottom="150.0dip"
             android:layout_gravity="left|bottom"
             android:clickable="true"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dip"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginBottom="100.0dip"
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_18"
+                android:text="当前进度:"/>
+
+            <Spinner
+                android:id="@+id/log_pub_progress"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dip"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginBottom="50.0dip"
+            android:layout_gravity="bottom">
+            
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_18"
+                android:text="日志类型:"/>
+
+            <Spinner
+                android:id="@+id/log_pub_type"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dip"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginBottom="5.0dip"
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_18"
+                android:text="时间节点:"/>
+
+            <Spinner
+                android:id="@+id/log_pub_step"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+        </LinearLayout>
+
+
+
 
 
 
     </FrameLayout>
 
-    <include layout="@layout/activity_log_edit_footer"/>
+    <include layout="@layout/activity_log_edit_footer" />
 
 </LinearLayout>
 

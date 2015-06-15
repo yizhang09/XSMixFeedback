@@ -157,67 +157,6 @@
 
 
             <LinearLayout
-                android:id="@+id/project_anzhuangz"
-                style="@style/project_detail_mid_grid_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    style="@style/project_detail_mid_grid_item_img"
-                    android:background="@drawable/time"
-                    android:contentDescription="@string/img_description" />
-
-                <TextView
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:text="安装完毕日期(左)" />
-
-                <TextView
-                    android:id="@+id/project_info_anzhuangz"
-                    style="@style/project_detail_mid_info_text"
-                    android:text="2015-06-01"/>
-
-            </LinearLayout>
-
-            <View style="@style/h_line" />
-
-
-            <LinearLayout
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/project_fache"
-                    style="@style/project_detail_mid_grid_item">
-
-                    <ImageView
-                        style="@style/project_detail_mid_grid_item_img"
-                        android:background="@drawable/time"
-                        android:contentDescription="@string/img_description" />
-
-                    <TextView
-                        android:layout_width="0dip"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:singleLine="true"
-                        android:text="发车日期" />
-
-                    <TextView
-                        android:id="@+id/project_info_fache"
-                        style="@style/project_detail_mid_info_text"
-                        android:text="2015-06-01"/>
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-            <View style="@style/h_line" />
-
-            <LinearLayout
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
@@ -249,6 +188,7 @@
             </LinearLayout>
 
             <View style="@style/h_line" />
+
 
             <LinearLayout
                 android:gravity="center"
@@ -290,6 +230,41 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/project_fache"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="发车日期" />
+
+                    <TextView
+                        android:id="@+id/project_info_fache"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View style="@style/h_line" />
+
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
                     android:id="@+id/project_anzhuang"
                     style="@style/project_detail_mid_grid_item">
 
@@ -316,6 +291,34 @@
 
             <View style="@style/h_line" />
 
+
+
+            <LinearLayout
+                android:id="@+id/project_anzhuangz"
+                style="@style/project_detail_mid_grid_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    style="@style/project_detail_mid_grid_item_img"
+                    android:background="@drawable/time"
+                    android:contentDescription="@string/img_description" />
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:text="安装完毕日期(左)" />
+
+                <TextView
+                    android:id="@+id/project_info_anzhuangz"
+                    style="@style/project_detail_mid_info_text"
+                    android:text="2015-06-01"/>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
 
             <LinearLayout
                 android:gravity="center"

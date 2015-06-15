@@ -6,8 +6,8 @@
 
     <!-- 发现页面 -->
     <string-array name="explore_title_array">
-        <item>我的项目</item>
         <item>所有项目</item>
+        <item>我的项目</item>
         <item>最近更新</item>
     </string-array>
 

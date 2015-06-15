@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.bean.Result;
@@ -25,6 +26,7 @@ import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
 import com.xcmgxs.xsmixfeedback.util.FileUtils;
+import com.xcmgxs.xsmixfeedback.util.ImageLoaderUtils;
 import com.xcmgxs.xsmixfeedback.util.ImageUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 
@@ -100,7 +102,7 @@ public class MySelfInfoActivity extends BaseActionBarActivity implements View.On
         }
         else {
             String faceUrl = URLs.URL_PORTRAIT + portrait;
-            UIHelper.showUserFace(mUserFace,faceUrl);
+            ImageLoader.getInstance().displayImage(faceUrl, mUserFace, ImageLoaderUtils.getOption());
         }
 
 

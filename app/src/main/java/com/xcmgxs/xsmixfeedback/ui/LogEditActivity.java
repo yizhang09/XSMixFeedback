@@ -21,11 +21,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.xcmgxs.xsmixfeedback.AppConfig;
 import com.xcmgxs.xsmixfeedback.AppContext;
@@ -75,6 +77,9 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
     private ImageView mFace;
     private ImageView mAudio;
     private ImageView mPick;
+    private Spinner mSpinerType;
+    private Spinner mSpinerStep;
+    private Spinner mSpinerProgress;
     private Handler mHandler;
 
     private ImageView mImage;
@@ -90,10 +95,24 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
     private InputMethodManager imm;
     private LinearLayout mMessage;
 
+
     private Context mContext;
 
     private String tempLogKey = AppConfig.TEMP_LOG;
     private String tempLogImageKey = AppConfig.TEMP_LOG_IMAGE;
+
+    private static final String[] TYPES = {"普通日志","基础", "筒仓", "发车接车", "安装调试", "封装"};
+
+    private ArrayAdapter<String> adaptertype;
+
+    private static final String[] STEPS = {"无","筒仓进场", "发车","安装", "左站安装完毕","右站安装完毕", "左站调试","右站调试", "左站出料","右站出料", "左站验收", "右站验收"};
+
+    private ArrayAdapter<String> adapterstep;
+
+    private static final String[] PROGRESS = {"基础未做","基础制作", "筒仓施工", "正在发车", "正在安装", "安装完毕","签字验收"};
+
+    private ArrayAdapter<String> adapterprogress;
+
 
 
     @Override
@@ -139,11 +158,25 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
         mGridView = (GridView)findViewById(R.id.log_pub_faces);
         mImage = (ImageView)findViewById(R.id.log_pub_image);
         mMessage = (LinearLayout)findViewById(R.id.log_pub_message1);
+        mSpinerType = (Spinner)findViewById(R.id.log_pub_type);
+        mSpinerStep = (Spinner)findViewById(R.id.log_pub_step);
+        mSpinerProgress = (Spinner)findViewById(R.id.log_pub_progress);
 
         mFace.setOnClickListener(this);
         mPick.setOnClickListener(this);
         mAudio.setOnClickListener(this);
 
+        adaptertype = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, TYPES);
+        adaptertype.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinerType.setAdapter(adaptertype);
+
+        adapterstep = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, STEPS);
+        adapterstep.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinerStep.setAdapter(adapterstep);
+
+        adapterprogress = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PROGRESS);
+        adapterprogress.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinerProgress.setAdapter(adapterprogress);
 
         // 编辑器点击事件
         mContent.setOnClickListener(new View.OnClickListener() {
