@@ -89,6 +89,12 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
         initView();
     }
 
+    @Override
+    protected void onResume() {
+        loadProject(ACTION_LOAD_PROJECT,projectid);
+        super.onResume();
+    }
+
     private void initView(){
         Intent intent = getIntent();
         mProject = (Project)intent.getSerializableExtra(Contanst.PROJECT);
@@ -160,7 +166,14 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
                 }
                 return msg;
             }
-        };
+
+            @Override
+            protected void onPostExecute(Message message) {
+                mProject = (Project)message.obj;
+                initData();
+                super.onPostExecute(message);
+            }
+        }.execute();
     }
 
 

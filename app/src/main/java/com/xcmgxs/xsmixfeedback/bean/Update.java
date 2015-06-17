@@ -10,28 +10,28 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class Update extends Entity {
 
-    @JsonProperty("created_at")
+    @JsonProperty("CreateTime")
     private Date _created_at;
 
-    @JsonProperty("description")
+    @JsonProperty("Description")
     private String _description;
 
-    @JsonProperty("download_url")
+    @JsonProperty("Download_Url")
     private String _download_url;
 
-    @JsonProperty("num_version")
+    @JsonProperty("Num_Version")
     private int _num_version;
 
-    @JsonProperty("relevance_url")
+    @JsonProperty("Relevance_Url")
     private String _relevance_url;
 
-    @JsonProperty("updated_at")
+    @JsonProperty("UpdateTime")
     private Date _updated_at;
 
-    @JsonProperty("version")
+    @JsonProperty("Version")
     private String _version;
 
-    @JsonProperty("version_type")
+    @JsonProperty("Version_Type")
     private int _version_type;
 
     public Date getCreated_at() {

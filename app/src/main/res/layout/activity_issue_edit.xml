@@ -37,5 +37,64 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></Spinner>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/issue_pub_image1"
+            android:layout_width="60.0dip"
+            android:layout_height="45.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:clickable="true"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/issue_pub_image2"
+            android:layout_width="60.0dip"
+            android:layout_height="45.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:clickable="true"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/issue_pub_image3"
+            android:layout_width="60.0dip"
+            android:layout_height="45.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:clickable="true"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/issue_pub_image4"
+            android:layout_width="60.0dip"
+            android:layout_height="45.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:clickable="true"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/issue_pub_image5"
+            android:layout_width="60.0dip"
+            android:layout_height="45.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:clickable="true"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/issue_pub_image_upload"
+            android:layout_width="60.0dip"
+            android:layout_height="45.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:src="@drawable/widget_bar_photo_nor"
+            android:clickable="true" />
+
+
+
+
+
+    </LinearLayout>
+
 
 </LinearLayout>

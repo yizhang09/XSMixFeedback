@@ -27,6 +27,7 @@ import com.xcmgxs.xsmixfeedback.AppManager;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.common.DoubleClickExitHelper;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
+import com.xcmgxs.xsmixfeedback.common.UpdateManager;
 import com.xcmgxs.xsmixfeedback.interfaces.DrawerMenuCallBack;
 import com.xcmgxs.xsmixfeedback.service.NotificationUtils;
 import com.xcmgxs.xsmixfeedback.ui.fragments.DrawerNavigationMenu;
@@ -158,6 +159,18 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mDrawerToggle.syncState();
+        View mainContent = findViewById(R.id.main_content);
+        if (mainContent != null) {
+            mainContent.setAlpha(0);
+            mainContent.animate().alpha(1).setDuration(200);
+        } else {
+
+        }
+
+        // 检查新版本
+        if (mContext.isCheckUp()) {
+            UpdateManager.getUpdateManager().checkAppUpdate(this, false);
+        }
     }
 
     @Override

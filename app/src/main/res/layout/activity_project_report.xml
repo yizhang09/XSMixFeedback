@@ -1,0 +1,336 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.xcmgxs.xsmixfeedback.ui.ProjectReportActivity">
+
+    <com.xcmgxs.xsmixfeedback.widget.CustomerScrollView
+        android:id="@+id/project_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/graywhite"
+        android:scrollbars="none"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="10dip" >
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/project_name"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/text_size_18"
+                        android:text="XXX混凝土"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/project_flag"
+                    android:layout_width="70dp"
+                    android:layout_height="45dp"
+                    android:contentDescription="@string/img_description"
+                    android:background="@drawable/mixstation"/>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/project_description"
+                    style="@style/project_detail_description"
+                    android:text="徐工施维英搅拌站项目信息反馈App 项目详细介绍"/>
+
+                <View style="@style/project_detail_line_withtop" ></View>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="1">
+
+
+                <ImageView
+                    android:id="@+id/project_step"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:src="@drawable/step7" />
+
+            </LinearLayout>
+
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <TextView
+                    style="@style/project_detail_description"
+                    android:text="质量反馈分类统计"/>
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/project_issue_barchart"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <TextView
+                    style="@style/project_detail_description"
+                    android:text="质量反馈月报"/>
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/project_issue_linechart"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_jichu"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="基础制作日期" />
+
+                    <TextView
+                        android:id="@+id/project_report_jichu"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_tongcang"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="筒仓施工日期" />
+
+                    <TextView
+                        android:id="@+id/project_report_tongcang"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/project_fache"
+                style="@style/project_detail_mid_grid_item">
+
+                <ImageView
+                    style="@style/project_detail_mid_grid_item_img"
+                    android:background="@drawable/time"
+                    android:contentDescription="@string/img_description" />
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:text="发车日期" />
+
+                <TextView
+                    android:id="@+id/project_report_fache"
+                    style="@style/project_detail_mid_info_text"
+                    android:text="2015-06-01"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_anzhuang"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="安装日期" />
+
+                    <TextView
+                        android:id="@+id/project_report_anzhuang"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_tiaoshi"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="调试日期" />
+
+                    <TextView
+                        android:id="@+id/project_report_tiaoshi"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_yanshou"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="验收日期" />
+
+                    <TextView
+                        android:id="@+id/project_report_yanshou"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </com.xcmgxs.xsmixfeedback.widget.CustomerScrollView>
+
+
+</FrameLayout>

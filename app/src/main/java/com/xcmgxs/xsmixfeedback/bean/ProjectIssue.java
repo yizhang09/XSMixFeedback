@@ -31,6 +31,18 @@ public class ProjectIssue extends Entity {
     @JsonProperty("CreatorID")
     private String creatorid;
 
+    @JsonProperty("Pic1")
+    private String pic1;
+
+
+    public String getPic1() {
+        return pic1;
+    }
+
+    public void setPic1(String pic1) {
+        this.pic1 = pic1;
+    }
+
     public Project getProject() {
         return project;
     }

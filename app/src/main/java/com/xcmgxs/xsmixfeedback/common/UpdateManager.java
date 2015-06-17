@@ -1,5 +1,6 @@
 package com.xcmgxs.xsmixfeedback.common;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.api.URLs;
 import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
 import com.xcmgxs.xsmixfeedback.bean.Update;
 import com.xcmgxs.xsmixfeedback.ui.dialog.LightProgressDialog;
@@ -40,6 +42,7 @@ import java.text.DecimalFormat;
 /**
  * Created by zhangyi on 2015-06-15.
  */
+@SuppressLint("HandlerLeak")
 public class UpdateManager {
 
     private static final int DOWN_NOSDCARD = 0;
@@ -53,55 +56,55 @@ public class UpdateManager {
 
     private Context mContext;
 
-    //Í¨Öª¶Ô»°¿ò
+    //é€šçŸ¥å¯¹è¯æ¡†
     private Dialog noticeDialog;
 
-    //ÏÂÔØ¶Ô»°¿ò
+    //ä¸‹è½½å¯¹è¯æ¡†
     private Dialog downloadDialog;
 
-    //ÒÑ¾­×îĞÂ »ò ÎŞ·¨»ñÈ¡°æ±¾ ¶Ô»°¿ò
+    //å·²ç»æœ€æ–° æˆ– æ— æ³•è·å–ç‰ˆæœ¬ å¯¹è¯æ¡†
     private Dialog latestOrFailDialog;
 
-    //½ø¶ÈÌõ
+    //è¿›åº¦æ¡
     private ProgressBar mProgress;
 
-    //½ø¶ÈÌõÏÔÊ¾ÏÂÔØÊıÖµ
+    //è¿›åº¦æ¡æ˜¾ç¤ºä¸‹è½½æ•°å€¼
     private TextView mProgressText;
 
-    //²éÑ¯¶¯»­
+    //æŸ¥è¯¢åŠ¨ç”»
     private ProgressDialog mProgressDialog;
 
-    //½ø¶ÈÖµ
+    //è¿›åº¦å€¼
     private int progress;
 
-    //ÏÂÔØÏß³Ì
+    //ä¸‹è½½çº¿ç¨‹
     private Thread downloadThread;
 
-    //ÖÕÖ¹±ê¼Ç
+    //ç»ˆæ­¢æ ‡è®°
     private boolean interceptFlag;
 
-    //ÌáÊ¾Óï
+    //æç¤ºè¯­
     private String updateMsg = "";
 
-    //apkµØÖ·
+    //apkåœ°å€
     private String apkUrl = "";
 
-    //±£´æÂ·¾¶
+    //ä¿å­˜è·¯å¾„
     private String savePath = "";
 
-    //apkÍêÕûÂ·¾¶
+    //apkå®Œæ•´è·¯å¾„
     private String apkFilePath = "";
 
-    //ÁÙÊ±ÏÂÔØÎÄ¼şÂ·¾¶
+    //ä¸´æ—¶ä¸‹è½½æ–‡ä»¶è·¯å¾„
     private String tempFilePath = "";
 
-    //apkÎÄ¼ş´óĞ¡
+    //apkæ–‡ä»¶å¤§å°
     private String apkFileSize;
 
-    //ÁÙÊ±ÎÄ¼ş´óĞ¡
+    //ä¸´æ—¶æ–‡ä»¶å¤§å°
     private String tempFileSize;
 
-    //µ±Ç°°æ±¾ºÅ
+    //å½“å‰ç‰ˆæœ¬å·
     private int curVersionCode;
 
     private Update mUpdate;
@@ -121,7 +124,7 @@ public class UpdateManager {
                     break;
                 case DOWN_NOSDCARD:
                     downloadDialog.dismiss();
-                    Toast.makeText(mContext,"ÎŞ·¨ÏÂÔØÎÄ¼ş£¬Çë¼ì²éSD¿¨ÊÇ·ñ¹ÒÔØ¡£",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,"æ— æ³•ä¸‹è½½æ–‡ä»¶ï¼Œè¯·æ£€æŸ¥SDå¡æ˜¯å¦æŒ‚è½½ã€‚",Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -136,21 +139,21 @@ public class UpdateManager {
         return updateManager;
     }
 
-    //ÏÔÊ¾ÒÑ¾­×îĞÂ»òÎŞ·¨»ñÈ¡×îĞÂ°æ±¾ĞÅÏ¢
+    //æ˜¾ç¤ºå·²ç»æœ€æ–°æˆ–æ— æ³•è·å–æœ€æ–°ç‰ˆæœ¬ä¿¡æ¯
     private void showLatestOrFailDialog(int dialogtype){
         if(latestOrFailDialog != null){
             latestOrFailDialog.dismiss();
             latestOrFailDialog = null;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("ÏµÍ³ÌáÊ¾");
+        builder.setTitle("ç³»ç»Ÿæç¤º");
         if(dialogtype == DIALOG_TYPE_FAIL){
-            builder.setMessage("ÎŞ·¨»ñÈ¡¸üĞÂ°æ±¾ĞÅÏ¢");
+            builder.setMessage("æ— æ³•è·å–æ›´æ–°ç‰ˆæœ¬ä¿¡æ¯");
         }
         if(dialogtype == DIALOG_TYPE_LATEST){
-            builder.setMessage("Äúµ±Ç°ÒÑ¾­ÊÇ×îĞÂ°æ±¾");
+            builder.setMessage("æ‚¨å½“å‰å·²ç»æ˜¯æœ€æ–°ç‰ˆæœ¬");
         }
-        builder.setPositiveButton("È·¶¨",null);
+        builder.setPositiveButton("ç¡®å®š",null);
         latestOrFailDialog = builder.create();
         latestOrFailDialog.show();
     }
@@ -167,7 +170,7 @@ public class UpdateManager {
     public void checkAppUpdate(Context context,final boolean isShowMsg){
         this.mContext = context;
         getCurrentVersion();
-        final AlertDialog check = LightProgressDialog.create(context, "ÕıÔÚ¼ì²â ÇëÉÔºò¡­¡­");
+        final AlertDialog check = LightProgressDialog.create(context, "æ­£åœ¨æ£€æµ‹ è¯·ç¨å€™â€¦â€¦");
         check.setCanceledOnTouchOutside(false);
         XsFeedbackApi.getUpdateInfo(new AsyncHttpResponseHandler() {
             @Override
@@ -189,7 +192,7 @@ public class UpdateManager {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                ViewUtils.showToast("ÍøÂçÒì³£");
+                ViewUtils.showToast("ç½‘ç»œå¼‚å¸¸");
             }
 
             @Override
@@ -202,9 +205,9 @@ public class UpdateManager {
 
     private void showNoticeDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("Èí¼ş°æ±¾¸üĞÂ");
+        builder.setTitle("è½¯ä»¶ç‰ˆæœ¬æ›´æ–°");
         builder.setMessage(updateMsg);
-        builder.setPositiveButton("Á¢¼´¸üĞÂ", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("ç«‹å³æ›´æ–°", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -212,7 +215,7 @@ public class UpdateManager {
             }
         });
 
-        builder.setPositiveButton("ÒÔºóÔÙËµ", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("ä»¥åå†è¯´", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -225,7 +228,7 @@ public class UpdateManager {
 
     private void showDownloadDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("ÕıÔÚÏÂÔØ°æ±¾");
+        builder.setTitle("æ­£åœ¨ä¸‹è½½ç‰ˆæœ¬");
 
         final LayoutInflater inflater = LayoutInflater.from(mContext);
         View v = inflater.inflate(R.layout.update_progress,null);
@@ -233,7 +236,7 @@ public class UpdateManager {
         mProgressText = (TextView)v.findViewById(R.id.update_progress_text);
 
         builder.setView(v);
-        builder.setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("å–æ¶ˆ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -264,7 +267,7 @@ public class UpdateManager {
                 String tempName = "XSFeedBackApp_" + mUpdate.getVersion() + ".tmp";
 
                 String storageState = Environment.getExternalStorageState();
-                if(storageState == Environment.MEDIA_MOUNTED){
+                if(storageState.equals(Environment.MEDIA_MOUNTED)){
                     savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/XSFeedback/Update/";
                     File file = new File(savePath);
                     if(!file.exists()){

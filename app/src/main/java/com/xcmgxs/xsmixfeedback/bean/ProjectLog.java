@@ -40,6 +40,38 @@ public class ProjectLog extends Entity {
     @JsonProperty("LogPic")
     private String pic;
 
+    @JsonProperty("Type")
+    private String type;
+
+    @JsonProperty("Step")
+    private String step;
+
+    @JsonProperty("pstate")
+    private String pstate;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getStep() {
+        return step;
+    }
+
+    public void setStep(String step) {
+        this.step = step;
+    }
+
+    public String getPstate() {
+        return pstate;
+    }
+
+    public void setPstate(String pstate) {
+        this.pstate = pstate;
+    }
 
     public Project getProject() {
         return project;

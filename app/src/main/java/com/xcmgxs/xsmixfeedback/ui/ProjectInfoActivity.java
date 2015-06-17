@@ -152,10 +152,11 @@ public class ProjectInfoActivity extends BaseActionBarActivity {
         mActionBar.setTitle("项目明细");
         mActionBar.setSubtitle(mProject.getName());
         mProjectInfoAddress.setText(mProject.getAddress());
+        mProjectInfoTongcang.setText(mProject.getPackagedate());
+        mProjectInfoBase.setText(mProject.getBasedate());
         mProjectInfoAnzhuang.setText(mProject.getInstalldate());
         mProjectInfoAnzhuangz.setText(mProject.getInstalloverdate());
         mProjectInfoAnzhuangy.setText(mProject.getInstalloverdate2());
-        mProjectInfoBase.setText(mProject.getBasedate());
         mProjectInfoChuliaoz.setText(mProject.getDischargdate1());
         mProjectInfoChuliaoy.setText(mProject.getDischargdate2());
         mProjectInfoContacter.setText(mProject.getCustomer());
@@ -168,7 +169,7 @@ public class ProjectInfoActivity extends BaseActionBarActivity {
         mProjectInfoZcly.setText(mProject.getAllamount2());
         mProjectInfoTiaoshiz.setText(mProject.getDebugoverdate1());
         mProjectInfoTiaoshiy.setText(mProject.getDebugoverdate2());
-        mProjectInfoFengzhuang.setText(mProject.getPackagedate());
+        mProjectInfoFengzhuang.setText(mProject.getEnterdate1());
         mProjectInfoHetong.setText(mProject.getContactno());
         mProjectInfoInstall.setText(mProject.getPersons());
 

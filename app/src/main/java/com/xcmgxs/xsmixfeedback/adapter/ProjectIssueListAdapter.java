@@ -32,6 +32,7 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         public TextView content;
         public TextView type;
         public TextView date;
+        public ImageView pic1;
     }
 
     public ProjectIssueListAdapter(Context context, List<ProjectIssue> listData, int itemViewResource ,boolean isShowProjectName) {
@@ -53,7 +54,7 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
             listItemView.content = (TextView)convertView.findViewById(R.id.projectissue_listitem_content);
             listItemView.username = (TextView)convertView.findViewById(R.id.projectissue_listitem_username);
             listItemView.type = (TextView)convertView.findViewById(R.id.projectissue_listitem_type);
-
+            listItemView.pic1 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic1);
             convertView.setTag(listItemView);
 
         }
@@ -71,6 +72,17 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         } else {
             portraitURL = URLs.URL_PORTRAIT + portraitURL;
             ImageLoader.getInstance().displayImage(portraitURL, listItemView.face, ImageLoaderUtils.getOption());
+        }
+
+        // 加载图片
+        String picURL = issue.getPic1();
+        if (StringUtils.isEmpty(picURL)) {
+            listItemView.pic1.setVisibility(View.GONE);
+        } else {
+            listItemView.pic1.setVisibility(View.VISIBLE);
+            picURL = URLs.URL_UPLOAD_ISSUEPIC + picURL;
+            //bmpManager.loadBitmap(picURL, listItemView.picture);
+            ImageLoader.getInstance().displayImage(picURL, listItemView.pic1, ImageLoaderUtils.getOption());
         }
 
         // 2.显示相关信息

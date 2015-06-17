@@ -28,40 +28,35 @@
         </LinearLayout>
     </LinearLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/log_pub_form"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="top"
-        android:visibility="visible"
-        android:layout_weight="1">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<EditText-->
+            <!--android:id="@+id/log_pub_content1"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:autoLink="web"-->
+            <!--android:gravity="top"-->
+            <!--android:hint="请输入内容"-->
+            <!--android:background="@null" />-->
 
         <EditText
             android:id="@+id/log_pub_content"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:autoLink="web"
-            android:gravity="top"
-            android:hint="请输入内容"
-            android:background="@null" />
+            android:padding="20dp"
+            android:layout_margin="10dp"
+            android:hint="描述"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/log_pub_image"
-            android:layout_width="60.0dip"
-            android:layout_height="45.0dip"
-            android:layout_marginLeft="5.0dip"
-            android:layout_marginBottom="150.0dip"
-            android:layout_gravity="left|bottom"
-            android:clickable="true"
-            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="45dip"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="5.0dip"
-            android:layout_marginBottom="100.0dip"
-            android:layout_gravity="bottom">
+            android:layout_margin="10dp">
 
             <TextView
                 android:layout_width="fill_parent"
@@ -81,12 +76,10 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="45dip"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="5.0dip"
-            android:layout_marginBottom="50.0dip"
-            android:layout_gravity="bottom">
-            
+            android:layout_margin="10dp">
+
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -105,11 +98,9 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="45dip"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="5.0dip"
-            android:layout_marginBottom="5.0dip"
-            android:layout_gravity="bottom">
+            android:layout_margin="10dp">
 
             <TextView
                 android:layout_width="fill_parent"
@@ -128,13 +119,68 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/log_pub_image1"
+                android:layout_width="60.0dip"
+                android:layout_height="45.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:clickable="true"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/log_pub_image2"
+                android:layout_width="60.0dip"
+                android:layout_height="45.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:clickable="true"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/log_pub_image3"
+                android:layout_width="60.0dip"
+                android:layout_height="45.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:clickable="true"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/log_pub_image4"
+                android:layout_width="60.0dip"
+                android:layout_height="45.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:clickable="true"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/log_pub_image5"
+                android:layout_width="60.0dip"
+                android:layout_height="45.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:clickable="true"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/log_pub_image_upload"
+                android:layout_width="60.0dip"
+                android:layout_height="45.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:src="@drawable/widget_bar_photo_nor"
+                android:clickable="true" />
 
 
 
 
-    </FrameLayout>
 
-    <include layout="@layout/activity_log_edit_footer" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
 </LinearLayout>
 

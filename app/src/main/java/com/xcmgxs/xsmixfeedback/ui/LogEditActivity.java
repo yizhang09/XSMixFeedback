@@ -72,17 +72,19 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
 
     private AppContext appContext;
     private DisplayMetrics dm;
-    private FrameLayout mform;
+    private LinearLayout mform;
     private EditText mContent;
-    private ImageView mFace;
-    private ImageView mAudio;
-    private ImageView mPick;
+//    private ImageView mFace;
+//    private ImageView mAudio;
+//    private ImageView mPick;
     private Spinner mSpinerType;
     private Spinner mSpinerStep;
-    private Spinner mSpinerProgress;
+    private Spinner mSpinerState;
     private Handler mHandler;
 
     private ImageView mImage;
+
+    private ImageView mImageUpload;
 
     private GridView mGridView;
 
@@ -150,21 +152,22 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
         Intent intent = getIntent();
         mProject = (Project) intent.getSerializableExtra(Contanst.PROJECT);
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        mform = (FrameLayout)findViewById(R.id.log_pub_form);
+        mform = (LinearLayout)findViewById(R.id.log_pub_form);
         mContent = (EditText)findViewById(R.id.log_pub_content);
-        mFace = (ImageView)findViewById(R.id.log_pub_footbar_face);
-        mPick = (ImageView)findViewById(R.id.log_pub_footbar_photo);
-        mAudio = (ImageView)findViewById(R.id.log_pub_footbar_audio);
+        //mFace = (ImageView)findViewById(R.id.log_pub_footbar_face);
+        //mPick = (ImageView)findViewById(R.id.log_pub_footbar_photo);
+        //mAudio = (ImageView)findViewById(R.id.log_pub_footbar_audio);
         mGridView = (GridView)findViewById(R.id.log_pub_faces);
-        mImage = (ImageView)findViewById(R.id.log_pub_image);
+        mImage = (ImageView)findViewById(R.id.log_pub_image1);
+        mImageUpload = (ImageView)findViewById(R.id.log_pub_image_upload);
         mMessage = (LinearLayout)findViewById(R.id.log_pub_message1);
         mSpinerType = (Spinner)findViewById(R.id.log_pub_type);
         mSpinerStep = (Spinner)findViewById(R.id.log_pub_step);
-        mSpinerProgress = (Spinner)findViewById(R.id.log_pub_progress);
+        mSpinerState = (Spinner)findViewById(R.id.log_pub_progress);
 
-        mFace.setOnClickListener(this);
-        mPick.setOnClickListener(this);
-        mAudio.setOnClickListener(this);
+        //mFace.setOnClickListener(this);
+        mImageUpload.setOnClickListener(this);
+        //mAudio.setOnClickListener(this);
 
         adaptertype = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, TYPES);
         adaptertype.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -176,7 +179,7 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
 
         adapterprogress = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PROGRESS);
         adapterprogress.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinerProgress.setAdapter(adapterprogress);
+        mSpinerState.setAdapter(adapterprogress);
 
         // 编辑器点击事件
         mContent.setOnClickListener(new View.OnClickListener() {
@@ -189,22 +192,22 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
     }
 
     private void showIMM() {
-        mFace.setTag(1);
+        //mFace.setTag(1);
         showOrHideIMM();
     }
 
     private void showOrHideIMM() {
-        if (mFace.getTag() == null) {
-            // 隐藏软键盘
-            imm.hideSoftInputFromWindow(mContent.getWindowToken(), 0);
-            // 显示表情
-            //showFace();
-        } else {
-            // 显示软键盘
-            imm.showSoftInput(mContent, 0);
-            // 隐藏表情
-            //hideFace();
-        }
+//        if (mFace.getTag() == null) {
+//            // 隐藏软键盘
+//            imm.hideSoftInputFromWindow(mContent.getWindowToken(), 0);
+//            // 显示表情
+//            //showFace();
+//        } else {
+//            // 显示软键盘
+//            imm.showSoftInput(mContent, 0);
+//            // 隐藏表情
+//            //hideFace();
+//        }
     }
 
 
@@ -239,7 +242,7 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
         switch (v.getId()){
             case R.id.log_pub_footbar_face:
                 break;
-            case R.id.log_pub_footbar_photo:
+            case R.id.log_pub_image_upload:
                 imm.hideSoftInputFromInputMethod(v.getWindowToken(),0);
 
                 CharSequence[] items = {
@@ -439,6 +442,9 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
         log.setCreatedate(date);
         log.setAuthorid(appContext.getLoginUid());
         log.setContent(content);
+        log.setType(mSpinerType.getSelectedItem().toString());
+        log.setStep(mSpinerStep.getSelectedItem().toString());
+        log.setPstate(mSpinerState.getSelectedItem().toString());
 
         if(logType == LOG_TYPE_CONTENT){
             log.setImagefile(imgFile);

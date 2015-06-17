@@ -10,4 +10,11 @@
         android:title="创建日志"
         app:showAsAction="always" />
 
+    <!--<item-->
+        <!--android:id="@+id/project_menu_refresh"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:icon="@drawable/refresh_success"-->
+        <!--android:title="刷新"-->
+        <!--app:showAsAction="always" />-->
+
 </menu>

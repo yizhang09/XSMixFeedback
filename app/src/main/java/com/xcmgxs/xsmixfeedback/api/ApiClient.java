@@ -225,6 +225,9 @@ public class ApiClient {
         params.put("msg", log.getContent());
         params.put("projectid", log.getProjectid());
         params.put("createdate", log.getCreatedate());
+        params.put("type", log.getType());
+        params.put("step", log.getStep());
+        params.put("pstate", log.getPstate());
 
         Map<String, File> files = new HashMap<String, File>();
         if(log.getImagefile() != null)

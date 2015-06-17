@@ -4,6 +4,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.xcmgxs.xsmixfeedback.AppContext;
+import com.xcmgxs.xsmixfeedback.AppException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,7 +32,7 @@ public class XsFeedbackApi {
     public final static String USER = BASE_URL + "/user";
     public final static String UPLOAD = BASE_URL + "/upload";
     public final static String NOTIFICATION = BASE_URL + "/notification";
-    public final static String VERSION = BASE_URL + "/app_version/new/android";
+    public final static String VERSION = BASE_URL + "/update";
 
 
     /**
@@ -43,14 +44,22 @@ public class XsFeedbackApi {
      * @param type
      * @return
      */
-    public static void pubCreateIssue(String projectId, String title, String description, String type, AsyncHttpResponseHandler handler) {
-        RequestParams params = getPrivateTokenWithParams();
-        params.put("Content", description);
-        params.put("Title", title);
-        params.put("Type", type);
-        params.put("ProjectID", projectId);
-        params.put("CreatorID", AppContext.getInstance().getLoginUid());
-        post(PROJECT_ISSUE, params, handler);
+    public static void pubCreateIssue(String projectId, String title, String description, String type,File imgFile, AsyncHttpResponseHandler handler) {
+        try {
+            RequestParams params = getPrivateTokenWithParams();
+            params.put("Content", description);
+            params.put("Title", title);
+            params.put("Type", type);
+            params.put("ProjectID", projectId);
+            if(imgFile != null) {
+                params.put("img", imgFile);
+            }
+            params.put("CreatorID", AppContext.getInstance().getLoginUid());
+            post(PROJECT_ISSUE, params, handler);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     /**

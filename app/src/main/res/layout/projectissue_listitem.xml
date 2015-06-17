@@ -39,6 +39,13 @@
             android:textSize="@dimen/text_size_14"
             android:text="XXX项目问题反馈"/>
 
+        <ImageView
+            android:id="@+id/projectissue_listitem_pic1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dip"
+            style="@style/UserFaceImageStyle"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

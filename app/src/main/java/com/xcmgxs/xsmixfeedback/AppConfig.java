@@ -67,6 +67,12 @@ public class AppConfig {
     public static final String TEMP_LOG = "temp_log";
     public static final String TEMP_LOG_IMAGE = "temp_log_image";
 
+    public static final String TEMP_ISSUE = "temp_issue";
+    public static final String TEMP_ISSUE_IMAGE = "temp_issue_image";
+
+    public static final String TEMP_FILE = "temp_issue";
+    public static final String TEMP_FILE_IMAGE = "temp_issue_image";
+
     private Context mContext;
     private static AppConfig appConfig;
 

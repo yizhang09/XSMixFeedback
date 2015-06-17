@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal"
+    android:paddingBottom="7dip"
+    android:paddingLeft="6dip"
+    android:paddingRight="6dip"
+    android:paddingTop="8dip"
+    android:background="@drawable/list_layout_item_selector"
+    tools:context=".ui.fragments.ExploreLatestListProjectFragment" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dip"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/exploreproject_listitem_title"
+            style="@style/project_list_title"
+            android:text="XXX混凝土"/>
+
+        <TextView
+            android:id="@+id/exploreproject_listitem_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/project_list_description"
+            android:text="XXXXXXXXXXXXXXXXXXXXX"/>
+
+        <ImageView
+            android:id="@+id/report_list_item_step"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:src="@drawable/step7" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dip"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/exploreproject_listitem_customer_image"
+                style="@style/project_list_img"
+                android:contentDescription="@string/img_description"
+                android:src="@drawable/language" />
+            <TextView
+                android:id="@+id/exploreproject_listitem_state"
+                style="@style/project_list_someinfo" />
+
+            <!--  state  -->
+            <ImageView
+                style="@style/project_list_img"
+                android:contentDescription="@string/img_description"
+                android:src="@drawable/unstar" />
+            <TextView
+                android:id="@+id/exploreproject_listitem_customer"
+                style="@style/project_list_someinfo" />
+
+            <!-- station nums -->
+            <ImageView
+                style="@style/project_list_img"
+                android:contentDescription="@string/img_description"
+                android:src="@drawable/fork" />
+
+            <TextView
+                android:id="@+id/exploreproject_listitem_station"
+                style="@style/project_list_someinfo" />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

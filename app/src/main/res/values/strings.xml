@@ -85,6 +85,9 @@
     <string name="fa_refresh">\uf021</string>
     <string name="fa_clock_o">\uf017</string>
     <string name="title_activity_project_info">ProjectInfoActivity</string>
+    <string name="title_activity_project_report">ProjectReportActivity</string>
+    <string name="title_activity_project_list">ProjectListActivity</string>
+    <string name="title_activity_project_report_list">项目列表</string>
 
 
 </resources>
