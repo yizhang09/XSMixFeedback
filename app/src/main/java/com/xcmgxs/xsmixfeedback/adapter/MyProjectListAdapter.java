@@ -36,6 +36,7 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
         public TextView customer;
         public TextView state;
         public TextView station;
+        public TextView manager;
     }
 
     public MyProjectListAdapter(Context context, List<Project> listData, int itemViewResource) {
@@ -60,7 +61,7 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
             listItemView.customer = (TextView)convertView.findViewById(R.id.exploreproject_listitem_customer);
             listItemView.state = (TextView)convertView.findViewById(R.id.exploreproject_listitem_state);
             listItemView.station = (TextView)convertView.findViewById(R.id.exploreproject_listitem_station);
-
+            listItemView.manager = (TextView)convertView.findViewById(R.id.exploreproject_listitem_manager);
             convertView.setTag(listItemView);
 
         }
@@ -98,7 +99,8 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
 
         //显示相关信息
         String managerName = project.getManager()!=null?project.getManager().getName():"";
-        listItemView.title.setText(managerName + " / " + project.getName());
+        listItemView.manager.setText(managerName);
+        listItemView.title.setText(project.getName());
 
         String projectDesc = project.getAddress();
         if(!StringUtils.isEmpty(projectDesc)){

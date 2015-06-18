@@ -33,6 +33,7 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         public TextView type;
         public TextView date;
         public ImageView pic1;
+        public TextView projectname;
     }
 
     public ProjectIssueListAdapter(Context context, List<ProjectIssue> listData, int itemViewResource ,boolean isShowProjectName) {
@@ -53,6 +54,7 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
             listItemView.date = (TextView)convertView.findViewById(R.id.projectissue_listitem_date);
             listItemView.content = (TextView)convertView.findViewById(R.id.projectissue_listitem_content);
             listItemView.username = (TextView)convertView.findViewById(R.id.projectissue_listitem_username);
+            listItemView.projectname = (TextView)convertView.findViewById(R.id.projectissue_listitem_projectname);
             listItemView.type = (TextView)convertView.findViewById(R.id.projectissue_listitem_type);
             listItemView.pic1 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic1);
             convertView.setTag(listItemView);
@@ -86,7 +88,9 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         }
 
         // 2.显示相关信息
-        listItemView.username.setText(IS_SHOW_PROJECT_NAME ? issue.getCreator().getName() + " - " + issue.getProject().getName(): issue.getCreator().getName());
+        listItemView.username.setText(issue.getCreator().getName());
+        listItemView.projectname.setText(issue.getProject().getName());
+
         listItemView.content.setText(issue.getContent());
         listItemView.date.setText(StringUtils.friendly_time(issue.getCreatedate()));
         listItemView.type.setText(issue.getType());

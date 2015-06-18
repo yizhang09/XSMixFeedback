@@ -145,7 +145,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
 
         if (mCurrentContentTag != null && mContext !=null && mMenu != null) {
             //setExploreView();
-            mMenu.highlightProjects();
+            //mMenu.highlightProjects();
 //            if (mCurrentContentTag.equalsIgnoreCase(CONTENTS[1])) {
 //                if (!mContext.isLogin()) {
 //                    onClickProjects();
@@ -262,9 +262,14 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
     }
 
     @Override
+    public void onClickSchedule() {
+        UIHelper.showProjectReportListActivity(MainActivity.this);
+    }
+
+    @Override
     public void onClickProjects() {
-        setExploreView();
-        //showMainContent(0);
+        //setExploreView();
+        UIHelper.showProjectReportListActivity(MainActivity.this);
     }
 
     @Override

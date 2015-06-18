@@ -11,4 +11,5 @@ public interface DrawerMenuCallBack {
     public void onClickIssues();
     public void onClickFiles();
     public void onClickAbout();
+    public void onClickSchedule();
 }

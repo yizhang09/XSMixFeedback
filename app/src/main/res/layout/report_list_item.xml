@@ -9,8 +9,7 @@
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
     android:paddingTop="8dip"
-    android:background="@drawable/list_layout_item_selector"
-    tools:context=".ui.fragments.ExploreLatestListProjectFragment" >
+    android:background="@drawable/list_layout_item_selector">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,19 +18,19 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/exploreproject_listitem_title"
+            android:id="@+id/projectreport_listitem_title"
             style="@style/project_list_title"
             android:text="XXX混凝土"/>
 
         <TextView
-            android:id="@+id/exploreproject_listitem_description"
+            android:id="@+id/projectreport_listitem_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/project_list_description"
             android:text="XXXXXXXXXXXXXXXXXXXXX"/>
 
         <ImageView
-            android:id="@+id/report_list_item_step"
+            android:id="@+id/report_list_item_step_image"
             android:layout_width="wrap_content"
             android:layout_height="40dip"
             android:src="@drawable/step7" />
@@ -45,32 +44,33 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/exploreproject_listitem_customer_image"
+                android:id="@+id/projectreport_listitem_time_image"
                 style="@style/project_list_img"
                 android:contentDescription="@string/img_description"
-                android:src="@drawable/language" />
+                android:src="@drawable/time" />
             <TextView
-                android:id="@+id/exploreproject_listitem_state"
-                style="@style/project_list_someinfo" />
+                android:id="@+id/projectreport_listitem_time"
+                style="@style/project_list_someinfo"
+                android:text="开始时间 2015-06-01"/>
 
-            <!--  state  -->
-            <ImageView
-                style="@style/project_list_img"
-                android:contentDescription="@string/img_description"
-                android:src="@drawable/unstar" />
-            <TextView
-                android:id="@+id/exploreproject_listitem_customer"
-                style="@style/project_list_someinfo" />
+            <!--&lt;!&ndash;  state  &ndash;&gt;-->
+            <!--<ImageView-->
+                <!--style="@style/project_list_img"-->
+                <!--android:contentDescription="@string/img_description"-->
+                <!--android:src="@drawable/unstar" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/exploreproject_listitem_customer"-->
+                <!--style="@style/project_list_someinfo" />-->
 
-            <!-- station nums -->
-            <ImageView
-                style="@style/project_list_img"
-                android:contentDescription="@string/img_description"
-                android:src="@drawable/fork" />
+            <!--&lt;!&ndash; station nums &ndash;&gt;-->
+            <!--<ImageView-->
+                <!--style="@style/project_list_img"-->
+                <!--android:contentDescription="@string/img_description"-->
+                <!--android:src="@drawable/fork" />-->
 
-            <TextView
-                android:id="@+id/exploreproject_listitem_station"
-                style="@style/project_list_someinfo" />
+            <!--<TextView-->
+                <!--android:id="@+id/exploreproject_listitem_station"-->
+                <!--style="@style/project_list_someinfo" />-->
 
         </LinearLayout>
 

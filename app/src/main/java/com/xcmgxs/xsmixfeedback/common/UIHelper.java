@@ -7,9 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -34,6 +36,8 @@ import com.xcmgxs.xsmixfeedback.ui.MySelfInfoActivity;
 import com.xcmgxs.xsmixfeedback.ui.NotificationActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectInfoActivity;
+import com.xcmgxs.xsmixfeedback.ui.ProjectReportActivity;
+import com.xcmgxs.xsmixfeedback.ui.ProjectReportListActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectSomeInfoListActivity;
 import com.xcmgxs.xsmixfeedback.ui.SearchActivity;
 import com.xcmgxs.xsmixfeedback.ui.SettingActivity;
@@ -126,12 +130,61 @@ public class UIHelper {
         }
         Intent intent = new Intent(Contanst.INTENT_ACTION_NOTICE);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("notification_bean",notification);
+        bundle.putSerializable("notification_bean", notification);
         intent.putExtras(bundle);
         context.sendBroadcast(intent);
     }
 
 
+    public static Intent getPdfFileIntent(String param) {
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Uri uri = Uri.fromFile(new File(param));
+        intent.setDataAndType(uri, "application/pdf");
+        return intent;
+    }
+
+    public static Intent getImageFileIntent(String param) {
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Uri uri = Uri.fromFile(new File(param));
+        intent.setDataAndType(uri, "image/*");
+        return intent;
+    }
+
+    //android获取一个用于打开Word文件的intent
+    public static Intent getWordFileIntent(String param) {
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Uri uri = Uri.fromFile(new File(param));
+        intent.setDataAndType(uri, "application/msword");
+        return intent;
+    }
+
+
+
+    //android获取一个用于打开Excel文件的intent
+    public static Intent getExcelFileIntent(String param) {
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Uri uri = Uri.fromFile(new File(param));
+        intent.setDataAndType(uri, "application/vnd.ms-excel");
+        return intent;
+    }
+
+    //android获取一个用于打开PPT文件的intent
+    public static Intent getPptFileIntent(String param) {
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Uri uri = Uri.fromFile(new File(param));
+        intent.setDataAndType(uri, "application/vnd.ms-powerpoint");
+        return intent;
+    }
 
 
     /**
@@ -326,6 +379,21 @@ public class UIHelper {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         bundle.putSerializable(PROJECT,project);
         intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    public static void showProjectReportDetail(Context context, Project project, String id) {
+        Intent intent = new Intent(context, ProjectReportActivity.class);
+        Bundle bundle = new Bundle();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        bundle.putSerializable(PROJECT,project);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    public static void showProjectReportListActivity(Context context) {
+        Intent intent = new Intent(context, ProjectReportListActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 }

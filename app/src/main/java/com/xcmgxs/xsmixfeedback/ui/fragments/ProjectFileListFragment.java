@@ -1,5 +1,7 @@
 package com.xcmgxs.xsmixfeedback.ui.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.BaseAdapter;
 
@@ -13,6 +15,7 @@ import com.xcmgxs.xsmixfeedback.bean.ProjectFile;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
 import com.xcmgxs.xsmixfeedback.ui.basefragment.BaseSwipeRefreshFragment;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -77,4 +80,6 @@ public class ProjectFileListFragment extends BaseSwipeRefreshFragment<ProjectFil
         CommonList<ProjectFile> list = mApplication.getProjectFileByProjectID(page, refresh, projectid);
         return list;
     }
+
+
 }

@@ -27,6 +27,7 @@ public class ProjectFileListAdapter extends MyBaseAdapter<ProjectFile> {
     static class ListItemView{
         public ImageView face;
         public TextView username;
+        public TextView projectname;
         public TextView description;
         public TextView filename;
         public TextView date;
@@ -48,6 +49,7 @@ public class ProjectFileListAdapter extends MyBaseAdapter<ProjectFile> {
             listItemView.date = (TextView)convertView.findViewById(R.id.projectfile_listitem_date);
             listItemView.filename = (TextView)convertView.findViewById(R.id.projectfile_listitem_name);
             listItemView.username = (TextView)convertView.findViewById(R.id.projectfile_listitem_username);
+            listItemView.projectname = (TextView)convertView.findViewById(R.id.projectfile_listitem_projectname);
             listItemView.description = (TextView)convertView.findViewById(R.id.projectfile_listitem_description);
 
             convertView.setTag(listItemView);
@@ -70,7 +72,9 @@ public class ProjectFileListAdapter extends MyBaseAdapter<ProjectFile> {
         }
 
         // 2.显示相关信息
-        listItemView.username.setText(IS_SHOW_PROJECT_NAME ? file.getUploader().getName() + " - " + file.getProject().getName(): file.getUploader().getName());
+        listItemView.username.setText(file.getUploader().getName());
+        listItemView.projectname.setText(file.getProject().getName());
+
         listItemView.description.setText(file.getDescription());
         listItemView.date.setText(StringUtils.friendly_time(file.getUploaddate()));
         listItemView.filename.setText(file.getFilename());
