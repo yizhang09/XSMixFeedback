@@ -25,12 +25,11 @@ public class ProjectFileListAdapter extends MyBaseAdapter<ProjectFile> {
     private boolean IS_SHOW_PROJECT_NAME = false;
 
     static class ListItemView{
-        public ImageView face;
-        public TextView username;
+        public ImageView filetype;
         public TextView projectname;
-        public TextView description;
         public TextView filename;
         public TextView date;
+        public TextView uploader;
     }
 
     public ProjectFileListAdapter(Context context, List<ProjectFile> listData, int itemViewResource ,boolean isShowProjectName) {
@@ -45,13 +44,11 @@ public class ProjectFileListAdapter extends MyBaseAdapter<ProjectFile> {
             convertView = listContainer.inflate(this.itemViewResource,null);
 
             listItemView = new ListItemView();
-            listItemView.face = (CircleImageView)convertView.findViewById(R.id.projectfile_listitem_face);
+            listItemView.filetype = (ImageView)convertView.findViewById(R.id.projectfile_listitem_filetype);
             listItemView.date = (TextView)convertView.findViewById(R.id.projectfile_listitem_date);
             listItemView.filename = (TextView)convertView.findViewById(R.id.projectfile_listitem_name);
-            listItemView.username = (TextView)convertView.findViewById(R.id.projectfile_listitem_username);
             listItemView.projectname = (TextView)convertView.findViewById(R.id.projectfile_listitem_projectname);
-            listItemView.description = (TextView)convertView.findViewById(R.id.projectfile_listitem_description);
-
+            listItemView.uploader = (TextView)convertView.findViewById(R.id.projectfile_listitem_uploader);
             convertView.setTag(listItemView);
 
         }
@@ -61,22 +58,42 @@ public class ProjectFileListAdapter extends MyBaseAdapter<ProjectFile> {
 
         ProjectFile file = listData.get(position);
 
+        String filetype = file.getFilename().split("\\.")[1];
 
-        // 1.加载头像
-        String portraitURL = file.getUploader().getPortrait() == null ? "" : file.getUploader().getPortrait();
-        if (portraitURL.endsWith("portrait.gif") || StringUtils.isEmpty(portraitURL)) {
-            listItemView.face.setImageResource(R.drawable.mini_avatar);
-        } else {
-            portraitURL = URLs.URL_PORTRAIT + portraitURL;
-            ImageLoader.getInstance().displayImage(portraitURL, listItemView.face, ImageLoaderUtils.getOption());
+        switch (filetype){
+            case "pdf":
+                listItemView.filetype.setImageResource(R.drawable.pdf);
+                break;
+            case "doc":
+                listItemView.filetype.setImageResource(R.drawable.doc);
+                break;
+            case "docx":
+                listItemView.filetype.setImageResource(R.drawable.doc);
+                break;
+            case "xls":
+                listItemView.filetype.setImageResource(R.drawable.xls);
+                break;
+            case "xlsx":
+                listItemView.filetype.setImageResource(R.drawable.xls);
+                break;
+            case "ppt":
+                listItemView.filetype.setImageResource(R.drawable.ppt);
+                break;
+            case "pptx":
+                listItemView.filetype.setImageResource(R.drawable.ppt);
+                break;
+            case "zip":
+                listItemView.filetype.setImageResource(R.drawable.zip);
+                break;
+            default:
+                listItemView.filetype.setImageResource(R.drawable.unknownfile);
+                break;
         }
 
         // 2.显示相关信息
-        listItemView.username.setText(file.getUploader().getName());
         listItemView.projectname.setText(file.getProject().getName());
-
-        listItemView.description.setText(file.getDescription());
-        listItemView.date.setText(StringUtils.friendly_time(file.getUploaddate()));
+        listItemView.uploader.setText(file.getUploader().getName());
+        listItemView.date.setText(file.getUploaddate());
         listItemView.filename.setText(file.getFilename());
 
         return convertView;

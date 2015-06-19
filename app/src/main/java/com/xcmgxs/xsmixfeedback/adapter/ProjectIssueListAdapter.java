@@ -92,7 +92,7 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         listItemView.projectname.setText(issue.getProject().getName());
 
         listItemView.content.setText(issue.getContent());
-        listItemView.date.setText(StringUtils.friendly_time(issue.getCreatedate()));
+        listItemView.date.setText(issue.getCreatedate());
         listItemView.type.setText(issue.getType());
 
         return convertView;

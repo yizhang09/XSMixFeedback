@@ -29,6 +29,9 @@ public class URLs implements Serializable {
     //日志图片地址
     public final static String URL_UPLOAD_ISSUEPIC = HTTP + HOST + URL_SPLITTER +"upload/issuepic/";
 
+    //文件地址
+    public final static String URL_UPLOAD_FILE = HTTP + HOST + URL_SPLITTER +"upload/file/";
+
     //头像地址
     public final static String URL_PORTRAIT = HTTP + HOST + URL_SPLITTER + "upload/portrait/";
 

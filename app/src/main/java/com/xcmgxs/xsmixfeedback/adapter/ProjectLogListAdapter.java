@@ -88,7 +88,7 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
         listItemView.username.setText(log.getAuthor().getName());
         listItemView.projectname.setText(log.getProject().getName());
         listItemView.content.setText(log.getContent());
-        listItemView.date.setText(StringUtils.friendly_time(log.getCreatedate()));
+        listItemView.date.setText(log.getCreatedate());
 
         return convertView;
     }

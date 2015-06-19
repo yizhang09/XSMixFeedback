@@ -8,11 +8,14 @@ import android.widget.BaseAdapter;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.adapter.ProjectFileListAdapter;
+import com.xcmgxs.xsmixfeedback.api.URLs;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.MessageData;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.ProjectFile;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
+import com.xcmgxs.xsmixfeedback.common.DownloadFileManager;
+import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.basefragment.BaseSwipeRefreshFragment;
 
 import java.io.File;
@@ -79,6 +82,14 @@ public class ProjectFileListFragment extends BaseSwipeRefreshFragment<ProjectFil
     private CommonList<ProjectFile> getList(int page, boolean refresh,String projectid) throws AppException {
         CommonList<ProjectFile> list = mApplication.getProjectFileByProjectID(page, refresh, projectid);
         return list;
+    }
+
+
+
+    @Override
+    public void onItemClick(int position, ProjectFile file) {
+        DownloadFileManager.getDownloadFileManager(getActivity(),URLs.URL_UPLOAD_FILE + file.getFilename(),file.getFilename()).showOpenFileDialog();
+        //UIHelper.showProjectDetail(getActivity(), file, file.getId());
     }
 
 
