@@ -77,7 +77,7 @@ public class XsFeedbackApi {
         try {
             RequestParams params = getPrivateTokenWithParams();
             params.put("Description", desc);
-            params.put("Name", desc);
+            params.put("Name", name);
             params.put("Type", type);
             params.put("ProjectID", projectId);
             if(imgFile != null) {

@@ -306,6 +306,11 @@ public class Project extends Entity {
         this.createon = createon;
     }
 
+    public String getCCTCreateon() {
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(createon.getTime() - 8 * 60 * 60 * 1000);
+    }
+
 
     public String getBase() {
         return base;

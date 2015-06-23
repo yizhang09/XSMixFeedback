@@ -1,23 +1,16 @@
 package com.xcmgxs.xsmixfeedback.ui;
 
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
-import com.xcmgxs.xsmixfeedback.common.DoubleClickExitHelper;
-import com.xcmgxs.xsmixfeedback.ui.fragments.DrawerNavigationMenu;
-import com.xcmgxs.xsmixfeedback.ui.fragments.ExploreViewPagerFragment;
+import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
 import com.xcmgxs.xsmixfeedback.ui.fragments.ReportListProjectFragment;
 
-public class ProjectReportListActivity extends ActionBarActivity {
+public class ProjectReportListActivity extends BaseActionBarActivity {
 
     private AppContext mContext;
     private FragmentManager mFragmentManager;

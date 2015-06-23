@@ -105,7 +105,7 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
             public void onClick(View v) {
                 String picURL = issue.getPic1();
                 if (!StringUtils.isEmpty(picURL)) {
-                    picURL = URLs.URL_UPLOAD_LOGPIC + picURL;
+                    picURL = URLs.URL_UPLOAD_ISSUEPIC + picURL;
                     ImagePreviewActivity.showImagePreview(mContext, 0, new String[]{picURL});
                 }
             }

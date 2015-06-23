@@ -73,7 +73,12 @@ public class DocEditActivity extends BaseActionBarActivity implements View.OnCli
     private String tempDocKey = AppConfig.TEMP_DOC;
     private String tempDocImageKey = AppConfig.TEMP_DOC_IMAGE;
 
-    private static final String[] TYPES = {"项目验收单", "项目验收单"};
+    private static final String[] TYPES =
+            {"搅拌站安装告知函", "筒仓进场验收通知单",
+            "筒仓涂装方案确认单", "筒仓、外加剂罐制作验收报告",
+            "设备进场安装条件验收报告", "混凝土搅拌站综合验收通知单",
+            "混凝土搅拌设备用户培训确认单", "客户满意度调查表",
+            "混凝土搅拌设备验收报告", "混凝土搅拌设备安装服务卡"};
 
     private ArrayAdapter<String> adapter;
 

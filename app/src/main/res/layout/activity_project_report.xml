@@ -102,10 +102,10 @@
                     style="@style/project_detail_description"
                     android:text="质量反馈分类统计"/>
 
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/project_issue_barchart"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" />
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/project_issue_piechart"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dip" />
 
             </LinearLayout>
 
@@ -122,43 +122,10 @@
                     style="@style/project_detail_description"
                     android:text="质量反馈月报"/>
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/project_issue_linechart"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" />
-
-            </LinearLayout>
-
-            <View style="@style/h_line" />
-
-            <LinearLayout
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/project_jichu"
-                    style="@style/project_detail_mid_grid_item">
-
-                    <ImageView
-                        style="@style/project_detail_mid_grid_item_img"
-                        android:background="@drawable/time"
-                        android:contentDescription="@string/img_description" />
-
-                    <TextView
-                        android:layout_width="0dip"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:singleLine="true"
-                        android:text="基础制作日期" />
-
-                    <TextView
-                        android:id="@+id/project_report_jichu"
-                        style="@style/project_detail_mid_info_text"
-                        android:text="2015-06-01"/>
-
-                </LinearLayout>
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/project_issue_barchart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip" />
 
             </LinearLayout>
 
@@ -184,10 +151,44 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:singleLine="true"
-                        android:text="筒仓施工日期" />
+                        android:text="筒仓进场日期" />
 
                     <TextView
-                        android:id="@+id/project_report_tongcang"
+                        android:id="@+id/project_info_tongcang"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_base"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="基础交付日期" />
+
+                    <TextView
+                        android:id="@+id/project_info_base"
                         style="@style/project_detail_mid_info_text"
                         android:text="2015-06-01"/>
 
@@ -198,37 +199,39 @@
             <View style="@style/h_line" />
 
             <LinearLayout
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/project_fache"
-                style="@style/project_detail_mid_grid_item">
+                <LinearLayout
+                    android:id="@+id/project_fache"
+                    style="@style/project_detail_mid_grid_item">
 
-                <ImageView
-                    style="@style/project_detail_mid_grid_item_img"
-                    android:background="@drawable/time"
-                    android:contentDescription="@string/img_description" />
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
 
-                <TextView
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:text="发车日期" />
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="发车日期" />
 
-                <TextView
-                    android:id="@+id/project_report_fache"
-                    style="@style/project_detail_mid_info_text"
-                    android:text="2015-06-01"/>
+                    <TextView
+                        android:id="@+id/project_info_fache"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+
+                </LinearLayout>
 
             </LinearLayout>
-
-        </LinearLayout>
-
             <View style="@style/h_line" />
+
+
 
             <LinearLayout
                 android:gravity="center"
@@ -253,11 +256,40 @@
                         android:text="安装日期" />
 
                     <TextView
-                        android:id="@+id/project_report_anzhuang"
+                        android:id="@+id/project_info_anzhuang"
                         style="@style/project_detail_mid_info_text"
                         android:text="2015-06-01"/>
 
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+
+
+            <LinearLayout
+                android:id="@+id/project_anzhuangz"
+                style="@style/project_detail_mid_grid_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    style="@style/project_detail_mid_grid_item_img"
+                    android:background="@drawable/time"
+                    android:contentDescription="@string/img_description" />
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:text="安装完毕日期(左)" />
+
+                <TextView
+                    android:id="@+id/project_info_anzhuangz"
+                    style="@style/project_detail_mid_info_text"
+                    android:text="2015-06-01"/>
 
             </LinearLayout>
 
@@ -270,7 +302,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:id="@+id/project_tiaoshi"
+                    android:id="@+id/project_anzhuangy"
                     style="@style/project_detail_mid_grid_item">
 
                     <ImageView
@@ -283,17 +315,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:singleLine="true"
-                        android:text="调试日期" />
+                        android:text="安装完毕日期(右)" />
 
                     <TextView
-                        android:id="@+id/project_report_tiaoshi"
+                        android:id="@+id/project_info_anzhuangy"
                         style="@style/project_detail_mid_info_text"
                         android:text="2015-06-01"/>
 
                 </LinearLayout>
 
             </LinearLayout>
-
             <View style="@style/h_line" />
 
             <LinearLayout
@@ -303,7 +334,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:id="@+id/project_yanshou"
+                    android:id="@+id/project_tiaoshiz"
                     style="@style/project_detail_mid_grid_item">
 
                     <ImageView
@@ -316,17 +347,215 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:singleLine="true"
-                        android:text="验收日期" />
+                        android:text="调试日期(左)" />
 
                     <TextView
-                        android:id="@+id/project_report_yanshou"
+                        android:id="@+id/project_info_tiaoshiz"
                         style="@style/project_detail_mid_info_text"
                         android:text="2015-06-01"/>
 
                 </LinearLayout>
 
             </LinearLayout>
+            <View style="@style/h_line" />
 
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_tiaoshiy"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="调试日期(右)" />
+
+                    <TextView
+                        android:id="@+id/project_info_tiaoshiy"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View style="@style/h_line" />
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_fengzhuang"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="封装进场日期" />
+
+                    <TextView
+                        android:id="@+id/project_info_fengzhuang"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View style="@style/h_line" />
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_chuliaoz"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="出料日期(左)" />
+
+                    <TextView
+                        android:id="@+id/project_info_chuliaoz"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View style="@style/h_line" />
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_chuliaoy"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="出料日期(右)" />
+
+                    <TextView
+                        android:id="@+id/project_info_chuliaoy"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View style="@style/h_line" />
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_qianziy"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="签字验收(右)" />
+
+                    <TextView
+                        android:id="@+id/project_info_qianziy"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View style="@style/h_line" />
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_qianziz"
+                    style="@style/project_detail_mid_grid_item">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/time"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="签字验收(左)" />
+
+                    <TextView
+                        android:id="@+id/project_info_qianziz"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="2015-06-01"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View style="@style/h_line" />
 
         </LinearLayout>
 

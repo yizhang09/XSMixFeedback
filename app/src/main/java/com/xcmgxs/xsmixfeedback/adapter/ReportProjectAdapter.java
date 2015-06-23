@@ -24,6 +24,8 @@ public class ReportProjectAdapter extends MyBaseAdapter<Project> {
 
     static class ListItemView {
         public TextView title;
+        public TextView manager;
+        public ImageView face;
         public TextView description;
         public ImageView stepImage;
         public TextView starttime;
@@ -41,6 +43,8 @@ public class ReportProjectAdapter extends MyBaseAdapter<Project> {
 
             listItemView = new ListItemView();
             listItemView.title = (TextView)convertView.findViewById(R.id.projectreport_listitem_title);
+            listItemView.manager = (TextView)convertView.findViewById(R.id.projectreport_listitem_username);
+            listItemView.face = (CircleImageView)convertView.findViewById(R.id.projectreport_listitem_face);
             listItemView.description = (TextView)convertView.findViewById(R.id.projectreport_listitem_description);
             listItemView.stepImage = (ImageView)convertView.findViewById(R.id.report_list_item_step_image);
             listItemView.starttime = (TextView)convertView.findViewById(R.id.projectreport_listitem_time);
@@ -53,11 +57,25 @@ public class ReportProjectAdapter extends MyBaseAdapter<Project> {
 
         final Project project = listData.get(position);
 
+        //加载头像
+        String portraitURL = project.getManager()!=null? project.getManager().getPortrait():"portrait.gif";
 
-        //显示相关信息
-        String managerName = project.getManager()!=null?project.getManager().getName():"";
+        if(portraitURL != null) {
+            if (portraitURL.endsWith("portrait.gif")) {
+                listItemView.face.setImageResource(R.drawable.mini_avatar);
+            } else {
+                portraitURL = URLs.URL_PORTRAIT + portraitURL;
+                ImageLoader.getInstance().displayImage(portraitURL, listItemView.face, ImageLoaderUtils.getOption());
+            }
+        }
+        else {
+            listItemView.face.setImageResource(R.drawable.mini_avatar);
+        }
+
         listItemView.title.setText(project.getName());
-
+        String managerName = project.getManager()!=null?project.getManager().getName():"";
+        listItemView.manager.setText(managerName);
+        //listItemView.starttime.setText(project.getPackagedate());
         String projectDesc = project.getAddress();
         if(!StringUtils.isEmpty(projectDesc)){
             listItemView.description.setText(projectDesc);

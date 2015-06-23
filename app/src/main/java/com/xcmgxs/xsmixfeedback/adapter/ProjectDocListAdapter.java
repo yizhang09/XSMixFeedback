@@ -98,7 +98,7 @@ public class ProjectDocListAdapter extends MyBaseAdapter<ProjectDoc> {
             public void onClick(View v) {
                 String picURL = doc.getPic();
                 if (!StringUtils.isEmpty(picURL)) {
-                    picURL = URLs.URL_UPLOAD_LOGPIC + picURL;
+                    picURL = URLs.URL_UPLOAD_DOCPIC + picURL;
                     ImagePreviewActivity.showImagePreview(mContext, 0, new String[]{picURL});
                 }
             }
