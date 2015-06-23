@@ -77,6 +77,8 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
 
     private LinearLayout mLLprojectissues;
 
+    private LinearLayout mLLprojectdocs;
+
 
 
     private String url_Link;
@@ -116,13 +118,13 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
         mLLprojectissues = (LinearLayout)this.findViewById(R.id.project_issues);
         mLLprojectlogs = (LinearLayout)this.findViewById(R.id.project_logs);
         mLLprojectmanager = (LinearLayout)this.findViewById(R.id.project_manager);
-
+        mLLprojectdocs  =  (LinearLayout)this.findViewById(R.id.project_docs);
         mLLprojectmanager.setOnClickListener(this);
         mLLprojectinfo.setOnClickListener(this);
         mLLprojectissues.setOnClickListener(this);
         mLLprojectlogs.setOnClickListener(this);
         mLLprojectfiles.setOnClickListener(this);
-
+        mLLprojectdocs.setOnClickListener(this);
 
         if(null == mProject){
             loadProject(ACTION_LOAD_PROJECT,projectid);
@@ -228,6 +230,9 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
                 break;
             case R.id.project_issues:
                 UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_ISSUES);
+                break;
+            case R.id.project_docs:
+                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_DOCS);
                 break;
         }
     }

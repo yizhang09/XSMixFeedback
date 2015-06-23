@@ -357,16 +357,17 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
                     if(AppContext.isMethodsCompat(Build.VERSION_CODES.ECLAIR_MR1)){
                         String imaName = FileUtils.getFileName(theLarge);
                         if(imaName != null){
-                            bitmap = ImageUtils.loadImgThumbnail(LogEditActivity.this,imaName,MediaStore.Images.Thumbnails.MICRO_KIND);
+                            bitmap = ImageUtils.loadImgThumbnail(LogEditActivity.this,imaName,MediaStore.Images.Thumbnails.MINI_KIND);
                             if(bitmap == null && !StringUtils.isEmpty(theLarge)){
-                                bitmap = ImageUtils.loadImgThumbnail(theLarge,100,100);
+                                bitmap = ImageUtils.loadImgThumbnail(theLarge,1000,1000);
                             }
                         }
                     }
                 }
                 else if(requestCode == ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA){
                     if(bitmap == null && !StringUtils.isEmpty(theLarge)){
-                        bitmap = ImageUtils.loadImgThumbnail(theLarge,100,100);
+                        bitmap = ImageUtils.loadImgThumbnail(theLarge,1000,1000);
+                        //bitmap = ImageUtils.getBitmapByPath(theLarge);
                     }
                 }
 
@@ -392,7 +393,7 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
                         }
                         else {
                             try {
-                                ImageUtils.createImageThumbnail(LogEditActivity.this,theLarge,theThumbnail,800,80);
+                                ImageUtils.createImageThumbnail(LogEditActivity.this,theLarge,theThumbnail,1500,100);
                                 imgFile = new File(theThumbnail);
                             }catch (IOException ex){
                                 ex.printStackTrace();

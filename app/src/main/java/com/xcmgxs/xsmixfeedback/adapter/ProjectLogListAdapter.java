@@ -7,10 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.adapter.base.MyBaseAdapter;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.api.URLs;
+import com.xcmgxs.xsmixfeedback.ui.ImagePreviewActivity;
 import com.xcmgxs.xsmixfeedback.util.ImageLoaderUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.widget.CircleImageView;
@@ -24,6 +26,8 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
 
     private boolean IS_SHOW_PROJECT_NAME = false;
 
+    private Context mContext;
+
     static class ListItemView{
         public ImageView face;
         public TextView username;
@@ -36,6 +40,7 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
     public ProjectLogListAdapter(Context context, List<ProjectLog> listData, int itemViewResource,boolean isShowProjectName) {
         super(context, listData, itemViewResource);
         IS_SHOW_PROJECT_NAME = isShowProjectName;
+        mContext = context;
     }
 
     @Override
@@ -60,7 +65,7 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
             listItemView = (ListItemView)convertView.getTag();
         }
 
-        ProjectLog log = listData.get(position);
+        final ProjectLog log = listData.get(position);
 
 
         // 1.加载头像
@@ -71,6 +76,7 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
             portraitURL = URLs.URL_PORTRAIT + portraitURL;
             //bmpManager.loadBitmap(portraitURL, listItemView.face);
             ImageLoader.getInstance().displayImage(portraitURL, listItemView.face, ImageLoaderUtils.getOption());
+
         }
 
         // 加载图片
@@ -89,6 +95,17 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
         listItemView.projectname.setText(log.getProject().getName());
         listItemView.content.setText(log.getContent());
         listItemView.date.setText(log.getCreatedate());
+
+        listItemView.picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String picURL = log.getPic();
+                if (!StringUtils.isEmpty(picURL)) {
+                    picURL = URLs.URL_UPLOAD_LOGPIC + picURL;
+                    ImagePreviewActivity.showImagePreview(mContext, 0, new String[]{picURL});
+                }
+            }
+        });
 
         return convertView;
     }

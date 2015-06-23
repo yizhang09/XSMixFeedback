@@ -91,4 +91,6 @@ public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project
     public void onItemClick(int position, Project project) {
         UIHelper.showProjectDetail(getActivity(), project, project.getId());
     }
+
+
 }

@@ -24,10 +24,12 @@ import com.xcmgxs.xsmixfeedback.WelcomePage;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
 import com.xcmgxs.xsmixfeedback.bean.Notification;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.ProjectDoc;
 import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.ui.AboutActivity;
+import com.xcmgxs.xsmixfeedback.ui.DocEditActivity;
 import com.xcmgxs.xsmixfeedback.ui.IssueEditActivity;
 import com.xcmgxs.xsmixfeedback.ui.LogEditActivity;
 import com.xcmgxs.xsmixfeedback.ui.LoginActivity;
@@ -343,6 +345,16 @@ public class UIHelper {
     public static void showProjectReportListActivity(Context context) {
         Intent intent = new Intent(context, ProjectReportListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public static void showDocEditOrCreate(Context context, Project project, ProjectDoc doc) {
+        Intent intent = new Intent(context, DocEditActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Contanst.PROJECT, project);
+        bundle.putSerializable(Contanst.PROJECT_DOC, doc);
+        intent.putExtras(bundle);
         context.startActivity(intent);
     }
 }

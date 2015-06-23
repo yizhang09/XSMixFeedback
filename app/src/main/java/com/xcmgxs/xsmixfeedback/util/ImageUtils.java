@@ -172,8 +172,7 @@ public class ImageUtils {
         return getBitmapByPath(filePath, null);
     }
 
-    public static Bitmap getBitmapByPath(String filePath,
-                                         BitmapFactory.Options opts) {
+    public static Bitmap getBitmapByPath(String filePath, BitmapFactory.Options opts) {
         FileInputStream fis = null;
         Bitmap bitmap = null;
         try {
@@ -301,12 +300,10 @@ public class ImageUtils {
      * @return
      */
     @SuppressWarnings("deprecation")
-    public static Bitmap loadImgThumbnail(Activity context, String imgName,
-                                          int kind) {
+    public static Bitmap loadImgThumbnail(Activity context, String imgName, int kind) {
         Bitmap bitmap = null;
 
-        String[] proj = { MediaStore.Images.Media._ID,
-                MediaStore.Images.Media.DISPLAY_NAME };
+        String[] proj = { MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME };
 
         Cursor cursor = context.managedQuery(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI, proj,

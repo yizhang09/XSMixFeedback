@@ -1,6 +1,5 @@
 package com.xcmgxs.xsmixfeedback.adapter;
 
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.adapter.base.MyBaseAdapter;
 import com.xcmgxs.xsmixfeedback.api.URLs;
-import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
+import com.xcmgxs.xsmixfeedback.bean.ProjectDoc;
 import com.xcmgxs.xsmixfeedback.ui.ImagePreviewActivity;
 import com.xcmgxs.xsmixfeedback.util.ImageLoaderUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
@@ -19,15 +18,12 @@ import com.xcmgxs.xsmixfeedback.widget.CircleImageView;
 
 import java.util.List;
 
-
 /**
- * Created by zhangyi on 2015-3-20.
+ * Created by zhangyi on 2015-06-19.
  */
-public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
+public class ProjectDocListAdapter extends MyBaseAdapter<ProjectDoc> {
 
-    private boolean IS_SHOW_PROJECT_NAME = false;
-
-    private Context mContext;
+    Context mContext;
 
     static class ListItemView{
         public ImageView face;
@@ -39,12 +35,10 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         public TextView projectname;
     }
 
-    public ProjectIssueListAdapter(Context context, List<ProjectIssue> listData, int itemViewResource ,boolean isShowProjectName) {
+    public ProjectDocListAdapter(Context context, List<ProjectDoc> listData, int itemViewResource) {
         super(context, listData, itemViewResource);
-        IS_SHOW_PROJECT_NAME = isShowProjectName;
         mContext = context;
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -54,13 +48,13 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
             convertView = listContainer.inflate(this.itemViewResource,null);
 
             listItemView = new ListItemView();
-            listItemView.face = (CircleImageView)convertView.findViewById(R.id.projectissue_listitem_face);
-            listItemView.date = (TextView)convertView.findViewById(R.id.projectissue_listitem_date);
-            listItemView.content = (TextView)convertView.findViewById(R.id.projectissue_listitem_content);
-            listItemView.username = (TextView)convertView.findViewById(R.id.projectissue_listitem_username);
-            listItemView.projectname = (TextView)convertView.findViewById(R.id.projectissue_listitem_projectname);
-            listItemView.type = (TextView)convertView.findViewById(R.id.projectissue_listitem_type);
-            listItemView.pic1 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic1);
+            listItemView.face = (CircleImageView)convertView.findViewById(R.id.projectdoc_listitem_face);
+            listItemView.date = (TextView)convertView.findViewById(R.id.projectdoc_listitem_date);
+            listItemView.content = (TextView)convertView.findViewById(R.id.projectdoc_listitem_content);
+            listItemView.username = (TextView)convertView.findViewById(R.id.projectdoc_listitem_username);
+            listItemView.projectname = (TextView)convertView.findViewById(R.id.projectdoc_listitem_projectname);
+            listItemView.type = (TextView)convertView.findViewById(R.id.projectdoc_listitem_type);
+            listItemView.pic1 = (ImageView)convertView.findViewById(R.id.projectdoc_listitem_pic1);
             convertView.setTag(listItemView);
 
         }
@@ -68,11 +62,11 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
             listItemView = (ListItemView)convertView.getTag();
         }
 
-        final ProjectIssue issue = listData.get(position);
+        final ProjectDoc doc = listData.get(position);
 
 
         // 1.加载头像
-        String portraitURL = issue.getCreator().getPortrait() == null ? "" : issue.getCreator().getPortrait();
+        String portraitURL = doc.getUploader().getPortrait() == null ? "" : doc.getUploader().getPortrait();
         if (portraitURL.endsWith("portrait.gif") || StringUtils.isEmpty(portraitURL)) {
             listItemView.face.setImageResource(R.drawable.mini_avatar);
         } else {
@@ -81,29 +75,28 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         }
 
         // 加载图片
-        String picURL = issue.getPic1();
+        String picURL = doc.getPic();
         if (StringUtils.isEmpty(picURL)) {
             listItemView.pic1.setVisibility(View.GONE);
         } else {
             listItemView.pic1.setVisibility(View.VISIBLE);
-            picURL = URLs.URL_UPLOAD_ISSUEPIC + picURL;
+            picURL = URLs.URL_UPLOAD_DOCPIC + picURL;
             //bmpManager.loadBitmap(picURL, listItemView.picture);
             ImageLoader.getInstance().displayImage(picURL, listItemView.pic1, ImageLoaderUtils.getOption());
         }
 
         // 2.显示相关信息
-        listItemView.username.setText(issue.getCreator().getName());
-        listItemView.projectname.setText(issue.getProject().getName());
+        listItemView.username.setText(doc.getUploader().getName());
+        listItemView.projectname.setText(doc.getProject().getName());
 
-        listItemView.content.setText(issue.getContent());
-        listItemView.date.setText(issue.getCreatedate());
-        listItemView.type.setText(issue.getType());
-
+        listItemView.content.setText(doc.getDescription());
+        listItemView.date.setText(doc.getUploadDate());
+        listItemView.type.setText(doc.getType());
 
         listItemView.pic1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String picURL = issue.getPic1();
+                String picURL = doc.getPic();
                 if (!StringUtils.isEmpty(picURL)) {
                     picURL = URLs.URL_UPLOAD_LOGPIC + picURL;
                     ImagePreviewActivity.showImagePreview(mContext, 0, new String[]{picURL});

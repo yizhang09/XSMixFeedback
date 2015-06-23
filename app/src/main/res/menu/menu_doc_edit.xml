@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.xcmgxs.xsmixfeedback.ui.DocEditActivity">
+    <item
+        android:id="@+id/doc_actionbar_menu_save"
+        android:orderInCategory="100"
+        android:icon="@mipmap/actionbar_send_icon"
+        android:title="发送"
+        app:showAsAction="always"/>
+</menu>

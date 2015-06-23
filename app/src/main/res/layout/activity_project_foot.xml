@@ -98,4 +98,28 @@
 
     <View style="@style/h_line" />
 
+    <LinearLayout
+        android:id="@+id/project_docs"
+        style="@style/project_detail_layout_style">
+
+        <ImageView
+            style="@style/project_detail_mid_grid_item_img"
+            android:contentDescription="@string/img_description"
+            android:background="@drawable/project_detail_icon_commit"/>
+
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="项目单据"/>
+
+        <ImageView
+            style="@style/project_detail_sorrow_img"
+            android:contentDescription="@string/img_description"/>
+
+    </LinearLayout>
+
+    <View style="@style/h_line" />
+
+
 </LinearLayout>

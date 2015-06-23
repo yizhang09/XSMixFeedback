@@ -39,6 +39,8 @@ public class Contanst {
 
     public static final String PROJECT_ISSUE = "issue";
 
+    public static final String PROJECT_DOC = "doc";
+
     public static final String PROJECT_FILE = "file";
 
     public static final String PATH = "path";

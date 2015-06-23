@@ -70,8 +70,11 @@ public class AppConfig {
     public static final String TEMP_ISSUE = "temp_issue";
     public static final String TEMP_ISSUE_IMAGE = "temp_issue_image";
 
-    public static final String TEMP_FILE = "temp_issue";
-    public static final String TEMP_FILE_IMAGE = "temp_issue_image";
+    public static final String TEMP_DOC = "temp_doc";
+    public static final String TEMP_DOC_IMAGE = "temp_doc_image";
+
+    public static final String TEMP_FILE = "temp_file";
+    public static final String TEMP_FILE_IMAGE = "temp_file_image";
 
     private Context mContext;
     private static AppConfig appConfig;

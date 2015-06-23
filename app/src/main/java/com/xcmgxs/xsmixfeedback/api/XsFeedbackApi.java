@@ -29,6 +29,7 @@ public class XsFeedbackApi {
     public final static String PROJECT = BASE_URL + "/project";
     public final static String PROJECT_ISSUE = BASE_URL + "/projectissue";
     public final static String PROJECT_LOG = BASE_URL + "/projectlog";
+    public final static String PROJECT_DOC = BASE_URL + "/projectdoc";
     public final static String USER = BASE_URL + "/user";
     public final static String UPLOAD = BASE_URL + "/upload";
     public final static String NOTIFICATION = BASE_URL + "/notification";
@@ -56,6 +57,34 @@ public class XsFeedbackApi {
             }
             params.put("CreatorID", AppContext.getInstance().getLoginUid());
             post(PROJECT_ISSUE, params, handler);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /**
+     * 创建一个doc
+     *
+     * @param projectId
+     * @param name
+     * @param desc
+     * @param type
+     * @return
+     */
+    public static void pubCreateDoc(String projectId,String desc,String name, String type,File imgFile, AsyncHttpResponseHandler handler) {
+        try {
+            RequestParams params = getPrivateTokenWithParams();
+            params.put("Description", desc);
+            params.put("Name", desc);
+            params.put("Type", type);
+            params.put("ProjectID", projectId);
+            if(imgFile != null) {
+                params.put("img", imgFile);
+            }
+            params.put("UploaderID", AppContext.getInstance().getLoginUid());
+            post(PROJECT_DOC, params, handler);
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -12,7 +12,9 @@ import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.adapter.base.MyBaseAdapter;
 import com.xcmgxs.xsmixfeedback.api.URLs;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BitmapManager;
+import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.util.ImageLoaderUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.util.TLog;
@@ -89,11 +91,11 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
         listItemView.face.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                User user = project.getManager();
-//                if(user == null){
-//                    return;
-//                }
-//                UIHelper.showUserInfoDetail(context, user, null);
+                User user = project.getManager();
+                if(user == null){
+                    return;
+                }
+                UIHelper.showUserInfoDetail(context, user, null);
             }
         });
 

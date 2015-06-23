@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="7dip"
+    android:paddingLeft="6dip"
+    android:paddingRight="6dip"
+    android:paddingTop="8dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.xcmgxs.xsmixfeedback.widget.CircleImageView
+            android:id="@+id/projectdoc_listitem_face"
+            style="@style/UserFaceImageStyle" />
+
+        <TextView
+            android:id="@+id/projectdoc_listitem_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="张毅"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dip"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/projectdoc_listitem_projectname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textColor="@color/listitem_blue"
+            android:textSize="@dimen/text_size_14"
+            android:text="XXX混凝土"/>
+
+
+        <TextView
+            android:id="@+id/projectdoc_listitem_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dip"
+            android:textColor="@color/listitem_black"
+            android:textColorLink="@color/listitem_blue"
+            android:textSize="@dimen/text_size_14"
+            android:text="XXX验收单"/>
+
+        <ImageView
+            android:id="@+id/projectdoc_listitem_pic1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dip"
+            style="@style/UserFaceImageStyle"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dip"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/projectdoc_listitem_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/listitem_gray"
+                android:textSize="@dimen/text_size_10"
+                android:text="2015-04-20"/>
+
+            <TextView
+                android:id="@+id/projectdoc_listitem_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dip"
+                android:textColor="@color/pressed_gitlab"
+                android:textSize="@dimen/text_size_10"
+                android:text="验收单"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

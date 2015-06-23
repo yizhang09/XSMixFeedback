@@ -8,6 +8,7 @@ import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.ProjectDoc;
 import com.xcmgxs.xsmixfeedback.bean.ProjectFile;
 import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
@@ -17,7 +18,14 @@ import com.xcmgxs.xsmixfeedback.util.CyptoUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InvalidClassException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -32,6 +40,9 @@ public class ApiClient {
 
     private final static String PRIVATE_TOKEN = "private_token";
     private final static String FEEDBACK_PRIVATE_TOKEN = "feedback@xcmgxs_token";
+
+    public static final int PAGE_SIZE = 20;// 默认分页大小
+    private static final int CACHE_TIME = 60 * 60000;// 缓存失效时间
 
     // 私有token，每个用户都有一个唯一的
     private static String private_token;
@@ -150,7 +161,6 @@ public class ApiClient {
     /**
      * 获得具体用户的项目列表
      * @param appContext
-     * @param userId
      * @param page
      * @return
      * @throws AppException
@@ -214,7 +224,7 @@ public class ApiClient {
     }
 
     /**
-     * 发动弹
+     * 发日志
      * @param -uid & msg & image
      * @return
      * @throws AppException
@@ -244,7 +254,6 @@ public class ApiClient {
             throw AppException.network(e);
         }
     }
-
 
     public static CommonList<ProjectIssue> getProjectIssues(final AppContext appContext, int page,String projectid) throws AppException {
         CommonList<ProjectIssue> lst = new CommonList<ProjectIssue>();
@@ -308,6 +317,22 @@ public class ApiClient {
 //        AsyncHttpHelper.get("notification", params, handler);
 //    }
 
+
+    public static CommonList<ProjectDoc> getProjectDocs(final AppContext appContext, int page,String projectid) throws AppException {
+        CommonList<ProjectDoc> lst = new CommonList<ProjectDoc>();
+        Map<String,Object> params = new HashMap<>();
+        params.put(PRIVATE_TOKEN,getToken(appContext));
+        params.put("page",page);
+        if(projectid != "-1") {
+            params.put("projectid", projectid);
+        }
+        String url = makeURL(URLs.PROJECTDOC,params);
+        List<ProjectDoc> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(ProjectDoc[].class);
+        lst.setCount(list.size());
+        lst.setList(list);
+        lst.setPageSize(list.size());
+        return lst;
+    }
 
 
 

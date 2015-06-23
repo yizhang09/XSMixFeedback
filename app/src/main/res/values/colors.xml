@@ -2,6 +2,7 @@
 <resources>
 
     <!-- 存储App需要用到的颜色 -->
+    <color name="white40">#40FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="gray">#808080</color>
@@ -82,5 +83,15 @@
 
     <color name="colorPrimary">#282828</color>
     <color name="colorPrimaryDark">#515252</color>
+
+    <color name="list_divider_color">#DADADA</color>
+    <color name="list_item_background_normal">@color/white</color>
+    <color name="ui_dialog_divider">@color/list_divider_color</color>
+    <color name="ui_dialog_list_text">#5E5E5E</color>
+
+    <color name="text_dark">#af000000</color>
+    <color name="light_gray">#1a000000</color>
+    <color name="lightest_gray">#0a000000</color>
+    <color name="bg_touch">@color/lightest_gray</color>
 
 </resources>

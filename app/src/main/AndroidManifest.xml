@@ -145,6 +145,14 @@
             android:name=".ui.ProjectReportListActivity"
             android:label="@string/title_activity_project_report_list" >
         </activity>
+        <activity
+            android:name=".ui.DocEditActivity"
+            android:label="@string/title_activity_doc_edit" >
+        </activity>
+        <activity
+            android:name=".ui.ImagePreviewActivity"
+            android:label="@string/title_activity_image_preview" >
+        </activity>
     </application>
 
 </manifest>

@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -31,12 +29,8 @@ import com.xcmgxs.xsmixfeedback.common.UpdateManager;
 import com.xcmgxs.xsmixfeedback.interfaces.DrawerMenuCallBack;
 import com.xcmgxs.xsmixfeedback.service.NotificationUtils;
 import com.xcmgxs.xsmixfeedback.ui.fragments.DrawerNavigationMenu;
-import com.xcmgxs.xsmixfeedback.ui.fragments.ExploreListProjectFragment;
 import com.xcmgxs.xsmixfeedback.ui.fragments.ExploreViewPagerFragment;
-import com.xcmgxs.xsmixfeedback.ui.fragments.MySelfViewPagerFragment;
 import com.xcmgxs.xsmixfeedback.widget.BadgeView;
-
-import org.apache.http.Header;
 
 /**
  * Created by zhangyi on 2015-3-18.
@@ -57,8 +51,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
     };
 
     static final String[] FRAGMENTS = {
-            ExploreViewPagerFragment.class.getName(),
-            MySelfViewPagerFragment.class.getName()
+            ExploreViewPagerFragment.class.getName()
     };
 
     final String[] TITLES = {

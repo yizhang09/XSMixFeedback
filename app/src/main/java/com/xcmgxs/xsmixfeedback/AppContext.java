@@ -43,6 +43,7 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.ProjectDoc;
 import com.xcmgxs.xsmixfeedback.bean.ProjectFile;
 import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
@@ -939,7 +940,7 @@ public class AppContext extends Application {
         String cacheKey = "allProjectFileList_" + page +"_" + PAGE_SIZE+"_" + projectid;
         if(!isReadDataCache(cacheKey) || isrefresh){
             try {
-                list = ApiClient.getProjectFiles(this, page,projectid);
+                list = ApiClient.getProjectFiles(this, page, projectid);
                 if(list != null && page == 1){
                     list.setCacheKey(cacheKey);
                     saveObject(list,cacheKey);
@@ -963,5 +964,36 @@ public class AppContext extends Application {
     }
 
 
+    /*
+   *获取项目单据信息
+    */
+    @SuppressWarnings("unchecked")
+    public CommonList<ProjectDoc> getProjectDocByProjectID(int page,boolean isrefresh,String projectid) throws AppException{
+        CommonList<ProjectDoc> list = null;
+        String cacheKey = "allProjectDocList_" + page +"_" + PAGE_SIZE +"_" + projectid;
+        if(!isReadDataCache(cacheKey) || isrefresh){
+            try {
+                list = ApiClient.getProjectDocs(this, page, projectid);
+                if(list != null && page == 1){
+                    list.setCacheKey(cacheKey);
+                    saveObject(list,cacheKey);
+                }
+            }
+            catch (AppException e){
+                e.printStackTrace();
+                list = (CommonList<ProjectDoc>)readObject(cacheKey);
+                if(list == null){
+                    throw e;
+                }
+            }
+        }
+        else {
+            list = (CommonList<ProjectDoc>)readObject(cacheKey);
+            if(list == null){
+                list = new CommonList<ProjectDoc>();
+            }
+        }
+        return list;
+    }
 
 }

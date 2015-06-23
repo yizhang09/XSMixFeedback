@@ -3,6 +3,7 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/WelcomePage.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/adapter/ProjectAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/adapter/ProjectDocListAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/adapter/ProjectFileListAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/adapter/ProjectIssueListAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/adapter/ReportProjectAdapter.java" charset="UTF-8" />
@@ -15,6 +16,8 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/common/DownloadFileManager.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/common/UpdateManager.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/service/NotificationService.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/DocEditActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/ImagePreviewActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/IssueEditActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/LogEditActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/LoginActivity.java" charset="UTF-8" />
@@ -24,7 +27,9 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/ProjectReportListActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/SearchActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/SettingActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/dialog/ImageMenuDialog.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/fragments/NotificationFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/fragments/ProjectDocListFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/util/ImageLoaderUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/util/JsonUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/util/TypefaceUtils.java" charset="UTF-8" />

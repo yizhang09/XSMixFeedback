@@ -10,6 +10,10 @@
 
     <string name="you_have_news_messages">你有%s条最新消息</string>
 
+    <string name="tip_save_image_suc">图片已保存(手机相册-> xcmgxs_img)</string>
+    <string name="tip_save_image_faile">无法保存图片</string>
+    <string name="tip_load_image_faile">加载图片失败</string>
+
     <string name="main_menu_login_tips">点击登录</string>
     <string name="main_menu_title_projects">项目进度</string>
     <string name="main_menu_title_logs">项目日志</string>
@@ -25,7 +29,7 @@
     <string name="login_title">搅拌站全生命周期系统</string>
     <string name="login_btn">登录</string>
     <string name="login_account">帐号</string>
-    <string name="login_account_hint">邮箱</string>
+    <string name="login_account_hint">用户名</string>
     <string name="login_password">密码</string>
     <string name="login_password_hint">密码</string>
     <string name="login_tips">正在登录...</string>
@@ -88,6 +92,8 @@
     <string name="title_activity_project_report">ProjectReportActivity</string>
     <string name="title_activity_project_list">ProjectListActivity</string>
     <string name="title_activity_project_report_list">项目列表</string>
+    <string name="title_activity_doc_edit">DocEditActivity</string>
+    <string name="title_activity_image_preview">ImagePreviewActivity</string>
 
 
 </resources>
