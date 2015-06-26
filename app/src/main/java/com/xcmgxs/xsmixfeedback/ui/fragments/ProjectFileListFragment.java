@@ -88,7 +88,7 @@ public class ProjectFileListFragment extends BaseSwipeRefreshFragment<ProjectFil
 
     @Override
     public void onItemClick(int position, ProjectFile file) {
-        DownloadFileManager.getDownloadFileManager(getActivity(),URLs.URL_UPLOAD_FILE + file.getFilename(),file.getFilename()).showOpenFileDialog();
+        DownloadFileManager.getDownloadFileManager(getActivity(),URLs.URL_DOWNLOAD_FILE +"?id="+ file.getId(),file.getFilename()).showOpenFileDialog();
         //UIHelper.showProjectDetail(getActivity(), file, file.getId());
     }
 

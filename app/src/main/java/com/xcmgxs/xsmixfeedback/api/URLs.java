@@ -33,7 +33,7 @@ public class URLs implements Serializable {
     public final static String URL_UPLOAD_DOCPIC = HTTP + HOST + URL_SPLITTER +"upload/docpic/";
 
     //文件地址
-    public final static String URL_UPLOAD_FILE = HTTP + HOST + URL_SPLITTER +"upload/file/";
+    public final static String URL_DOWNLOAD_FILE = HTTP + HOST + URL_SPLITTER +"Download/DownloadFile";
 
     //头像地址
     public final static String URL_PORTRAIT = HTTP + HOST + URL_SPLITTER + "upload/portrait/";
