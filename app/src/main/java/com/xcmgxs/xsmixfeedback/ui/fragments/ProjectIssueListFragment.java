@@ -7,15 +7,19 @@ import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.adapter.ProjectIssueListAdapter;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
+import com.xcmgxs.xsmixfeedback.api.URLs;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.MessageData;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
+import com.xcmgxs.xsmixfeedback.ui.ImagePreviewActivity;
 import com.xcmgxs.xsmixfeedback.ui.basefragment.BaseFragment;
 import com.xcmgxs.xsmixfeedback.ui.basefragment.BaseSwipeRefreshFragment;
+import com.xcmgxs.xsmixfeedback.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,6 +54,7 @@ public class ProjectIssueListFragment extends BaseSwipeRefreshFragment<ProjectIs
         if(!IS_ALL) {
             mProject = (Project) args.getSerializable(Contanst.PROJECT);
         }
+        super.update();
     }
 
     @Override
@@ -78,5 +83,37 @@ public class ProjectIssueListFragment extends BaseSwipeRefreshFragment<ProjectIs
     private CommonList<ProjectIssue> getList(int page, boolean refresh,String projectid) throws AppException {
         CommonList<ProjectIssue> list = mApplication.getProjectIssuesByProjectID(page, refresh, projectid);
         return list;
+    }
+
+
+    @Override
+    public void onItemClick(int position, ProjectIssue issue) {
+
+        ArrayList<String> arrUrls = new ArrayList<String>();
+        if (!StringUtils.isEmpty(issue.getPic1())) {
+            String url = URLs.URL_UPLOAD_ISSUEPIC + issue.getPic1();
+            arrUrls.add(url);
+        }
+        if (!StringUtils.isEmpty(issue.getPic2())) {
+            String url = URLs.URL_UPLOAD_ISSUEPIC + issue.getPic2();
+            arrUrls.add(url);
+        }
+        if (!StringUtils.isEmpty(issue.getPic3())) {
+            String url = URLs.URL_UPLOAD_ISSUEPIC + issue.getPic3();
+            arrUrls.add(url);
+        }
+        if (!StringUtils.isEmpty(issue.getPic4())) {
+            String url = URLs.URL_UPLOAD_ISSUEPIC + issue.getPic4();
+            arrUrls.add(url);
+        }
+        if (!StringUtils.isEmpty(issue.getPic5())) {
+            String url = URLs.URL_UPLOAD_ISSUEPIC + issue.getPic5();
+            arrUrls.add(url);
+        }
+        String[] picURL = arrUrls.toArray(new String[arrUrls.size()]);
+        if(picURL.length > 0) {
+            ImagePreviewActivity.showImagePreview(getActivity(), 0, picURL);
+        }
+
     }
 }

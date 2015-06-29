@@ -140,7 +140,7 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
         mActionBar.setSubtitle(mProject.getManager() != null ? mProject.getManager().getName() : "");
 
         mProjectName.setText(mProject.getName());
-        mUpdateTime.setText(mProject.getUpdatetime() == null?"": StringUtils.friendly_time(mProject.getCCTUpdatetime()));
+        mUpdateTime.setText(mProject.getUpdatetime() == null?"": StringUtils.friendly_time(mProject.getUpdatetime()));
         mDescription.setText(mProject.getAddress() + mProject.getEmState());
         mCreated.setText(mProject.getCreateon() == null?"":StringUtils.getString_date(mProject.getCreateon()));
         mStationNum.setText(mProject.getNum().toString());

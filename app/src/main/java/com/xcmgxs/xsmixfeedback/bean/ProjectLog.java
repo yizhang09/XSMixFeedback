@@ -37,8 +37,20 @@ public class ProjectLog extends Entity {
     @JsonProperty("AMRFile")
     private File amrfile;
 
-    @JsonProperty("LogPic")
-    private String pic;
+    @JsonProperty("LogPic1")
+    private String pic1;
+
+    @JsonProperty("LogPic2")
+    private String pic2;
+
+    @JsonProperty("LogPic3")
+    private String pic3;
+
+    @JsonProperty("LogPic4")
+    private String pic4;
+
+    @JsonProperty("LogPic5")
+    private String pic5;
 
     @JsonProperty("Type")
     private String type;
@@ -97,12 +109,44 @@ public class ProjectLog extends Entity {
         this.authorid = authorid;
     }
 
-    public String getPic() {
-        return pic;
+    public String getPic1() {
+        return pic1;
     }
 
-    public void setPic(String pic) {
-        this.pic = pic;
+    public void setPic1(String pic) {
+        this.pic1 = pic;
+    }
+
+    public String getPic2() {
+        return pic2;
+    }
+
+    public void setPic2(String pic2) {
+        this.pic2 = pic2;
+    }
+
+    public String getPic3() {
+        return pic3;
+    }
+
+    public void setPic3(String pic3) {
+        this.pic3 = pic3;
+    }
+
+    public String getPic4() {
+        return pic4;
+    }
+
+    public void setPic4(String pic4) {
+        this.pic4 = pic4;
+    }
+
+    public String getPic5() {
+        return pic5;
+    }
+
+    public void setPic5(String pic5) {
+        this.pic5 = pic5;
     }
 
     public File getImagefile() {

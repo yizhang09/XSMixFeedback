@@ -129,19 +129,14 @@ public class Project extends Entity {
     private User manager;
 
 
-    @JsonProperty("UpdateTime")
-    private Date updatetime;
+    @JsonProperty("UpdateDate")
+    private String updatetime;
 
-    public Date getUpdatetime() {
+    public String getUpdatetime() {
         return updatetime;
     }
 
-    public String getCCTUpdatetime() {
-        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        return df.format(updatetime.getTime() - 8 * 60 * 60 * 1000);
-    }
-
-    public void setUpdatetime(Date updatetime) {
+    public void setUpdatetime(String updatetime) {
         this.updatetime = updatetime;
     }
 

@@ -31,6 +31,7 @@ public class ReportListProjectFragment extends BaseSwipeRefreshFragment<Project,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        super.update();
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
+import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,21 +40,52 @@ public class XsFeedbackApi {
     /**
      * 创建一个issue
      *
+     * @param log
+     * @return
+     */
+    public static void pubCreateLog(ProjectLog log,File[] imgFiles, AsyncHttpResponseHandler handler) {
+        try {
+            RequestParams params = getPrivateTokenWithParams();
+            params.put("msg", log.getContent());
+            params.put("projectid", log.getProjectid());
+            params.put("createdate", log.getCreatedate());
+            params.put("type", log.getType());
+            params.put("step", log.getStep());
+            params.put("pstate", log.getPstate());
+            for (int i = 0; i < imgFiles.length; i++) {
+                if (imgFiles[i] != null) {
+                    params.put("file" + i, imgFiles[i]);
+                }
+            }
+
+            params.put("uid", AppContext.getInstance().getLoginUid());
+            post(PROJECT_LOG, params, handler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 创建一个issue
+     *
      * @param projectId
      * @param title
      * @param description
      * @param type
      * @return
      */
-    public static void pubCreateIssue(String projectId, String title, String description, String type,File imgFile, AsyncHttpResponseHandler handler) {
+    public static void pubCreateIssue(String projectId, String title, String description, String type,File[] imgFiles, AsyncHttpResponseHandler handler) {
         try {
             RequestParams params = getPrivateTokenWithParams();
             params.put("Content", description);
             params.put("Title", title);
             params.put("Type", type);
             params.put("ProjectID", projectId);
-            if(imgFile != null) {
-                params.put("img", imgFile);
+            for (int i = 0; i < imgFiles.length; i++) {
+                if (imgFiles[i] != null) {
+                    params.put("file" + i, imgFiles[i]);
+                }
             }
             params.put("CreatorID", AppContext.getInstance().getLoginUid());
             post(PROJECT_ISSUE, params, handler);

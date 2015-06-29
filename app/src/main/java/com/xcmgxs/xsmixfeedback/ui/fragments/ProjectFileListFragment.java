@@ -54,6 +54,7 @@ public class ProjectFileListFragment extends BaseSwipeRefreshFragment<ProjectFil
         if(!IS_ALL) {
             mProject = (Project) args.getSerializable(Contanst.PROJECT);
         }
+        super.update();
     }
 
     @Override

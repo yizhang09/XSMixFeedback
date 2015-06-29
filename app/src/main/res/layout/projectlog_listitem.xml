@@ -52,13 +52,47 @@
             android:textColorLink="@color/listitem_blue"
             android:textSize="@dimen/text_size_14"
             android:text="XXX项目日志"/>
-        
-        <ImageView
-            android:id="@+id/projectlog_listitem_pic"
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dip"
-            style="@style/UserFaceImageStyle"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="8dip">
+            <ImageView
+                android:id="@+id/projectlog_listitem_pic1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/UserFaceImageStyle"/>
+            <ImageView
+                android:id="@+id/projectlog_listitem_pic2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/UserFaceImageStyle"/>
+            <ImageView
+                android:id="@+id/projectlog_listitem_pic3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/UserFaceImageStyle"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dip">
+            <ImageView
+                android:id="@+id/projectlog_listitem_pic4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/UserFaceImageStyle"/>
+            <ImageView
+                android:id="@+id/projectlog_listitem_pic5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/UserFaceImageStyle"/>
+        </LinearLayout>
+        
+
 
         <LinearLayout
             android:layout_width="wrap_content"

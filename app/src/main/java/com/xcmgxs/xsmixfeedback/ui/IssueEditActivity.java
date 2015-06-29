@@ -38,6 +38,7 @@ import com.xcmgxs.xsmixfeedback.util.FileUtils;
 import com.xcmgxs.xsmixfeedback.util.ImageUtils;
 import com.xcmgxs.xsmixfeedback.util.JsonUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
+import com.xcmgxs.xsmixfeedback.util.ViewUtils;
 
 import org.apache.http.Header;
 
@@ -63,12 +64,21 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
     EditText mIssueEditDesc;
     @InjectView(R.id.issue_pub_image1)
     ImageView mImage1;
+    @InjectView(R.id.issue_pub_image2)
+    ImageView mImage2;
+    @InjectView(R.id.issue_pub_image3)
+    ImageView mImage3;
+    @InjectView(R.id.issue_pub_image4)
+    ImageView mImage4;
+    @InjectView(R.id.issue_pub_image5)
+    ImageView mImage5;
     @InjectView(R.id.issue_pub_image_upload)
     ImageView mImageUpload;
 
     Project mProject;
 
-    private File imgFile;
+    //private File imgFile;
+    private File[] imgFiles = new File[5];
     private String theLarge;
     private String theThumbnail;
 
@@ -80,7 +90,7 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
     private String tempIssueImageKey = AppConfig.TEMP_ISSUE_IMAGE;
 
     private static final String[] TYPES = {"斜皮带输送系统", "搅拌主机", "电路", "平皮带输送系统", "气路系统", "控制系统", "控制室"
-            , "骨料仓总成", "机制砂", "主机楼", "提斗机", "供水系统", "螺旋输送系统", "砂浆站", "外加剂供给系统"};
+            , "骨料仓总成", "机制砂", "主机楼", "提斗机", "供水系统", "螺旋输送系统", "砂浆站", "外加剂供给系统","其他"};
 
     private ArrayAdapter<String> adapter;
 
@@ -106,6 +116,12 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mIssueEditType.setAdapter(adapter);
         mImageUpload.setOnClickListener(this);
+
+        mImage1.setOnClickListener(this);
+        mImage2.setOnClickListener(this);
+        mImage3.setOnClickListener(this);
+        mImage4.setOnClickListener(this);
+        mImage5.setOnClickListener(this);
 
     }
 
@@ -139,6 +155,31 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
                         IssueEditActivity.this.getString(R.string.img_from_camera)
                 };
                 imgChooseItem(items);
+                break;
+            case R.id.issue_pub_image1:
+                mImage1.setImageBitmap(null);
+                mImage1.setVisibility(View.GONE);
+                imgFiles[0] = null;
+                break;
+            case R.id.issue_pub_image2:
+                mImage2.setImageBitmap(null);
+                mImage2.setVisibility(View.GONE);
+                imgFiles[1] = null;
+                break;
+            case R.id.issue_pub_image3:
+                mImage3.setImageBitmap(null);
+                mImage3.setVisibility(View.GONE);
+                imgFiles[2] = null;
+                break;
+            case R.id.issue_pub_image4:
+                mImage4.setImageBitmap(null);
+                mImage4.setVisibility(View.GONE);
+                imgFiles[3] = null;
+                break;
+            case R.id.issue_pub_image5:
+                mImage5.setImageBitmap(null);
+                mImage5.setVisibility(View.GONE);
+                imgFiles[4] = null;
                 break;
             default:break;
         }
@@ -206,9 +247,32 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
         final Handler handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
-                if(msg.what == 1 && msg.obj != null){
-                    mImage1.setImageBitmap((Bitmap)msg.obj);
-                    mImage1.setVisibility(View.VISIBLE);
+                if(msg.obj != null){
+                    switch (msg.what){
+                        case -1:
+                            ViewUtils.showToast("最多只能上传5张照片!");
+                            break;
+                        case 1:
+                            mImage1.setImageBitmap((Bitmap)msg.obj);
+                            mImage1.setVisibility(View.VISIBLE);
+                            break;
+                        case 2:
+                            mImage2.setImageBitmap((Bitmap) msg.obj);
+                            mImage2.setVisibility(View.VISIBLE);
+                            break;
+                        case 3:
+                            mImage3.setImageBitmap((Bitmap)msg.obj);
+                            mImage3.setVisibility(View.VISIBLE);
+                            break;
+                        case 4:
+                            mImage4.setImageBitmap((Bitmap)msg.obj);
+                            mImage4.setVisibility(View.VISIBLE);
+                            break;
+                        case 5:
+                            mImage5.setImageBitmap((Bitmap)msg.obj);
+                            mImage5.setVisibility(View.VISIBLE);
+                            break;
+                    }
                 }
             }
         };
@@ -251,7 +315,7 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
                         bitmap = ImageUtils.loadImgThumbnail(theLarge,1000,1000);
                     }
                 }
-
+                int index = -1;
                 if(bitmap != null){
                     String savePath = Environment.getExternalStorageDirectory().getAbsolutePath() +"/XSFeedback/Camera/";
                     File saveDir = new File(savePath);
@@ -264,18 +328,18 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
 
                     if(largeFileName.startsWith("thumb_") && new File(largeFilePath).exists()){
                         theThumbnail = largeFilePath;
-                        imgFile = new File(theThumbnail);
+                        index = setImageFile(new File(theThumbnail));
                     }
                     else {
                         String thumbFileName = "thumb_" + largeFileName;
                         theThumbnail = savePath + thumbFileName;
                         if(new File(theThumbnail).exists()){
-                            imgFile = new File(theThumbnail);
+                            index = setImageFile(new File(theThumbnail));
                         }
                         else {
                             try {
-                                ImageUtils.createImageThumbnail(IssueEditActivity.this,theLarge,theThumbnail,800,80);
-                                imgFile = new File(theThumbnail);
+                                ImageUtils.createImageThumbnail(IssueEditActivity.this,theLarge,theThumbnail,800,100);
+                                index = setImageFile(new File(theThumbnail));
                             }catch (IOException ex){
                                 ex.printStackTrace();
                             }
@@ -286,7 +350,7 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
                 ((AppContext)getApplication()).setProperty(tempIssueKey,theThumbnail);
 
                 Message msg = new Message();
-                msg.what = 1;
+                msg.what = index;
                 msg.obj = bitmap;
                 handler.sendMessage(msg);
 
@@ -296,12 +360,22 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
     }
 
 
+    private int setImageFile(File file) {
+        for (int i = 0; i < imgFiles.length; i++) {
+            if (imgFiles[i] == null) {
+                imgFiles[i] = file;
+                return i + 1;
+            }
+        }
+        return -1;
+    }
+
     private void pubIssue() {
         String title = mIssueEditTitle.getText().toString();
         String desc = mIssueEditDesc.getText().toString();
         String type = mIssueEditType.getSelectedItem().toString();
         final AlertDialog pubing = LightProgressDialog.create(this, "提交中...");
-        XsFeedbackApi.pubCreateIssue(mProject.getId(), title, desc, type,imgFile, new AsyncHttpResponseHandler() {
+        XsFeedbackApi.pubCreateIssue(mProject.getId(), title, desc, type,imgFiles, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 ProjectIssue issue = JsonUtils.toBean(ProjectIssue.class,responseBody);

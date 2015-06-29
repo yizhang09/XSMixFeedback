@@ -49,6 +49,7 @@ public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         type = args.getByte(EXPLORE_TYPE);
+        //super.update();
     }
 
     @Override

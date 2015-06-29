@@ -29,18 +29,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.xcmgxs.xsmixfeedback.AppConfig;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
+import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
+import com.xcmgxs.xsmixfeedback.ui.dialog.LightProgressDialog;
 import com.xcmgxs.xsmixfeedback.util.FileUtils;
 import com.xcmgxs.xsmixfeedback.util.ImageUtils;
+import com.xcmgxs.xsmixfeedback.util.JsonUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
+import com.xcmgxs.xsmixfeedback.util.ViewUtils;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.http.Header;
 
 import java.io.File;
 import java.io.IOException;
@@ -82,7 +91,11 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
     private Spinner mSpinerState;
     private Handler mHandler;
 
-    private ImageView mImage;
+    private ImageView mImage1;
+    private ImageView mImage2;
+    private ImageView mImage3;
+    private ImageView mImage4;
+    private ImageView mImage5;
 
     private ImageView mImageUpload;
 
@@ -90,7 +103,8 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
 
     private ProjectLog log;
     private Project mProject;
-    private File imgFile;
+    private File imgFile1;
+    private File[] imgFiles = new File[5];
     private File amrFile;
     private String theLarge;
     private String theThumbnail;
@@ -158,16 +172,24 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
         //mPick = (ImageView)findViewById(R.id.log_pub_footbar_photo);
         //mAudio = (ImageView)findViewById(R.id.log_pub_footbar_audio);
         mGridView = (GridView)findViewById(R.id.log_pub_faces);
-        mImage = (ImageView)findViewById(R.id.log_pub_image1);
+        mImage1 = (ImageView)findViewById(R.id.log_pub_image1);
+        mImage2 = (ImageView)findViewById(R.id.log_pub_image2);
+        mImage3 = (ImageView)findViewById(R.id.log_pub_image3);
+        mImage4 = (ImageView)findViewById(R.id.log_pub_image4);
+        mImage5 = (ImageView)findViewById(R.id.log_pub_image5);
         mImageUpload = (ImageView)findViewById(R.id.log_pub_image_upload);
-        mMessage = (LinearLayout)findViewById(R.id.log_pub_message1);
+        //mMessage = (LinearLayout)findViewById(R.id.log_pub_message1);
         mSpinerType = (Spinner)findViewById(R.id.log_pub_type);
         mSpinerStep = (Spinner)findViewById(R.id.log_pub_step);
         mSpinerState = (Spinner)findViewById(R.id.log_pub_progress);
 
-        //mFace.setOnClickListener(this);
+
         mImageUpload.setOnClickListener(this);
-        //mAudio.setOnClickListener(this);
+        mImage1.setOnClickListener(this);
+        mImage2.setOnClickListener(this);
+        mImage3.setOnClickListener(this);
+        mImage4.setOnClickListener(this);
+        mImage5.setOnClickListener(this);
 
         adaptertype = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, TYPES);
         adaptertype.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -258,7 +280,33 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
                 String content = mContent.getText().toString();
                 pubLog(LOG_TYPE_CONTENT,content);
                 break;
-            default:break;
+            case R.id.log_pub_image1:
+                mImage1.setImageBitmap(null);
+                mImage1.setVisibility(View.GONE);
+                imgFiles[0] = null;
+                break;
+            case R.id.log_pub_image2:
+                mImage2.setImageBitmap(null);
+                mImage2.setVisibility(View.GONE);
+                imgFiles[1] = null;
+                break;
+            case R.id.log_pub_image3:
+                mImage3.setImageBitmap(null);
+                mImage3.setVisibility(View.GONE);
+                imgFiles[2] = null;
+                break;
+            case R.id.log_pub_image4:
+                mImage4.setImageBitmap(null);
+                mImage4.setVisibility(View.GONE);
+                imgFiles[3] = null;
+                break;
+            case R.id.log_pub_image5:
+                mImage5.setImageBitmap(null);
+                mImage5.setVisibility(View.GONE);
+                imgFiles[4] = null;
+                break;
+            default:
+                break;
         }
     }
 
@@ -324,10 +372,38 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
         final Handler handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
-                if(msg.what == 1 && msg.obj != null){
-                    mImage.setImageBitmap((Bitmap)msg.obj);
-                    mImage.setVisibility(View.VISIBLE);
+                if(msg.obj != null){
+                    switch (msg.what){
+                        case -1:
+                            ViewUtils.showToast("最多只能上传5张照片!");
+                            break;
+                        case 1:
+                            mImage1.setImageBitmap((Bitmap)msg.obj);
+                            mImage1.setVisibility(View.VISIBLE);
+                            break;
+                        case 2:
+                            mImage2.setImageBitmap((Bitmap) msg.obj);
+                            mImage2.setVisibility(View.VISIBLE);
+                            break;
+                        case 3:
+                            mImage3.setImageBitmap((Bitmap)msg.obj);
+                            mImage3.setVisibility(View.VISIBLE);
+                            break;
+                        case 4:
+                            mImage4.setImageBitmap((Bitmap)msg.obj);
+                            mImage4.setVisibility(View.VISIBLE);
+                            break;
+                        case 5:
+                            mImage5.setImageBitmap((Bitmap)msg.obj);
+                            mImage5.setVisibility(View.VISIBLE);
+                            break;
+                    }
                 }
+
+//                if(msg.what == 1 && msg.obj != null){
+//                    mImage1.setImageBitmap((Bitmap)msg.obj);
+//                    mImage1.setVisibility(View.VISIBLE);
+//                }
             }
         };
 
@@ -370,7 +446,7 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
                         //bitmap = ImageUtils.getBitmapByPath(theLarge);
                     }
                 }
-
+                int index = -1;
                 if(bitmap != null){
                     String savePath = Environment.getExternalStorageDirectory().getAbsolutePath() +"/XSFeedback/Camera/";
                     File saveDir = new File(savePath);
@@ -381,20 +457,24 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
                     String largeFileName = FileUtils.getFileName(theLarge);
                     String largeFilePath = savePath + largeFileName;
 
+
                     if(largeFileName.startsWith("thumb_") && new File(largeFilePath).exists()){
                         theThumbnail = largeFilePath;
-                        imgFile = new File(theThumbnail);
+                        index = setImageFile(new File(theThumbnail));
+                        //imgFile1 = new File(theThumbnail);
                     }
                     else {
                         String thumbFileName = "thumb_" + largeFileName;
                         theThumbnail = savePath + thumbFileName;
                         if(new File(theThumbnail).exists()){
-                            imgFile = new File(theThumbnail);
+                            index = setImageFile(new File(theThumbnail));
+                            //imgFile1 = new File(theThumbnail);
                         }
                         else {
                             try {
-                                ImageUtils.createImageThumbnail(LogEditActivity.this,theLarge,theThumbnail,1500,100);
-                                imgFile = new File(theThumbnail);
+                                ImageUtils.createImageThumbnail(LogEditActivity.this,theLarge,theThumbnail,800,100);
+                                index = setImageFile(new File(theThumbnail));
+                                //imgFile1 = new File(theThumbnail);
                             }catch (IOException ex){
                                 ex.printStackTrace();
                             }
@@ -405,13 +485,23 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
                 ((AppContext)getApplication()).setProperty(tempLogImageKey,theThumbnail);
 
                 Message msg = new Message();
-                msg.what = 1;
+                msg.what = index;
                 msg.obj = bitmap;
                 handler.sendMessage(msg);
 
             }
 
         }.start();
+    }
+
+    private int setImageFile(File file) {
+        for (int i = 0; i < imgFiles.length; i++) {
+            if (imgFiles[i] == null) {
+                imgFiles[i] = file;
+                return i + 1;
+            }
+        }
+        return -1;
     }
 
     // 录音的路径
@@ -426,16 +516,12 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
 
     //发布日志
     private void pubLog(final byte logType,String content){
-        IS_OVERTIME = false;
-//        if(!appContext.isLogin()){
-//            UIHelper.showLoginActivity(LogEditActivity.this);
-//            return;
-//        }
 
+        IS_OVERTIME = false;
         log = new ProjectLog();
 
-        mMessage.setVisibility(View.VISIBLE);
-        mform.setVisibility(View.GONE);
+//        mMessage.setVisibility(View.VISIBLE);
+//        mform.setVisibility(View.GONE);
 
         log.setProjectid(mProject.getId());
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -448,49 +534,81 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
         log.setPstate(mSpinerState.getSelectedItem().toString());
 
         if(logType == LOG_TYPE_CONTENT){
-            log.setImagefile(imgFile);
+            log.setImagefile(imgFile1);
         }
 
         if(logType == LOG_TYPE_VOICE){
             log.setAmrfile(amrFile);
         }
 
-        new AsyncTask<Void,Void,Message>(){
-
+        final AlertDialog pubing = LightProgressDialog.create(this, "提交中...");
+        XsFeedbackApi.pubCreateLog(log, imgFiles, new AsyncHttpResponseHandler() {
             @Override
-            protected Message doInBackground(Void... params) {
-                Message msg = new Message();
-                try {
-                    msg.what = 1;
-                    msg.obj = ApiClient.pubProjectLog(appContext,log);
-                    //这里添加发送日志接口调用代码
-
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                ProjectLog log = JsonUtils.toBean(ProjectLog.class, responseBody);
+                if (log != null) {
+                    UIHelper.ToastMessage(AppContext.getInstance(), "创建成功");
+                    LogEditActivity.this.finish();
+                } else {
+                    UIHelper.ToastMessage(AppContext.getInstance(), "创建失败");
                 }
-                catch (Exception e){
-                    msg.what = -1;
-                    msg.obj = e;
-                    e.printStackTrace();
-                }
-
-                return msg;
             }
 
             @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                UIHelper.ToastMessage(AppContext.getInstance(), "创建失败" + statusCode);
             }
 
             @Override
-            protected void onPostExecute(Message message) {
-                getActivity().finish();
-                super.onPostExecute(message);
+            public void onStart() {
+                super.onStart();
+                pubing.show();
             }
 
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                pubing.dismiss();
+            }
+        });
 
-        }.execute();
 
-
-
+//        new AsyncTask<Void, Void,Message>(){
+//
+//            @Override
+//            protected Message doInBackground(Void... params) {
+//                Message msg = new Message();
+//                try {
+//                    msg.what = 1;
+//                    msg.obj = ApiClient.pubProjectLog(appContext,log);
+//                    //这里添加发送日志接口调用代码
+//
+//                }
+//                catch (Exception e){
+//                    msg.what = -1;
+//                    msg.obj = e;
+//                    e.printStackTrace();
+//                }
+//
+//                return msg;
+//            }
+//
+//            @Override
+//            protected void onPreExecute() {
+//                super.onPreExecute();
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Message message) {
+//                getActivity().finish();
+//                super.onPostExecute(message);
+//            }
+//
+//
+//        }.execute();
+//
+//
+//
 
 
     }

@@ -33,7 +33,11 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
         public TextView username;
         public TextView content;
         public TextView date;
-        public ImageView picture;
+        public ImageView picture1;
+        public ImageView picture2;
+        public ImageView picture3;
+        public ImageView picture4;
+        public ImageView picture5;
         public TextView projectname;
     }
 
@@ -56,8 +60,11 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
             listItemView.content = (TextView)convertView.findViewById(R.id.projectlog_listitem_content);
             listItemView.username = (TextView)convertView.findViewById(R.id.projectlog_listitem_username);
             listItemView.projectname = (TextView)convertView.findViewById(R.id.projectlog_listitem_projectname);
-            listItemView.picture = (ImageView)convertView.findViewById(R.id.projectlog_listitem_pic);
-
+            listItemView.picture1 = (ImageView)convertView.findViewById(R.id.projectlog_listitem_pic1);
+            listItemView.picture2 = (ImageView)convertView.findViewById(R.id.projectlog_listitem_pic2);
+            listItemView.picture3 = (ImageView)convertView.findViewById(R.id.projectlog_listitem_pic3);
+            listItemView.picture4 = (ImageView)convertView.findViewById(R.id.projectlog_listitem_pic4);
+            listItemView.picture5 = (ImageView)convertView.findViewById(R.id.projectlog_listitem_pic5);
             convertView.setTag(listItemView);
 
         }
@@ -80,14 +87,54 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
         }
 
         // 加载图片
-        String picURL = log.getPic();
-        if (StringUtils.isEmpty(picURL)) {
-            listItemView.picture.setVisibility(View.GONE);
+        String picURL1 = log.getPic1();
+        if (StringUtils.isEmpty(picURL1)) {
+            listItemView.picture1.setVisibility(View.GONE);
         } else {
-            listItemView.picture.setVisibility(View.VISIBLE);
-            picURL = URLs.URL_UPLOAD_LOGPIC + picURL;
+            listItemView.picture1.setVisibility(View.VISIBLE);
+            picURL1 = URLs.URL_UPLOAD_LOGPIC + picURL1;
             //bmpManager.loadBitmap(picURL, listItemView.picture);
-            ImageLoader.getInstance().displayImage(picURL, listItemView.picture, ImageLoaderUtils.getOption());
+            ImageLoader.getInstance().displayImage(picURL1, listItemView.picture1, ImageLoaderUtils.getOption());
+        }
+
+        String picURL2 = log.getPic2();
+        if (StringUtils.isEmpty(picURL2)) {
+            listItemView.picture2.setVisibility(View.GONE);
+        } else {
+            listItemView.picture2.setVisibility(View.VISIBLE);
+            picURL2 = URLs.URL_UPLOAD_LOGPIC + picURL2;
+            //bmpManager.loadBitmap(picURL, listItemView.picture);
+            ImageLoader.getInstance().displayImage(picURL2, listItemView.picture2, ImageLoaderUtils.getOption());
+        }
+
+        String picURL3 = log.getPic3();
+        if (StringUtils.isEmpty(picURL3)) {
+            listItemView.picture3.setVisibility(View.GONE);
+        } else {
+            listItemView.picture3.setVisibility(View.VISIBLE);
+            picURL3 = URLs.URL_UPLOAD_LOGPIC + picURL3;
+            //bmpManager.loadBitmap(picURL, listItemView.picture);
+            ImageLoader.getInstance().displayImage(picURL3, listItemView.picture3, ImageLoaderUtils.getOption());
+        }
+
+        String picURL4 = log.getPic4();
+        if (StringUtils.isEmpty(picURL4)) {
+            listItemView.picture4.setVisibility(View.GONE);
+        } else {
+            listItemView.picture4.setVisibility(View.VISIBLE);
+            picURL4 = URLs.URL_UPLOAD_LOGPIC + picURL4;
+            //bmpManager.loadBitmap(picURL, listItemView.picture);
+            ImageLoader.getInstance().displayImage(picURL4, listItemView.picture4, ImageLoaderUtils.getOption());
+        }
+
+        String picURL5 = log.getPic5();
+        if (StringUtils.isEmpty(picURL5)) {
+            listItemView.picture5.setVisibility(View.GONE);
+        } else {
+            listItemView.picture5.setVisibility(View.VISIBLE);
+            picURL5 = URLs.URL_UPLOAD_LOGPIC + picURL5;
+            //bmpManager.loadBitmap(picURL, listItemView.picture);
+            ImageLoader.getInstance().displayImage(picURL5, listItemView.picture5, ImageLoaderUtils.getOption());
         }
 
         // 2.显示相关信息
@@ -96,16 +143,16 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
         listItemView.content.setText(log.getContent());
         listItemView.date.setText(log.getCreatedate());
 
-        listItemView.picture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String picURL = log.getPic();
-                if (!StringUtils.isEmpty(picURL)) {
-                    picURL = URLs.URL_UPLOAD_LOGPIC + picURL;
-                    ImagePreviewActivity.showImagePreview(mContext, 0, new String[]{picURL});
-                }
-            }
-        });
+//        listItemView.picture.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String picURL = log.getPic();
+//                if (!StringUtils.isEmpty(picURL)) {
+//                    picURL = URLs.URL_UPLOAD_LOGPIC + picURL;
+//                    ImagePreviewActivity.showImagePreview(mContext, 0, new String[]{picURL});
+//                }
+//            }
+//        });
 
         return convertView;
     }

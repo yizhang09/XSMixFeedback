@@ -5,28 +5,28 @@
     android:layout_height="fill_parent"
     android:background="@color/white">
 
-    <LinearLayout
-        android:id="@+id/log_pub_message1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:visibility="gone" >
-        <LinearLayout
-            android:id="@+id/log_pub_message2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5.0dip"
-            android:background="@drawable/review_bg_blue">
-            <ProgressBar style="@style/loading_small"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dip"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:text="日志发布中···"/>
-        </LinearLayout>
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/log_pub_message1"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:gravity="center"-->
+        <!--android:visibility="gone" >-->
+        <!--<LinearLayout-->
+            <!--android:id="@+id/log_pub_message2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="5.0dip"-->
+            <!--android:background="@drawable/review_bg_blue">-->
+            <!--<ProgressBar style="@style/loading_small"/>-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="3dip"-->
+                <!--android:textSize="15sp"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:text="日志发布中···"/>-->
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/log_pub_form"

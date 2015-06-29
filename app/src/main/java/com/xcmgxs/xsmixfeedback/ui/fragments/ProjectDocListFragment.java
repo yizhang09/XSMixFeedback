@@ -38,6 +38,7 @@ public class ProjectDocListFragment extends BaseSwipeRefreshFragment<ProjectDoc,
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         mProject = (Project) args.getSerializable(Contanst.PROJECT);
+        super.update();
 
     }
 

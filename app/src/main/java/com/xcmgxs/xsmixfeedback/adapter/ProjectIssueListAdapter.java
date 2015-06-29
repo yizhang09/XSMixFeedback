@@ -36,6 +36,10 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         public TextView type;
         public TextView date;
         public ImageView pic1;
+        public ImageView pic2;
+        public ImageView pic3;
+        public ImageView pic4;
+        public ImageView pic5;
         public TextView projectname;
     }
 
@@ -61,6 +65,10 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
             listItemView.projectname = (TextView)convertView.findViewById(R.id.projectissue_listitem_projectname);
             listItemView.type = (TextView)convertView.findViewById(R.id.projectissue_listitem_type);
             listItemView.pic1 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic1);
+            listItemView.pic2 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic2);
+            listItemView.pic3 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic3);
+            listItemView.pic4 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic4);
+            listItemView.pic5 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic5);
             convertView.setTag(listItemView);
 
         }
@@ -81,14 +89,50 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         }
 
         // 加载图片
-        String picURL = issue.getPic1();
-        if (StringUtils.isEmpty(picURL)) {
+        String picURL1 = issue.getPic1();
+        if (StringUtils.isEmpty(picURL1)) {
             listItemView.pic1.setVisibility(View.GONE);
         } else {
             listItemView.pic1.setVisibility(View.VISIBLE);
-            picURL = URLs.URL_UPLOAD_ISSUEPIC + picURL;
+            picURL1 = URLs.URL_UPLOAD_ISSUEPIC + picURL1;
             //bmpManager.loadBitmap(picURL, listItemView.picture);
-            ImageLoader.getInstance().displayImage(picURL, listItemView.pic1, ImageLoaderUtils.getOption());
+            ImageLoader.getInstance().displayImage(picURL1, listItemView.pic1, ImageLoaderUtils.getOption());
+        }
+        String picUR2 = issue.getPic2();
+        if (StringUtils.isEmpty(picUR2)) {
+            listItemView.pic2.setVisibility(View.GONE);
+        } else {
+            listItemView.pic2.setVisibility(View.VISIBLE);
+            picUR2 = URLs.URL_UPLOAD_ISSUEPIC + picUR2;
+            //bmpManager.loadBitmap(picURL, listItemView.picture);
+            ImageLoader.getInstance().displayImage(picUR2, listItemView.pic2, ImageLoaderUtils.getOption());
+        }
+        String picURL3 = issue.getPic3();
+        if (StringUtils.isEmpty(picURL3)) {
+            listItemView.pic3.setVisibility(View.GONE);
+        } else {
+            listItemView.pic3.setVisibility(View.VISIBLE);
+            picURL3 = URLs.URL_UPLOAD_ISSUEPIC + picURL3;
+            //bmpManager.loadBitmap(picURL, listItemView.picture);
+            ImageLoader.getInstance().displayImage(picURL3, listItemView.pic3, ImageLoaderUtils.getOption());
+        }
+        String picURL4 = issue.getPic4();
+        if (StringUtils.isEmpty(picURL4)) {
+            listItemView.pic4.setVisibility(View.GONE);
+        } else {
+            listItemView.pic4.setVisibility(View.VISIBLE);
+            picURL4 = URLs.URL_UPLOAD_ISSUEPIC + picURL4;
+            //bmpManager.loadBitmap(picURL, listItemView.picture);
+            ImageLoader.getInstance().displayImage(picURL4, listItemView.pic4, ImageLoaderUtils.getOption());
+        }
+        String picURL5 = issue.getPic5();
+        if (StringUtils.isEmpty(picURL5)) {
+            listItemView.pic5.setVisibility(View.GONE);
+        } else {
+            listItemView.pic5.setVisibility(View.VISIBLE);
+            picURL5 = URLs.URL_UPLOAD_ISSUEPIC + picURL5;
+            //bmpManager.loadBitmap(picURL, listItemView.picture);
+            ImageLoader.getInstance().displayImage(picURL5, listItemView.pic5, ImageLoaderUtils.getOption());
         }
 
         // 2.显示相关信息
@@ -100,16 +144,16 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         listItemView.type.setText(issue.getType());
 
 
-        listItemView.pic1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String picURL = issue.getPic1();
-                if (!StringUtils.isEmpty(picURL)) {
-                    picURL = URLs.URL_UPLOAD_ISSUEPIC + picURL;
-                    ImagePreviewActivity.showImagePreview(mContext, 0, new String[]{picURL});
-                }
-            }
-        });
+//        listItemView.pic1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String picURL = issue.getPic1();
+//                if (!StringUtils.isEmpty(picURL)) {
+//                    picURL = URLs.URL_UPLOAD_ISSUEPIC + picURL;
+//                    ImagePreviewActivity.showImagePreview(mContext, 0, new String[]{picURL});
+//                }
+//            }
+//        });
 
         return convertView;
     }

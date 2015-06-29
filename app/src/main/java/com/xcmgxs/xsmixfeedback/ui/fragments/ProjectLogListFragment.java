@@ -11,13 +11,17 @@ import android.widget.BaseAdapter;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.adapter.ProjectLogListAdapter;
+import com.xcmgxs.xsmixfeedback.api.URLs;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.MessageData;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
+import com.xcmgxs.xsmixfeedback.ui.ImagePreviewActivity;
 import com.xcmgxs.xsmixfeedback.ui.basefragment.BaseSwipeRefreshFragment;
+import com.xcmgxs.xsmixfeedback.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,6 +56,7 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
         if(!IS_ALL) {
             mProject = (Project) args.getSerializable(Contanst.PROJECT);
         }
+        super.update();
     }
 
     @Override
@@ -83,4 +88,34 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
         return list;
     }
 
+    @Override
+    public void onItemClick(int position, ProjectLog projectLog) {
+
+        ArrayList<String> arrUrls = new ArrayList<String>();
+        if (!StringUtils.isEmpty(projectLog.getPic1())) {
+            String url = URLs.URL_UPLOAD_LOGPIC + projectLog.getPic1();
+            arrUrls.add(url);
+        }
+        if (!StringUtils.isEmpty(projectLog.getPic2())) {
+            String url = URLs.URL_UPLOAD_LOGPIC + projectLog.getPic2();
+            arrUrls.add(url);
+        }
+        if (!StringUtils.isEmpty(projectLog.getPic3())) {
+            String url = URLs.URL_UPLOAD_LOGPIC + projectLog.getPic3();
+            arrUrls.add(url);
+        }
+        if (!StringUtils.isEmpty(projectLog.getPic4())) {
+            String url = URLs.URL_UPLOAD_LOGPIC + projectLog.getPic4();
+            arrUrls.add(url);
+        }
+        if (!StringUtils.isEmpty(projectLog.getPic5())) {
+            String url = URLs.URL_UPLOAD_LOGPIC + projectLog.getPic5();
+            arrUrls.add(url);
+        }
+        String[] picURL = arrUrls.toArray(new String[arrUrls.size()]);
+        if(picURL.length > 0) {
+            ImagePreviewActivity.showImagePreview(getActivity(), 0, picURL);
+        }
+
+    }
 }
