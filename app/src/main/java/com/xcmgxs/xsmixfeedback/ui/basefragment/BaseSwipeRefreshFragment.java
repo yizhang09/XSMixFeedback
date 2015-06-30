@@ -31,7 +31,7 @@ import android.widget.TextView;
  * 说明 下拉刷新界面的基类
  */
 public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result extends PageList<Data>>
-        extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,OnItemClickListener, OnScrollListener {
+        extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,OnItemClickListener, OnScrollListener,AdapterView.OnItemLongClickListener {
 
     // 没有状态
     public static final int LISTVIEW_ACTION_NONE = -1;
@@ -187,6 +187,7 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
     protected void setupListView() {
         mListView.setOnScrollListener(this);
         mListView.setOnItemClickListener(this);
+        mListView.setOnItemLongClickListener(this);
         mListView.addFooterView(mFooterView);
         mListView.setAdapter(mAdapter);
         if (mHeaderView != null) {
@@ -314,6 +315,27 @@ public abstract class BaseSwipeRefreshFragment<Data extends Entity, Result exten
       /** 点击了某个item */
     public void onItemClick(int position, Data data) {
 
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        // 点击了底部
+        if (view == mFooterView) {
+            return false;
+        }
+        // 点击了顶部
+        if (mHeaderView == view) {
+            return false;
+        }
+        if (mHeaderView != null) {
+            position = position - 1;
+        }
+        Data data = getData(position);
+        return onItemLongClick(position, data);
+    }
+
+    protected boolean onItemLongClick(int position, Data data){
+        return true;
     }
 
     /** 正在加载的状态 */

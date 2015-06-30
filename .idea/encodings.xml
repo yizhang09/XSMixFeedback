@@ -31,6 +31,8 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/dialog/ImageMenuDialog.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/fragments/NotificationFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/fragments/ProjectDocListFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/fragments/ProjectIssueListFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/fragments/ProjectLogListFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/util/ImageLoaderUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/util/JsonUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/util/TypefaceUtils.java" charset="UTF-8" />

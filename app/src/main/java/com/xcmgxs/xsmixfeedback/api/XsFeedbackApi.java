@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URLEncoder;
 
+import static com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper.delete;
 import static com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper.get;
 import static com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper.getHttpClient;
 import static com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper.getPrivateTokenWithParams;
@@ -180,6 +181,39 @@ public class XsFeedbackApi {
         params.put("page", page);
         params.put("query", query);
         get(PROJECT, params, handler);
+    }
+
+    public static void delLog(String id, AsyncHttpResponseHandler handler) {
+        try {
+            RequestParams params = getPrivateTokenWithParams();
+            params.put("id", id);
+            delete(PROJECT_LOG + "/" + id, handler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void delIssue(String id, AsyncHttpResponseHandler handler) {
+        try {
+            RequestParams params = getPrivateTokenWithParams();
+            params.put("id", id);
+            delete(PROJECT_ISSUE + "/" + id, handler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void delDoc(String id, AsyncHttpResponseHandler handler) {
+        try {
+            RequestParams params = getPrivateTokenWithParams();
+            params.put("id", id);
+            delete(PROJECT_DOC + "/" + id, handler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

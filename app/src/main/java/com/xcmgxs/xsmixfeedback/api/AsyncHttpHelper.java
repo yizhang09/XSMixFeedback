@@ -23,7 +23,7 @@ public class AsyncHttpHelper {
 
 
     public final static String PRIVATE_TOKEN = "private_token";
-    public final static String GITOSC_PRIVATE_TOKEN = "git@osc_token";
+    public final static String XCMGXS_PRIVATE_TOKEN = "feedback@xcmgxs";
 
     public final static int TIMEOUT_CONNECTION = 20000;// 连接超时时间
     public final static int TIMEOUT_SOCKET = 20000;// socket超时
@@ -34,7 +34,7 @@ public class AsyncHttpHelper {
         client.setTimeout(TIMEOUT_CONNECTION);
         client.setResponseTimeout(TIMEOUT_SOCKET);
         String private_token = AppContext.getInstance().getProperty(PRIVATE_TOKEN);
-        private_token = CyptoUtils.decode(GITOSC_PRIVATE_TOKEN, private_token);
+        private_token = CyptoUtils.decode(XCMGXS_PRIVATE_TOKEN, private_token);
         client.addHeader("private-token", private_token);
         return client;
     }
@@ -140,7 +140,7 @@ public class AsyncHttpHelper {
     public static RequestParams getPrivateTokenWithParams() {
         RequestParams params = new RequestParams();
         String private_token = AppContext.getInstance().getProperty(PRIVATE_TOKEN);
-        private_token = CyptoUtils.decode(GITOSC_PRIVATE_TOKEN, private_token);
+        private_token = CyptoUtils.decode(XCMGXS_PRIVATE_TOKEN, private_token);
         params.put(PRIVATE_TOKEN, private_token);
         return params;
     }

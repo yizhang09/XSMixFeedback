@@ -39,7 +39,7 @@ import java.util.Map;
 public class ApiClient {
 
     private final static String PRIVATE_TOKEN = "private_token";
-    private final static String FEEDBACK_PRIVATE_TOKEN = "feedback@xcmgxs_token";
+    public final static String XCMGXS_PRIVATE_TOKEN = "feedback@xcmgxs";
 
     public static final int PAGE_SIZE = 20;// 默认分页大小
     private static final int CACHE_TIME = 60 * 60000;// 缓存失效时间
@@ -55,7 +55,7 @@ public class ApiClient {
         if(private_token == null||private_token == ""){
             private_token = appContext.getProperty(PRIVATE_TOKEN);
         }
-        return CyptoUtils.decode(FEEDBACK_PRIVATE_TOKEN, private_token);
+        return CyptoUtils.decode(XCMGXS_PRIVATE_TOKEN, private_token);
     }
 
     private static HTTPRequestor getHttpRequester(){
@@ -115,7 +115,7 @@ public class ApiClient {
         User session = getHttpRequester().init(appContext, HTTPRequestor.GET_METHOD, urlString).to(User.class);
 
         if (session != null ){
-            String token = CyptoUtils.encode(FEEDBACK_PRIVATE_TOKEN,session.getId());
+            String token = CyptoUtils.encode(XCMGXS_PRIVATE_TOKEN,session.getId());
             appContext.setProperty(PRIVATE_TOKEN, token);
         }
 
@@ -323,9 +323,7 @@ public class ApiClient {
         Map<String,Object> params = new HashMap<>();
         params.put(PRIVATE_TOKEN,getToken(appContext));
         params.put("page",page);
-        if(projectid != "-1") {
-            params.put("projectid", projectid);
-        }
+        params.put("projectid", projectid);
         String url = makeURL(URLs.PROJECTDOC,params);
         List<ProjectDoc> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(ProjectDoc[].class);
         lst.setCount(list.size());
