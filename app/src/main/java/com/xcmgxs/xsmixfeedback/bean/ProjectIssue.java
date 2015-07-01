@@ -22,6 +22,15 @@ public class ProjectIssue extends Entity {
     @JsonProperty("Type")
     private String type;
 
+    @JsonProperty("Reason")
+    private String reason;
+
+    @JsonProperty("Solution")
+    private String solution;
+
+    @JsonProperty("Responsible")
+    private String responsible;
+
     @JsonProperty("CreateDate")
     private String createdate;
 
@@ -45,6 +54,30 @@ public class ProjectIssue extends Entity {
 
     @JsonProperty("Pic5")
     private String pic5;
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getSolution() {
+        return solution;
+    }
+
+    public void setSolution(String solution) {
+        this.solution = solution;
+    }
+
+    public String getResponsible() {
+        return responsible;
+    }
+
+    public void setResponsible(String responsible) {
+        this.responsible = responsible;
+    }
 
     public String getPic2() {
         return pic2;

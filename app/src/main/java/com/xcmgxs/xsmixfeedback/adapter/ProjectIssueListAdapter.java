@@ -35,6 +35,10 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         public TextView content;
         public TextView type;
         public TextView date;
+        public TextView isdone;
+        public TextView reason;
+        public TextView solution;
+        public TextView response;
         public ImageView pic1;
         public ImageView pic2;
         public ImageView pic3;
@@ -54,26 +58,29 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ListItemView listItemView = null;
-        if(convertView == null){
-            convertView = listContainer.inflate(this.itemViewResource,null);
+        if (convertView == null) {
+            convertView = listContainer.inflate(this.itemViewResource, null);
 
             listItemView = new ListItemView();
-            listItemView.face = (CircleImageView)convertView.findViewById(R.id.projectissue_listitem_face);
-            listItemView.date = (TextView)convertView.findViewById(R.id.projectissue_listitem_date);
-            listItemView.content = (TextView)convertView.findViewById(R.id.projectissue_listitem_content);
-            listItemView.username = (TextView)convertView.findViewById(R.id.projectissue_listitem_username);
-            listItemView.projectname = (TextView)convertView.findViewById(R.id.projectissue_listitem_projectname);
-            listItemView.type = (TextView)convertView.findViewById(R.id.projectissue_listitem_type);
-            listItemView.pic1 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic1);
-            listItemView.pic2 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic2);
-            listItemView.pic3 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic3);
-            listItemView.pic4 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic4);
-            listItemView.pic5 = (ImageView)convertView.findViewById(R.id.projectissue_listitem_pic5);
+            listItemView.face = (CircleImageView) convertView.findViewById(R.id.projectissue_listitem_face);
+            listItemView.date = (TextView) convertView.findViewById(R.id.projectissue_listitem_date);
+            listItemView.content = (TextView) convertView.findViewById(R.id.projectissue_listitem_content);
+            listItemView.username = (TextView) convertView.findViewById(R.id.projectissue_listitem_username);
+            listItemView.projectname = (TextView) convertView.findViewById(R.id.projectissue_listitem_projectname);
+            listItemView.type = (TextView) convertView.findViewById(R.id.projectissue_listitem_type);
+            listItemView.isdone = (TextView) convertView.findViewById(R.id.projectissue_listitem_isdone);
+            listItemView.reason = (TextView) convertView.findViewById(R.id.projectissue_listitem_reason);
+            listItemView.solution = (TextView) convertView.findViewById(R.id.projectissue_listitem_solution);
+            listItemView.response = (TextView) convertView.findViewById(R.id.projectissue_listitem_response);
+            listItemView.pic1 = (ImageView) convertView.findViewById(R.id.projectissue_listitem_pic1);
+            listItemView.pic2 = (ImageView) convertView.findViewById(R.id.projectissue_listitem_pic2);
+            listItemView.pic3 = (ImageView) convertView.findViewById(R.id.projectissue_listitem_pic3);
+            listItemView.pic4 = (ImageView) convertView.findViewById(R.id.projectissue_listitem_pic4);
+            listItemView.pic5 = (ImageView) convertView.findViewById(R.id.projectissue_listitem_pic5);
             convertView.setTag(listItemView);
 
-        }
-        else {
-            listItemView = (ListItemView)convertView.getTag();
+        } else {
+            listItemView = (ListItemView) convertView.getTag();
         }
 
         final ProjectIssue issue = listData.get(position);
@@ -142,6 +149,23 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         listItemView.content.setText(issue.getContent());
         listItemView.date.setText(issue.getCreatedate());
         listItemView.type.setText(issue.getType());
+
+        if (!StringUtils.isEmpty(issue.getSolution())) {
+            listItemView.isdone.setText("已解决");
+            listItemView.isdone.setTextColor(mContext.getResources().getColor(R.color.green));
+        }
+
+        if(!StringUtils.isEmpty(issue.getReason())) {
+            listItemView.reason.setText("原因分析：" + issue.getReason());
+        }
+        if(!StringUtils.isEmpty(issue.getSolution())) {
+            listItemView.solution.setText("解决方案：" + issue.getSolution());
+        }
+        if(!StringUtils.isEmpty(issue.getResponsible())) {
+            listItemView.response.setText("责任归属：" + issue.getResponsible());
+        }
+
+
 
 
 //        listItemView.pic1.setOnClickListener(new View.OnClickListener() {

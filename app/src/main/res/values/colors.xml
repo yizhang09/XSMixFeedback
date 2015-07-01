@@ -94,4 +94,6 @@
     <color name="lightest_gray">#0a000000</color>
     <color name="bg_touch">@color/lightest_gray</color>
 
+    <color name="undone">#ffff4444</color>
+
 </resources>

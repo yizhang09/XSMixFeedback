@@ -117,7 +117,49 @@
                 android:paddingLeft="10dip"
                 android:textColor="@color/pressed_gitlab"
                 android:textSize="@dimen/text_size_10"
-                android:text="漏件"/>
+                android:text="故障部件"/>
+
+            <TextView
+                android:id="@+id/projectissue_listitem_isdone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dip"
+                android:textColor="@color/undone"
+                android:textSize="@dimen/text_size_10"
+                android:text="未解决"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dip"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/projectissue_listitem_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/listitem_gray"
+                android:textSize="@dimen/text_size_10"
+                android:text="原因分析："/>
+
+            <TextView
+                android:id="@+id/projectissue_listitem_solution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/listitem_gray"
+                android:textSize="@dimen/text_size_10"
+                android:text="解决方案："/>
+
+            <TextView
+                android:id="@+id/projectissue_listitem_response"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/listitem_gray"
+                android:textSize="@dimen/text_size_10"
+                android:text="责任归属："/>
+
 
         </LinearLayout>
 
