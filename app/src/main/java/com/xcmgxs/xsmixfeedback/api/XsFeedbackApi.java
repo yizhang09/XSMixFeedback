@@ -6,6 +6,7 @@ import com.loopj.android.http.RequestParams;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
+import com.xcmgxs.xsmixfeedback.util.StringUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,6 +37,8 @@ public class XsFeedbackApi {
     public final static String UPLOAD = BASE_URL + "/upload";
     public final static String NOTIFICATION = BASE_URL + "/notification";
     public final static String VERSION = BASE_URL + "/update";
+
+    public final static String STAT = BASE_URL + "/stat";
 
 
     /**
@@ -218,6 +221,15 @@ public class XsFeedbackApi {
             e.printStackTrace();
         }
 
+    }
+
+    public static void getStatData(String pid,String category,AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        if(!StringUtils.isEmpty(pid)) {
+            params.put("pid", pid);
+        }
+        params.put("category", category);
+        AsyncHttpHelper.get(STAT, params, handler);
     }
 
 }

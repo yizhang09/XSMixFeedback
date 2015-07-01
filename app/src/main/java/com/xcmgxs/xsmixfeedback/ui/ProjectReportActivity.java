@@ -6,36 +6,45 @@ import android.os.Bundle;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
+
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.Stat;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
+import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
+import com.xcmgxs.xsmixfeedback.util.JsonUtils;
+import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.widget.CustomerScrollView;
 
+import org.apache.http.Header;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class ProjectReportActivity extends BaseActionBarActivity {
+public class ProjectReportActivity extends BaseActionBarActivity implements View.OnClickListener {
 
 
     private static final int ACTION_LOAD_PROJECT = 0;
@@ -53,7 +62,7 @@ public class ProjectReportActivity extends BaseActionBarActivity {
     @InjectView(R.id.project_issue_piechart)
     PieChart mPiechart;
     @InjectView(R.id.project_issue_barchart)
-    BarChart mBarchart;
+    HorizontalBarChart mBarchart;
     @InjectView(R.id.project_info_tongcang)
     TextView mProjectInfoTongcang;
     @InjectView(R.id.project_tongcang)
@@ -109,6 +118,9 @@ public class ProjectReportActivity extends BaseActionBarActivity {
     @InjectView(R.id.project_content)
     CustomerScrollView mProjectContent;
 
+    @InjectView(R.id.project_report_issuelayout)
+    LinearLayout mProjectIssueLayout;
+
     private Project mProject;
 
     private String projectid;
@@ -142,7 +154,11 @@ public class ProjectReportActivity extends BaseActionBarActivity {
         mActionBar.setTitle(mProject.getName());
         mActionBar.setSubtitle(mProject.getManager() != null ? mProject.getManager().getName() : "");
         mProjectName.setText(mProject.getName());
-        mProjectDescription.setText(mProject.getAddress() + mProject.getEmState());
+        if(!StringUtils.isEmpty(mProject.getAddress() + mProject.getEmState())) {
+            mProjectDescription.setText(mProject.getAddress() + mProject.getEmState());
+        } else {
+            mProjectDescription.setText("暂无项目介绍");
+        }
         mProjectInfoTongcang.setText(mProject.getPackagedate());
         mProjectInfoBase.setText(mProject.getBasedate());
         mProjectInfoAnzhuang.setText(mProject.getInstalldate());
@@ -156,6 +172,8 @@ public class ProjectReportActivity extends BaseActionBarActivity {
         mProjectInfoTiaoshiz.setText(mProject.getDebugoverdate1());
         mProjectInfoTiaoshiy.setText(mProject.getDebugoverdate2());
         mProjectInfoFengzhuang.setText(mProject.getEnterdate1());
+        mProjectStep.setOnClickListener(this);
+        mProjectIssueLayout.setOnClickListener(this);
 
         switch (mProject.getState()) {
             case "基础未做":
@@ -180,73 +198,8 @@ public class ProjectReportActivity extends BaseActionBarActivity {
                 mProjectStep.setImageResource(R.drawable.step7);
                 break;
         }
-
-        mPiechart.setDescription("质量分类汇总");
-        mPiechart.setNoDataTextDescription("无数据");
-        mBarchart.setDescription("质量月报");
-        mBarchart.setNoDataTextDescription("无数据");
-
-        ArrayList<BarEntry> valsComp1 = new ArrayList<BarEntry>();
-        ArrayList<BarEntry> valsComp2 = new ArrayList<BarEntry>();
-        BarEntry c1e1 = new BarEntry(100.000f, 0); // 0 == quarter 1
-        valsComp1.add(c1e1);
-        BarEntry c1e2 = new BarEntry(50.000f, 1); // 1 == quarter 2 ...
-        valsComp1.add(c1e2);
-        BarEntry c1e3 = new BarEntry(100.000f, 2); // 2 == quarter 3
-        valsComp1.add(c1e3);
-        BarEntry c1e4 = new BarEntry(50.000f, 3); // 3 == quarter 4 ...
-        valsComp1.add(c1e4);
-
-        BarEntry c2e1 = new BarEntry(120.000f, 0); // 0 == quarter 1
-        valsComp2.add(c2e1);
-        BarEntry c2e2 = new BarEntry(110.000f, 1); // 1 == quarter 2 ...
-        valsComp2.add(c2e2);
-        BarEntry c2e3 = new BarEntry(120.000f, 2); // 2 == quarter 3
-        valsComp2.add(c2e3);
-        BarEntry c2e4 = new BarEntry(110.000f, 3); // 3 == quarter 4 ...
-        valsComp2.add(c2e4);
-
-        BarDataSet setComp1 = new BarDataSet(valsComp1, "Company 1");
-        setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
-        setComp1.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        BarDataSet setComp2 = new BarDataSet(valsComp2, "Company 2");
-        setComp2.setAxisDependency(YAxis.AxisDependency.LEFT);
-        setComp2.setColor(ColorTemplate.VORDIPLOM_COLORS[1]);
-        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
-        dataSets.add(setComp1);
-        dataSets.add(setComp2);
-
-
-
-        ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("1.Q");
-        xVals.add("2.Q");
-        xVals.add("3.Q");
-        xVals.add("4.Q");
-
-        BarData data = new BarData(xVals, dataSets);
-        mBarchart.setData(data);
-        mBarchart.invalidate(); // refresh
-
-        ArrayList<Entry> arrayList = new ArrayList<Entry>();
-        Entry entry1 = new Entry(100.000f, 0); // 0 == quarter 1
-        arrayList.add(entry1);
-        Entry entry2 = new Entry(50.000f, 1); // 1 == quarter 2 ...
-        arrayList.add(entry2);
-        Entry entry3 = new Entry(100.000f, 2); // 2 == quarter 3
-        arrayList.add(entry3);
-        Entry entry4 = new Entry(50.000f, 3); // 3 == quarter 4 ...
-        arrayList.add(entry4);
-
-        PieDataSet dataSetsPie = new PieDataSet(arrayList,"Company 1");
-        dataSetsPie.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        //dataSetsPie;
-        PieData pieData = new PieData(xVals,dataSetsPie);
-        mPiechart.setData(pieData);
-        mPiechart.invalidate();
-
-
-
+        loadPieChartData();
+        loadBarChartData();
     }
 
 
@@ -277,6 +230,103 @@ public class ProjectReportActivity extends BaseActionBarActivity {
     }
 
 
+    private void loadPieChartData(){
+        String projectid = mProject.getId();
+        XsFeedbackApi.getStatData(projectid, "response", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                List<Stat> data = JsonUtils.getList(Stat[].class, responseBody);
+                if (data.size() != 0) {
+                    renderPieChart(data);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
+    private void loadBarChartData(){
+        String projectid = mProject.getId();
+        XsFeedbackApi.getStatData(projectid, "type", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                List<Stat> data = JsonUtils.getList(Stat[].class, responseBody);
+                if (data.size() != 0) {
+                    renderBarChart(data);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
+    private void renderBarChart(List<Stat> data) {
+        mBarchart.setDescription("");
+        mBarchart.setNoDataTextDescription("无数据");
+        mBarchart.setNoDataText("暂时无数据");
+        mBarchart.setPinchZoom(false);
+        mBarchart.animateY(2500);
+        mBarchart.setScaleEnabled(false);
+        mBarchart.setDoubleTapToZoomEnabled(false);
+        mBarchart.setDrawGridBackground(false);
+        ArrayList<BarEntry> arrayList = new ArrayList<BarEntry>();
+        ArrayList<String> xVals = new ArrayList<String>();
+        for (int i=0;i<data.size();i++) {
+            BarEntry entry = new BarEntry(data.get(i).getCount(), i);
+            arrayList.add(entry);
+            xVals.add(data.get(i).getLabel());
+        }
+
+//        BarEntry c1e1 = new BarEntry(100.000f, 0); // 0 == quarter 1
+//        valsComp1.add(c1e1);
+//        BarEntry c1e2 = new BarEntry(50.000f, 1); // 1 == quarter 2 ...
+//        valsComp1.add(c1e2);
+//        BarEntry c1e3 = new BarEntry(100.000f, 2); // 2 == quarter 3
+//        valsComp1.add(c1e3);
+//        BarEntry c1e4 = new BarEntry(50.000f, 3); // 3 == quarter 4 ...
+//        valsComp1.add(c1e4);
+
+        BarDataSet bards = new BarDataSet(arrayList, "故障数量");
+        bards.setAxisDependency(YAxis.AxisDependency.LEFT);
+        bards.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
+        dataSets.add(bards);
+
+        BarData bardata = new BarData(xVals, dataSets);
+        mBarchart.setData(bardata);
+        mBarchart.invalidate(); // refresh
+    }
+
+    private void renderPieChart(List<Stat> data) {
+        mPiechart.setNoDataTextDescription("无数据");
+        mPiechart.setNoDataText("暂时无数据");
+        mPiechart.setDescription("");
+        mPiechart.setDrawHoleEnabled(true);
+        mPiechart.setHoleColorTransparent(true);
+        mPiechart.setDrawCenterText(true);
+        mPiechart.setCenterText("责任归属汇总");
+        mPiechart.animateY(1500, Easing.EasingOption.EaseInOutQuad);
+        ArrayList<Entry> arrayList = new ArrayList<Entry>();
+        ArrayList<String> xVals = new ArrayList<String>();
+        for (int i=0;i<data.size();i++) {
+            Entry entry = new Entry(data.get(i).getCount(), i);
+            arrayList.add(entry);
+            xVals.add(data.get(i).getLabel());
+        }
+        PieDataSet dataSetsPie = new PieDataSet(arrayList, "");
+        dataSetsPie.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        PieData pieData = new PieData(xVals, dataSetsPie);
+        mPiechart.setData(pieData);
+        mPiechart.invalidate();
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -297,5 +347,18 @@ public class ProjectReportActivity extends BaseActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id){
+            case R.id.project_step:
+                UIHelper.showProjectListActivity(ProjectReportActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_LOGS);
+                break;
+            case R.id.project_report_issuelayout:
+                UIHelper.showProjectListActivity(ProjectReportActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_ISSUES);
+                break;
+        }
     }
 }

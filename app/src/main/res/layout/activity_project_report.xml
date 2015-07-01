@@ -92,6 +92,7 @@
             <View style="@style/h_line" />
 
             <LinearLayout
+                android:id="@+id/project_report_issuelayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -100,10 +101,11 @@
 
                 <TextView
                     style="@style/project_detail_description"
-                    android:text="质量反馈分类统计"/>
+                    android:text="质量反馈责任归属"/>
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/project_issue_piechart"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="300dip" />
 
@@ -120,12 +122,14 @@
 
                 <TextView
                     style="@style/project_detail_description"
-                    android:text="质量反馈月报"/>
+                    android:text="质量反馈故障部件汇总"/>
 
-                <com.github.mikephil.charting.charts.BarChart
+                <com.github.mikephil.charting.charts.HorizontalBarChart
                     android:id="@+id/project_issue_barchart"
+                    android:clickable="true"
+                    android:background="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="200dip" />
+                    android:layout_height="600dip" />
 
             </LinearLayout>
 
