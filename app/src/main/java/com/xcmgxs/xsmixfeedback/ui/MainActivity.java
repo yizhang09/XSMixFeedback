@@ -20,9 +20,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppManager;
 import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
+import com.xcmgxs.xsmixfeedback.bean.Notification;
+import com.xcmgxs.xsmixfeedback.common.Contanst;
 import com.xcmgxs.xsmixfeedback.common.DoubleClickExitHelper;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.common.UpdateManager;
@@ -30,7 +34,12 @@ import com.xcmgxs.xsmixfeedback.interfaces.DrawerMenuCallBack;
 import com.xcmgxs.xsmixfeedback.service.NotificationUtils;
 import com.xcmgxs.xsmixfeedback.ui.fragments.DrawerNavigationMenu;
 import com.xcmgxs.xsmixfeedback.ui.fragments.ExploreViewPagerFragment;
+import com.xcmgxs.xsmixfeedback.util.JsonUtils;
 import com.xcmgxs.xsmixfeedback.widget.BadgeView;
+
+import org.apache.http.Header;
+
+import java.util.List;
 
 /**
  * Created by zhangyi on 2015-3-18.
@@ -71,7 +80,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
 
     private static String mTitle;
     public static BadgeView mNotificationBadgeView;
-
+    private MenuItem mItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +115,12 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
 //        }
         setExploreView();
 
+        Intent intent = getIntent();
+        boolean isNotify = intent.getBooleanExtra(Contanst.NOTIFICATOIN,false);
+        if(isNotify){
+            UIHelper.showNotification(this);
+        }
+
     }
 
     private void setExploreView(){
@@ -135,6 +150,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         if (mTitle != null) {
             mActionBar.setTitle(mTitle);
         }
+        setNotificationIcon();
 
         if (mCurrentContentTag != null && mContext !=null && mMenu != null) {
             //setExploreView();
@@ -164,6 +180,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         if (mContext.isCheckUp()) {
             UpdateManager.getUpdateManager().checkAppUpdate(this, false);
         }
+
     }
 
     @Override
@@ -230,6 +247,8 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        mItem = menu.findItem(R.id.main_actionbar_menu_notification);
+        setNotificationIcon();
         return true;
     }
 
@@ -313,5 +332,25 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         public void onDrawerStateChanged(int newState) {
             mDrawerToggle.onDrawerStateChanged(newState);
         }
+    }
+
+    private void setNotificationIcon(){
+        XsFeedbackApi.getNotification(false, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                List<Notification> notificationArrays = JsonUtils.getList(Notification[].class, responseBody);
+                if (notificationArrays.size() != 0) {
+                    mItem.setIcon(R.drawable.menu_icon_notice_unread);
+                }
+                else{
+                    mItem.setIcon(R.drawable.menu_icon_notice);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
     }
 }

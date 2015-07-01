@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.provider.SyncStateContract;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
@@ -23,8 +24,10 @@ import com.xcmgxs.xsmixfeedback.api.ApiClient;
 import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
 import com.xcmgxs.xsmixfeedback.bean.Notification;
 import com.xcmgxs.xsmixfeedback.broadcast.AlarmReceiver;
+import com.xcmgxs.xsmixfeedback.common.Contanst;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.MainActivity;
+import com.xcmgxs.xsmixfeedback.ui.NotificationActivity;
 import com.xcmgxs.xsmixfeedback.util.JsonUtils;
 import com.xcmgxs.xsmixfeedback.util.TLog;
 
@@ -124,25 +127,24 @@ public class NotificationService extends Service {
     }
 
     private void clearNotification(int uid,int type){
-        ApiClient.clearNotice(uid,type,mClearNotificationHandler);
+        XsFeedbackApi.clearNotice(uid,type,mClearNotificationHandler);
     }
 
     private void requestNotification(){
         TLog.log("ApiClient ->requestNotification");
-        XsFeedbackApi.getNotification("",mGetNotificationHandler);
+        XsFeedbackApi.getNotification(mGetNotificationHandler);
     }
 
     private int lastNotifyCount;
 
-    private void notification(Notification notification){
+    private void notification(List<Notification> notification){
         Resources res = getResources();
-        String contentTitle = res.getString(R.string.you_have_news_messages, "1");
-        String contentText;
-
-        contentText = notification.getTitle();
+        String contentTitle = res.getString(R.string.you_have_news_messages, notification.size());
+        //String contentText = notification.getTitle();
+        String contentText = res.getString(R.string.app_name);
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("NOTIFICATION", true);
+        intent.putExtra(Contanst.NOTIFICATOIN, true);
         PendingIntent pi = PendingIntent.getActivity(this,1000,intent,PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setTicker(contentTitle)
@@ -150,7 +152,7 @@ public class NotificationService extends Service {
                 .setContentText(contentText)
                 .setAutoCancel(true)
                 .setContentIntent(pi)
-                .setSmallIcon(R.drawable.xcmg);
+                .setSmallIcon(R.drawable.xcmg_logo1);
 
         if (AppContext.get(AppConfig.KEY_NOTIFICATION_SOUND, true)) {
             builder.setSound(Uri.parse("android.resource://"
@@ -173,9 +175,9 @@ public class NotificationService extends Service {
             try {
                 List<Notification> notifications = JsonUtils.getList(Notification[].class, bytes);
                 if(notifications != null && !notifications.isEmpty()){
+                    notification(notifications);
                     for(Notification n : notifications){
                         UIHelper.sendBroadcast(NotificationService.this, n);
-                        notification(n);
                     }
                     mNotification = notifications;
                 }

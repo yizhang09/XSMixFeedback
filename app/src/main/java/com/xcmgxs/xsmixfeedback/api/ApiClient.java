@@ -304,13 +304,6 @@ public class ApiClient {
         return lst;
     }
 
-    public static void clearNotice(int uid, int type, AsyncHttpResponseHandler handler) {
-        RequestParams params = new RequestParams();
-        params.put("uid", uid);
-        params.put("type", type);
-        AsyncHttpHelper.post("/notification", params, handler);
-    }
-
 //    public static void getNotices(AsyncHttpResponseHandler handler) {
 //        RequestParams params = new RequestParams();
 //        params.put("uid", AppContext.getInstance().getLoginUid());

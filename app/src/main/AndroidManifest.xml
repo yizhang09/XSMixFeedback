@@ -153,6 +153,10 @@
             android:name=".ui.ImagePreviewActivity"
             android:label="@string/title_activity_image_preview" >
         </activity>
+        <activity
+            android:name=".ui.NotificationDetailActivity"
+            android:label="@string/title_activity_notification_detail" >
+        </activity>
     </application>
 
 </manifest>

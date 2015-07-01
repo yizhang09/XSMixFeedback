@@ -36,6 +36,7 @@ import com.xcmgxs.xsmixfeedback.ui.LoginActivity;
 import com.xcmgxs.xsmixfeedback.ui.MainActivity;
 import com.xcmgxs.xsmixfeedback.ui.MySelfInfoActivity;
 import com.xcmgxs.xsmixfeedback.ui.NotificationActivity;
+import com.xcmgxs.xsmixfeedback.ui.NotificationDetailActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectInfoActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectReportActivity;
@@ -377,5 +378,14 @@ public class UIHelper {
             }
         });
         builder.create();
+    }
+
+    public static void showNotificationDetail(Context context, Notification notification) {
+        Intent intent = new Intent(context, NotificationDetailActivity.class);
+        Bundle bundle = new Bundle();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        bundle.putSerializable(Contanst.NOTIFICATOIN, notification);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 }

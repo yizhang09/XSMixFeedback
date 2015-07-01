@@ -157,22 +157,32 @@ public class XsFeedbackApi {
     }
 
     //获得通知信息
-    public static void getNotification(String all,AsyncHttpResponseHandler handler) {
+    public static void getNotification(AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("uid", AppContext.getInstance().getLoginUid());
-        params.put("all", all);
         AsyncHttpHelper.get(NOTIFICATION, params, handler);
     }
 
+
+    public static void getNotification(boolean isRead,AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", AppContext.getInstance().getLoginUid());
+        params.put("isRead", isRead);
+        AsyncHttpHelper.get(NOTIFICATION, params, handler);
+    }
+
+    public static void clearNotice(int uid, int type, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", uid);
+        params.put("type", type);
+        AsyncHttpHelper.post(NOTIFICATION, params, handler);
+    }
 
     /**
      * 设置通知为已读
      */
     public static void setNotificationReaded(String notificationId, AsyncHttpResponseHandler handler) {
-        RequestParams params = getPrivateTokenWithParams();
-        params.put("id", notificationId);
-        params.put("isRead", true);
-        AsyncHttpHelper.put(NOTIFICATION, params, handler);
+        AsyncHttpHelper.put(NOTIFICATION + "/" + notificationId, handler);
     }
 
 
@@ -185,8 +195,6 @@ public class XsFeedbackApi {
 
     public static void delLog(String id, AsyncHttpResponseHandler handler) {
         try {
-            RequestParams params = getPrivateTokenWithParams();
-            params.put("id", id);
             delete(PROJECT_LOG + "/" + id, handler);
         } catch (Exception e) {
             e.printStackTrace();
@@ -196,8 +204,6 @@ public class XsFeedbackApi {
 
     public static void delIssue(String id, AsyncHttpResponseHandler handler) {
         try {
-            RequestParams params = getPrivateTokenWithParams();
-            params.put("id", id);
             delete(PROJECT_ISSUE + "/" + id, handler);
         } catch (Exception e) {
             e.printStackTrace();
@@ -207,8 +213,6 @@ public class XsFeedbackApi {
 
     public static void delDoc(String id, AsyncHttpResponseHandler handler) {
         try {
-            RequestParams params = getPrivateTokenWithParams();
-            params.put("id", id);
             delete(PROJECT_DOC + "/" + id, handler);
         } catch (Exception e) {
             e.printStackTrace();

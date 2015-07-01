@@ -47,6 +47,8 @@ public class Contanst {
 
     public static final String PROJECTID = "project_id";
 
+    public static final String NOTIFICATOIN = "notification";
+
     public static final String ISSUEID = "issue_id";
 
     public static final String CURRENTITEM = "currentItem";

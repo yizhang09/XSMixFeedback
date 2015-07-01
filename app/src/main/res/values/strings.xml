@@ -88,12 +88,13 @@
     <string name="fa_wifi">\uf1eb</string>
     <string name="fa_refresh">\uf021</string>
     <string name="fa_clock_o">\uf017</string>
-    <string name="title_activity_project_info">ProjectInfoActivity</string>
-    <string name="title_activity_project_report">ProjectReportActivity</string>
-    <string name="title_activity_project_list">ProjectListActivity</string>
+    <string name="title_activity_project_info">项目信息</string>
+    <string name="title_activity_project_report">项目报表</string>
+    <string name="title_activity_project_list">项目列表</string>
     <string name="title_activity_project_report_list">项目列表</string>
-    <string name="title_activity_doc_edit">DocEditActivity</string>
-    <string name="title_activity_image_preview">ImagePreviewActivity</string>
+    <string name="title_activity_doc_edit">发送单据</string>
+    <string name="title_activity_image_preview">图片预览</string>
+    <string name="title_activity_notification_detail">通知</string>
 
 
 </resources>

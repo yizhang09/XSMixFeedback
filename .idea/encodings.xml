@@ -23,6 +23,7 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/LoginActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/MySelfInfoActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/NotificationActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/NotificationDetailActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/ProjectInfoActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/ProjectReportActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/xcmgxs/xsmixfeedback/ui/ProjectReportListActivity.java" charset="UTF-8" />

@@ -22,6 +22,6 @@ public class NotificationAdapter extends CommonAdapter<Notification> {
     public void convert(ViewHolder vh, Notification notification) {
         vh.setText(R.id.notification_listitem_title, notification.getTitle());
         vh.setText(R.id.notification_listitem_content, notification.getContent());
-        vh.setText(R.id.notification_listitem_date, StringUtils.friendly_time(notification.getCreatetime()));
+        vh.setText(R.id.notification_listitem_date, notification.getCreatetime());
     }
 }

@@ -18,6 +18,7 @@ import com.xcmgxs.xsmixfeedback.adapter.NotificationAdapter;
 import com.xcmgxs.xsmixfeedback.adapter.ProjectAdapter;
 import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
 import com.xcmgxs.xsmixfeedback.bean.Notification;
+import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.basefragment.BaseFragment;
 import com.xcmgxs.xsmixfeedback.util.JsonUtils;
 
@@ -95,6 +96,7 @@ public class NotificationFragment extends BaseFragment implements View.OnClickLi
 
         mEmptyImage = (ImageView) view.findViewById(R.id.notification_empty_img);
         mEmptyMsg = (TextView) view.findViewById(R.id.notification_empty_msg);
+        mListView.setOnItemClickListener(this);
     }
 
     private void initData() {
@@ -104,10 +106,10 @@ public class NotificationFragment extends BaseFragment implements View.OnClickLi
         }
         if (mAction == ACTION_UNREAD) {
             mEmptyMsg.setText("没有未读的通知");
-            loadData("");
+            loadData(false);
         } else {
             mEmptyMsg.setText("没有已读的通知");
-            loadData("1");
+            loadData(true);
         }
     }
 
@@ -126,7 +128,6 @@ public class NotificationFragment extends BaseFragment implements View.OnClickLi
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-
             default:
                 break;
         }
@@ -148,8 +149,8 @@ public class NotificationFragment extends BaseFragment implements View.OnClickLi
         }
     }
 
-    private void loadData(final String all) {
-        XsFeedbackApi.getNotification(all, new AsyncHttpResponseHandler() {
+    private void loadData(final boolean isRead) {
+        XsFeedbackApi.getNotification(isRead, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 List<Notification> notificationArrays = JsonUtils.getList(Notification[].class, responseBody);
@@ -184,27 +185,8 @@ public class NotificationFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        final Notification notification = adapter.getItem(position);
-        if (notification != null) {
-            // 设置未读通知为已读
-            if (!notification.isRead()) {
-                XsFeedbackApi.setNotificationReaded(notification.getId(), new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+        Notification notification = adapter.getItem(position);
+        UIHelper.showNotificationDetail(getActivity(),notification);
 
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-                    }
-                });
-            }
-//            if (notification.getTarget_type().equalsIgnoreCase("Issue")) {
-//                UIHelper.showIssueDetail(getActivity(), null, null, notification.getProject_id(), notification.getTarget_id());
-//            } else {
-//                UIHelper.showProjectDetail(getActivity(), null, notification.getProject_id());
-//            }
-        }
     }
 }
