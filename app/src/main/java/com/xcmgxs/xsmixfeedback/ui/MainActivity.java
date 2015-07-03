@@ -129,7 +129,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
         fragmentTransaction.replace(R.id.main_slidingmenu_frame,mMenu , DRAWER_MENU_TAG)
                 .replace(R.id.main_content, ExploreViewPagerFragment.newInstance(), DRAWER_CONTENT_TAG).commit();
 
-        mTitle = "发现";
+        mTitle = "项目";
         mActionBar.setTitle(mTitle);
         mCurrentContentTag = CONTENT_TAG_EXPLORE;
 

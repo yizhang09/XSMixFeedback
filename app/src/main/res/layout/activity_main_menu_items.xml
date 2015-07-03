@@ -11,7 +11,7 @@
         <ImageView
             style="@style/MenuItemImageViewStyle"
             android:contentDescription="@string/img_description"
-            android:background="@drawable/menu_icon_explore" />
+            android:background="@android:drawable/ic_dialog_dialer" />
 
         <TextView
             style="@style/MenuItemTextViewStyle"
