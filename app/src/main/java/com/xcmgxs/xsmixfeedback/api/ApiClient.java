@@ -16,6 +16,7 @@ import com.xcmgxs.xsmixfeedback.bean.Result;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.util.CyptoUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
+import com.xcmgxs.xsmixfeedback.util.TLog;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -186,6 +187,22 @@ public class ApiClient {
         params.put("page",page);
         params.put("mode","ALL");
         String url = makeURL(URLs.PROJECT,params);
+        List<Project> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(Project[].class);
+        lst.setCount(list.size());
+        lst.setList(list);
+        lst.setPageSize(list.size());
+        return lst;
+    }
+
+    public static CommonList<Project> getAllProjects(final AppContext appContext, int page,int year,int state) throws AppException {
+        CommonList<Project> lst = new CommonList<Project>();
+        Map<String,Object> params = new HashMap<>();
+        params.put(PRIVATE_TOKEN,getToken(appContext));
+        params.put("page",page);
+        params.put("year",year);
+        params.put("state",state);
+        String url = makeURL(URLs.PROJECT,params);
+        TLog.log(url);
         List<Project> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(Project[].class);
         lst.setCount(list.size());
         lst.setList(list);

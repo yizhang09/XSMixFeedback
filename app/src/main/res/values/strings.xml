@@ -15,7 +15,8 @@
     <string name="tip_load_image_faile">加载图片失败</string>
 
     <string name="main_menu_login_tips">点击登录</string>
-    <string name="main_menu_title_projects">项目进度</string>
+    <string name="main_menu_title_projects">项目汇总</string>
+    <string name="main_menu_title_schedule">项目进度</string>
     <string name="main_menu_title_logs">项目日志</string>
     <string name="main_menu_title_notice">通知</string>
     <string name="main_menu_title_issues">问题反馈</string>
@@ -95,6 +96,8 @@
     <string name="title_activity_doc_edit">发送单据</string>
     <string name="title_activity_image_preview">图片预览</string>
     <string name="title_activity_notification_detail">通知</string>
+    <string name="title_activity_project_stat">项目信息汇总</string>
+    <string name="title_activity_project_state">状态分类列表</string>
 
 
 </resources>

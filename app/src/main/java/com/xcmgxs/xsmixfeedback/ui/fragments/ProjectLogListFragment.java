@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.adapter.ProjectLogListAdapter;
@@ -42,6 +43,8 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
 
     private static boolean IS_ALL = false;
 
+    private AppContext mContext;
+
     public static ProjectLogListFragment newInstance(Project project) {
         ProjectLogListFragment fragment = new ProjectLogListFragment();
         Bundle args = new Bundle();
@@ -65,6 +68,7 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
             mProject = (Project) args.getSerializable(Contanst.PROJECT);
         }
         super.update();
+        mContext = getXsApplication();
     }
 
     @Override
@@ -134,23 +138,37 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        AlertDialog builder = new AlertDialog.Builder(getActivity())
-                            .setTitle("删除日志")
-                            .setMessage("确认删除？")
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    delLog(projectLog);
-                                }
-                            })
-                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            }).create();
-                        builder.show();
+                        if(mContext.getLoginUid() == projectLog.getAuthorid()){
+                            AlertDialog builder = new AlertDialog.Builder(getActivity())
+                                    .setTitle("删除日志")
+                                    .setMessage("确认删除？")
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            delLog(projectLog);
+                                        }
+                                    })
+                                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    }).create();
+                            builder.show();
+                        }
+                        else {
+                            new AlertDialog.Builder(getActivity())
+                                    .setTitle("删除日志")
+                                    .setMessage("只可以删除自己创建的日志！")
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    }).show();
+                        }
+
                     }
                 }).create();
         dialog.show();

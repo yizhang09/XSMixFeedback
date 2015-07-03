@@ -38,7 +38,7 @@ public class ProjectIssue extends Entity {
     private User creator;
 
     @JsonProperty("CreatorID")
-    private String creatorid;
+    private int creatorid;
 
     @JsonProperty("Pic1")
     private String pic1;
@@ -127,11 +127,11 @@ public class ProjectIssue extends Entity {
         this.project = project;
     }
 
-    public String getCreatorid() {
+    public int getCreatorid() {
         return creatorid;
     }
 
-    public void setCreatorid(String creatorid) {
+    public void setCreatorid(int creatorid) {
         this.creatorid = creatorid;
     }
 

@@ -42,6 +42,8 @@ import com.xcmgxs.xsmixfeedback.ui.ProjectInfoActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectReportActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectReportListActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectSomeInfoListActivity;
+import com.xcmgxs.xsmixfeedback.ui.ProjectStatActivity;
+import com.xcmgxs.xsmixfeedback.ui.ProjectStateActivity;
 import com.xcmgxs.xsmixfeedback.ui.SearchActivity;
 import com.xcmgxs.xsmixfeedback.ui.SettingActivity;
 import com.xcmgxs.xsmixfeedback.util.FileUtils;
@@ -346,6 +348,21 @@ public class UIHelper {
     public static void showProjectReportListActivity(Context context) {
         Intent intent = new Intent(context, ProjectReportListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public static void showProjectStatActivity(Context context) {
+        Intent intent = new Intent(context, ProjectStatActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public static void showProjectStateActivity(Context context,int year) {
+        Intent intent = new Intent(context, ProjectStateActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("year", year);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtras(bundle);
         context.startActivity(intent);
     }
 

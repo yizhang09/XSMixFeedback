@@ -280,8 +280,7 @@ public class MainActivity extends ActionBarActivity implements DrawerMenuCallBac
 
     @Override
     public void onClickProjects() {
-        //setExploreView();
-        UIHelper.showProjectReportListActivity(MainActivity.this);
+        UIHelper.showProjectStatActivity(MainActivity.this);
     }
 
     @Override

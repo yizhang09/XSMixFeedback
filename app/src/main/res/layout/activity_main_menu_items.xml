@@ -22,6 +22,23 @@
     <include layout="@layout/horizontal_divider_view"></include>
 
     <LinearLayout
+        android:id="@+id/menu_item_schedule"
+        style="@style/MenuItemLayoutStyle">
+
+        <ImageView
+            style="@style/MenuItemImageViewStyle"
+            android:contentDescription="@string/img_description"
+            android:background="@drawable/menu_icon_explore" />
+
+        <TextView
+            style="@style/MenuItemTextViewStyle"
+            android:text="@string/main_menu_title_schedule" />
+
+    </LinearLayout>
+
+    <include layout="@layout/horizontal_divider_view"></include>
+
+    <LinearLayout
         android:id="@+id/menu_item_logs"
         style="@style/MenuItemLayoutStyle">
 
@@ -92,7 +109,7 @@
         <ImageView
             style="@style/MenuItemImageViewStyle"
             android:contentDescription="@string/img_description"
-            android:background="@drawable/menu_icon_qiut" />
+            android:background="@drawable/menu_icon_my" />
 
         <TextView
             style="@style/MenuItemTextViewStyle"

@@ -46,9 +46,10 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
     private TextView mUser_info_username;
 
     private LinearLayout mMenu_item_projects;
+    private LinearLayout mMenu_item_schedule;
     private LinearLayout mMenu_item_logs;
     private LinearLayout mMenu_item_issues;
-    private LinearLayout mMenu_item_shake;
+    private LinearLayout mMenu_item_files;
     private LinearLayout mMenu_item_setting;
     private View mMenu_item_exit;
 
@@ -117,17 +118,19 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
         mMenu_user_login_tips = (LinearLayout) view.findViewById(R.id.menu_user_info_login_tips_layout);
 
         mMenu_item_projects = (LinearLayout) view.findViewById(R.id.menu_item_projects);
+        mMenu_item_schedule = (LinearLayout) view.findViewById(R.id.menu_item_schedule);
         mMenu_item_logs = (LinearLayout) view.findViewById(R.id.menu_item_logs);
         mMenu_item_issues = (LinearLayout) view.findViewById(R.id.menu_item_issues);
-        mMenu_item_shake = (LinearLayout) view.findViewById(R.id.menu_item_files);
+        mMenu_item_files = (LinearLayout) view.findViewById(R.id.menu_item_files);
         mMenu_item_setting = (LinearLayout) view.findViewById(R.id.menu_item_setting);
         mMenu_item_exit = view.findViewById(R.id.menu_item_exit);
 
         mMenu_user_layout.setOnClickListener(this);
         mMenu_item_projects.setOnClickListener(this);
+        mMenu_item_schedule.setOnClickListener(this);
         mMenu_item_logs.setOnClickListener(this);
         mMenu_item_issues.setOnClickListener(this);
-        mMenu_item_shake.setOnClickListener(this);
+        mMenu_item_files.setOnClickListener(this);
         mMenu_item_setting.setOnClickListener(this);
         mMenu_item_exit.setOnClickListener(this);
 
@@ -182,10 +185,6 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
         setSelected(v, true);
     }
 
-    public void highlightProjects() {
-        highlightSelectedItem(mMenu_item_projects);
-    }
-
     private void setSelected(View v, boolean selected) {
         View view;
         if (v == null && mSavedView == null) {
@@ -219,7 +218,9 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
                 break;
             case R.id.menu_item_projects:
                 onClickProjects();
-                highlightSelectedItem(v);
+                break;
+            case R.id.menu_item_schedule:
+                onClickSchedule();
                 break;
             case R.id.menu_item_logs:
                 onClickLogs();
@@ -248,36 +249,50 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
     private void onClickSetting() {
         if (mCallBack != null) {
             mCallBack.onClickSetting();
+            //highlightSelectedItem(mMenu_item_setting);
         }
     }
 
     private void onClickProjects() {
         if (mCallBack != null) {
             mCallBack.onClickProjects();
+            //highlightSelectedItem(mMenu_item_projects);
+
+        }
+    }
+
+    private void onClickSchedule() {
+        if (mCallBack != null) {
+            mCallBack.onClickSchedule();
+            //highlightSelectedItem(mMenu_item_schedule);
         }
     }
 
     private void onClickLogs() {
         if (mCallBack != null) {
             mCallBack.onClickLogs();
+            //highlightSelectedItem(mMenu_item_logs);
         }
     }
 
     private void onClickIssues() {
         if (mCallBack != null) {
             mCallBack.onClickIssues();
+            //highlightSelectedItem(mMenu_item_issues);
         }
     }
 
     private void onClickFiles() {
         if (mCallBack != null) {
             mCallBack.onClickFiles();
+            //highlightSelectedItem(mMenu_item_files);
         }
     }
 
     private void onClickExit() {
         if (mCallBack != null) {
             mCallBack.onClickAbout();
+            //highlightSelectedItem(mMenu_item_exit);
         }
     }
 

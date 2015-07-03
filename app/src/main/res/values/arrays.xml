@@ -11,6 +11,17 @@
         <item>最近更新</item>
     </string-array>
 
+    <!-- 发现页面 -->
+    <string-array name="state_title_array">
+        <item>基础未做</item>
+        <item>基础制作</item>
+        <item>筒仓施工</item>
+        <item>正在发车</item>
+        <item>正在安装</item>
+        <item>安装完毕</item>
+        <item>签字验收</item>
+    </string-array>
+
     <!-- 个人页面 -->
     <string-array name="myself_title_array">
         <item>最新动态</item>

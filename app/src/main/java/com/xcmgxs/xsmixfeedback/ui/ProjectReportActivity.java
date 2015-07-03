@@ -277,24 +277,17 @@ public class ProjectReportActivity extends BaseActionBarActivity implements View
         mBarchart.setDrawGridBackground(false);
         ArrayList<BarEntry> arrayList = new ArrayList<BarEntry>();
         ArrayList<String> xVals = new ArrayList<String>();
+
+        int amount = 0;
         for (int i=0;i<data.size();i++) {
             BarEntry entry = new BarEntry(data.get(i).getCount(), i);
             arrayList.add(entry);
             xVals.add(data.get(i).getLabel());
+            amount +=data.get(i).getCount();
         }
-
-//        BarEntry c1e1 = new BarEntry(100.000f, 0); // 0 == quarter 1
-//        valsComp1.add(c1e1);
-//        BarEntry c1e2 = new BarEntry(50.000f, 1); // 1 == quarter 2 ...
-//        valsComp1.add(c1e2);
-//        BarEntry c1e3 = new BarEntry(100.000f, 2); // 2 == quarter 3
-//        valsComp1.add(c1e3);
-//        BarEntry c1e4 = new BarEntry(50.000f, 3); // 3 == quarter 4 ...
-//        valsComp1.add(c1e4);
-
-        BarDataSet bards = new BarDataSet(arrayList, "故障数量");
+        BarDataSet bards = new BarDataSet(arrayList,  "合计：" + amount);
         bards.setAxisDependency(YAxis.AxisDependency.LEFT);
-        bards.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        bards.setColors(ColorTemplate.VORDIPLOM_COLORS);
         ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
         dataSets.add(bards);
 
@@ -310,15 +303,18 @@ public class ProjectReportActivity extends BaseActionBarActivity implements View
         mPiechart.setDrawHoleEnabled(true);
         mPiechart.setHoleColorTransparent(true);
         mPiechart.setDrawCenterText(true);
-        mPiechart.setCenterText("责任归属汇总");
         mPiechart.animateY(1500, Easing.EasingOption.EaseInOutQuad);
         ArrayList<Entry> arrayList = new ArrayList<Entry>();
         ArrayList<String> xVals = new ArrayList<String>();
+        int amount = 0;
         for (int i=0;i<data.size();i++) {
             Entry entry = new Entry(data.get(i).getCount(), i);
             arrayList.add(entry);
             xVals.add(data.get(i).getLabel());
+            amount +=data.get(i).getCount();
         }
+
+        mPiechart.setCenterText("合计：" + amount);
         PieDataSet dataSetsPie = new PieDataSet(arrayList, "");
         dataSetsPie.setColors(ColorTemplate.VORDIPLOM_COLORS);
         PieData pieData = new PieData(xVals, dataSetsPie);

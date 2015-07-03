@@ -863,6 +863,9 @@ public class AppContext extends Application {
         return list;
     }
 
+
+
+
     public Project getProject(String projectId) throws AppException {
         return ApiClient.getProject(this,projectId);
     }
@@ -995,5 +998,24 @@ public class AppContext extends Application {
         }
         return list;
     }
+
+    /*
+    *根据状态获取项目列表信息
+     */
+    @SuppressWarnings("unchecked")
+    public CommonList<Project> getProjectList(int page,int year,int state) throws AppException{
+        CommonList<Project> list = null;
+        try {
+            list = ApiClient.getAllProjects(this, page,year,state);
+        }
+        catch (AppException e){
+            e.printStackTrace();
+            if(list == null){
+                throw e;
+            }
+        }
+        return list;
+    }
+
 
 }

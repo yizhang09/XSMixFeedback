@@ -232,4 +232,12 @@ public class XsFeedbackApi {
         AsyncHttpHelper.get(STAT, params, handler);
     }
 
+    public static void getStatData(int year,String category,AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("year", year);
+        params.put("category", category);
+        AsyncHttpHelper.get(STAT, params, handler);
+    }
+
+
 }

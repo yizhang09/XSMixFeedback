@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xcmgxs.xsmixfeedback"
     android:versionCode="2"
-    android:versionName="V 0.2.0" >
+    android:versionName="0.2.0" >
     <!--
          1.Target SDK version must be 16, not 17, or JavaScript bridge for
          WebView widgets does not work on a 4.2 Nexus 7
@@ -83,14 +83,6 @@
                 android:value="com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity" />
         </activity>
         <activity
-            android:name=".ui.ProjectStateEditActivity"
-            android:label="@string/title_activity_project_state_edit"
-            android:parentActivityName=".ui.baseactivity.BaseActionBarActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity" />
-        </activity>
-        <activity
             android:name=".ui.AboutActivity"
             android:label="@string/title_activity_about" >
         </activity>
@@ -156,6 +148,14 @@
         <activity
             android:name=".ui.NotificationDetailActivity"
             android:label="@string/title_activity_notification_detail" >
+        </activity>
+        <activity
+            android:name=".ui.ProjectStatActivity"
+            android:label="@string/title_activity_project_stat" >
+        </activity>
+        <activity
+            android:name=".ui.ProjectStateActivity"
+            android:label="@string/title_activity_project_state" >
         </activity>
     </application>
 
