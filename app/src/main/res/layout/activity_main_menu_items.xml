@@ -23,7 +23,8 @@
 
     <LinearLayout
         android:id="@+id/menu_item_schedule"
-        style="@style/MenuItemLayoutStyle">
+        style="@style/MenuItemLayoutStyle"
+        android:visibility="gone">
 
         <ImageView
             style="@style/MenuItemImageViewStyle"

@@ -68,6 +68,9 @@
 
             <include layout="@layout/activity_project_foot" />
 
+            <View style="@style/project_detail_line_withtop" />
+
+            <include layout="@layout/activity_project_chart" />
 
         </LinearLayout>
 

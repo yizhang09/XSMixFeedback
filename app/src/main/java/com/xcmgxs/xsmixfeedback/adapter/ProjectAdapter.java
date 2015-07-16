@@ -33,9 +33,9 @@ public class ProjectAdapter extends CommonAdapter<Project> {
             vh.setImageForUrl(R.id.exploreproject_listitem_userface, portraitURL);
         }
 
-        vh.setText(R.id.exploreproject_listitem_customer,project.getCustomer());
+        //vh.setText(R.id.exploreproject_listitem_customer,project.getCustomer());
         vh.setText(R.id.exploreproject_listitem_state,project.getEmState());
-        vh.setText(R.id.exploreproject_listitem_station, project.getNum().toString());
+        //vh.setText(R.id.exploreproject_listitem_station, project.getNum().toString());
 
 //        vh.getView(R.id.iv_portrait).setOnClickListener(new View.OnClickListener() {
 //

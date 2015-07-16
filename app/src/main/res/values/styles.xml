@@ -110,7 +110,7 @@
         <item name="android:layout_marginLeft">3dip</item>
         <item name="android:layout_marginRight">10dip</item>
         <item name="android:textColor">@color/project_listitem_someinfo</item>
-        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
     <!-- language star fork nums icon -->

@@ -34,10 +34,8 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
         public CircleImageView face;
         public TextView title;
         public TextView description;
-        public ImageView languageImage;
-        public TextView customer;
+        public TextView type;
         public TextView state;
-        public TextView station;
         public TextView manager;
     }
 
@@ -59,10 +57,8 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
             listItemView.face = (CircleImageView)convertView.findViewById(R.id.exploreproject_listitem_userface);
             listItemView.title = (TextView)convertView.findViewById(R.id.exploreproject_listitem_title);
             listItemView.description = (TextView)convertView.findViewById(R.id.exploreproject_listitem_description);
-            listItemView.languageImage = (ImageView)convertView.findViewById(R.id.exploreproject_listitem_customer_image);
-            listItemView.customer = (TextView)convertView.findViewById(R.id.exploreproject_listitem_customer);
+            listItemView.type = (TextView)convertView.findViewById(R.id.exploreproject_listitem_type);
             listItemView.state = (TextView)convertView.findViewById(R.id.exploreproject_listitem_state);
-            listItemView.station = (TextView)convertView.findViewById(R.id.exploreproject_listitem_station);
             listItemView.manager = (TextView)convertView.findViewById(R.id.exploreproject_listitem_manager);
             convertView.setTag(listItemView);
 
@@ -112,11 +108,8 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
             listItemView.description.setText(R.string.msg_project_empty_description);
         }
 
-        //显示star fork信息
-        listItemView.customer.setText(project.getCustomer());
-        listItemView.state.setText(project.getType());
-        listItemView.station.setText(project.getNum().toString());
-
+        listItemView.type.setText(project.getType());
+        listItemView.state.setText(project.getState());
         return convertView;
 
     }

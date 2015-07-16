@@ -14,13 +14,34 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
 import com.xcmgxs.xsmixfeedback.bean.Project;
+import com.xcmgxs.xsmixfeedback.bean.Stat;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
+import com.xcmgxs.xsmixfeedback.util.JsonUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
+
+import org.apache.http.Header;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 项目详情界面
@@ -79,6 +100,12 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
 
     private LinearLayout mLLprojectdocs;
 
+    private ImageView mProjectStep;
+
+    private HorizontalBarChart mBarchart;
+
+    private PieChart mPiechart;
+
 
 
     private String url_Link;
@@ -119,6 +146,9 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
         mLLprojectlogs = (LinearLayout)this.findViewById(R.id.project_logs);
         mLLprojectmanager = (LinearLayout)this.findViewById(R.id.project_manager);
         mLLprojectdocs  =  (LinearLayout)this.findViewById(R.id.project_docs);
+        mProjectStep  =  (ImageView)this.findViewById(R.id.project_step);
+        mPiechart = (PieChart)this.findViewById(R.id.project_issue_piechart);
+        mBarchart = (HorizontalBarChart)this.findViewById(R.id.project_issue_barchart);
         mLLprojectmanager.setOnClickListener(this);
         mLLprojectinfo.setOnClickListener(this);
         mLLprojectissues.setOnClickListener(this);
@@ -140,13 +170,40 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
         mActionBar.setSubtitle(mProject.getManager() != null ? mProject.getManager().getName() : "");
 
         mProjectName.setText(mProject.getName());
-        mUpdateTime.setText(mProject.getUpdatetime() == null?"": StringUtils.friendly_time(mProject.getUpdatetime()));
+        mUpdateTime.setText(mProject.getUpdatetime() == null ? "" : StringUtils.friendly_time(mProject.getUpdatetime()));
         mDescription.setText(mProject.getAddress() + mProject.getEmState());
         mCreated.setText(mProject.getCreateon() == null?"":StringUtils.getString_date(mProject.getCreateon()));
         mStationNum.setText(mProject.getNum().toString());
         mProjectManager.setText(mProject.getManager() != null ? mProject.getManager().getName() : "");
         mProjectState.setText(mProject.getState());
         mStationType.setText(mProject.getType());
+
+
+        switch (mProject.getState()) {
+            case "基础未做":
+                mProjectStep.setImageResource(R.drawable.step1);
+                break;
+            case "基础制作":
+                mProjectStep.setImageResource(R.drawable.step2);
+                break;
+            case "筒仓施工":
+                mProjectStep.setImageResource(R.drawable.step3);
+                break;
+            case "正在发车":
+                mProjectStep.setImageResource(R.drawable.step4);
+                break;
+            case "正在安装":
+                mProjectStep.setImageResource(R.drawable.step5);
+                break;
+            case "安装完毕":
+                mProjectStep.setImageResource(R.drawable.step6);
+                break;
+            case "签字验收":
+                mProjectStep.setImageResource(R.drawable.step7);
+                break;
+        }
+        loadPieChartData();
+        loadBarChartData();
 
     }
 
@@ -176,6 +233,99 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
                 super.onPostExecute(message);
             }
         }.execute();
+    }
+
+
+    private void loadPieChartData(){
+        String projectid = mProject.getId();
+        XsFeedbackApi.getStatData(projectid, "response", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                List<Stat> data = JsonUtils.getList(Stat[].class, responseBody);
+                if (data.size() != 0) {
+                    renderPieChart(data);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
+    private void loadBarChartData(){
+        String projectid = mProject.getId();
+        XsFeedbackApi.getStatData(projectid, "type", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                List<Stat> data = JsonUtils.getList(Stat[].class, responseBody);
+                if (data.size() != 0) {
+                    renderBarChart(data);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
+    private void renderBarChart(List<Stat> data) {
+        mBarchart.setDescription("");
+        mBarchart.setNoDataTextDescription("无数据");
+        mBarchart.setNoDataText("暂时无数据");
+        mBarchart.setPinchZoom(false);
+        mBarchart.animateY(2500);
+        mBarchart.setScaleEnabled(false);
+        mBarchart.setDoubleTapToZoomEnabled(false);
+        mBarchart.setDrawGridBackground(false);
+        ArrayList<BarEntry> arrayList = new ArrayList<BarEntry>();
+        ArrayList<String> xVals = new ArrayList<String>();
+
+        int amount = 0;
+        for (int i=0;i<data.size();i++) {
+            BarEntry entry = new BarEntry(data.get(i).getCount(), i);
+            arrayList.add(entry);
+            xVals.add(data.get(i).getLabel());
+            amount +=data.get(i).getCount();
+        }
+        BarDataSet bards = new BarDataSet(arrayList,  "合计：" + amount);
+        bards.setAxisDependency(YAxis.AxisDependency.LEFT);
+        bards.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
+        dataSets.add(bards);
+
+        BarData bardata = new BarData(xVals, dataSets);
+        mBarchart.setData(bardata);
+        mBarchart.invalidate(); // refresh
+    }
+
+    private void renderPieChart(List<Stat> data) {
+        mPiechart.setNoDataTextDescription("无数据");
+        mPiechart.setNoDataText("暂时无数据");
+        mPiechart.setDescription("");
+        mPiechart.setDrawHoleEnabled(true);
+        mPiechart.setHoleColorTransparent(true);
+        mPiechart.setDrawCenterText(true);
+        mPiechart.animateY(1500, Easing.EasingOption.EaseInOutQuad);
+        ArrayList<Entry> arrayList = new ArrayList<Entry>();
+        ArrayList<String> xVals = new ArrayList<String>();
+        int amount = 0;
+        for (int i=0;i<data.size();i++) {
+            Entry entry = new Entry(data.get(i).getCount(), i);
+            arrayList.add(entry);
+            xVals.add(data.get(i).getLabel());
+            amount +=data.get(i).getCount();
+        }
+
+        mPiechart.setCenterText("合计：" + amount);
+        PieDataSet dataSetsPie = new PieDataSet(arrayList, "");
+        dataSetsPie.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        PieData pieData = new PieData(xVals, dataSetsPie);
+        mPiechart.setData(pieData);
+        mPiechart.invalidate();
     }
 
 

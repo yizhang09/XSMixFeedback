@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/project_chart"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:id="@+id/project_report_issuelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            style="@style/project_detail_description"
+            android:text="质量反馈责任归属汇总"/>
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/project_issue_piechart"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="300dip" />
+
+    </LinearLayout>
+
+    <View style="@style/h_line" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/project_layout_item_selector"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            style="@style/project_detail_description"
+            android:text="质量反馈故障部件汇总"/>
+
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/project_issue_barchart"
+            android:clickable="true"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="600dip" />
+
+    </LinearLayout>
+
+    <View style="@style/h_line" />
+
+</LinearLayout>
