@@ -74,7 +74,7 @@
             <TextView
                 android:id="@+id/exploreproject_listitem_station"
                 style="@style/project_list_someinfo"
-                android:text="2"/>
+                android:text="2" />
 
             <ImageView
                 style="@style/project_list_img"
@@ -82,18 +82,19 @@
                 android:src="@drawable/unstar" />
 
             <TextView
-                android:id="@+id/exploreproject_listitem_state"
+                android:id="@+id/exploreproject_listitem_statename"
                 style="@style/project_list_someinfo"
                 android:text="正在安装"
-                android:textColor="@color/green"/>
+                android:textColor="@color/green" />
 
 
-            <!--<ImageView-->
-                <!--android:id="@+id/exploreproject_listitem_state"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:contentDescription="@string/img_description"-->
-                <!--android:src="@drawable/step7" />-->
+            <ImageView
+                android:id="@+id/exploreproject_listitem_state"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:contentDescription="@string/img_description"
+                android:src="@drawable/s7"
+                android:visibility="gone"/>
 
             </LinearLayout>
         </LinearLayout>

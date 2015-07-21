@@ -166,12 +166,12 @@ public class ApiClient {
      * @return
      * @throws AppException
      */
-    public static CommonList<Project> getUserProjects(final AppContext appContext,int page) throws AppException {
+    public static CommonList<Project> getBuildingProjects(final AppContext appContext,int page) throws AppException {
         CommonList<Project> lst = new CommonList<Project>();
         Map<String,Object> params = new HashMap<>();
         params.put(PRIVATE_TOKEN,getToken(appContext));
         params.put("page",page);
-        params.put("mode","MY");
+        params.put("mode","BUILDING");
         String url = makeURL(URLs.PROJECT,params);
         List<Project> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(Project[].class);
         lst.setCount(list.size());
@@ -210,12 +210,12 @@ public class ApiClient {
         return lst;
     }
 
-    public static CommonList<Project> getUpdateProjects(final AppContext appContext, int page) throws AppException {
+    public static CommonList<Project> getStopProjects(final AppContext appContext, int page) throws AppException {
         CommonList<Project> lst = new CommonList<Project>();
         Map<String,Object> params = new HashMap<>();
         params.put(PRIVATE_TOKEN,getToken(appContext));
         params.put("page",page);
-        params.put("mode","UPDATE");
+        params.put("mode","STOP");
         String url = makeURL(URLs.PROJECT,params);
         List<Project> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(Project[].class);
         lst.setCount(list.size());

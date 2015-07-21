@@ -6,9 +6,9 @@
 
     <!-- 发现页面 -->
     <string-array name="explore_title_array">
+        <item>在建项目</item>
         <item>所有项目</item>
-        <item>我的项目</item>
-        <item>最近更新</item>
+        <item>异常项目</item>
     </string-array>
 
     <!-- 发现页面 -->

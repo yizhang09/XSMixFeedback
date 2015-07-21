@@ -58,7 +58,7 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
             listItemView.title = (TextView)convertView.findViewById(R.id.exploreproject_listitem_title);
             listItemView.description = (TextView)convertView.findViewById(R.id.exploreproject_listitem_description);
             listItemView.type = (TextView)convertView.findViewById(R.id.exploreproject_listitem_type);
-            listItemView.state = (TextView)convertView.findViewById(R.id.exploreproject_listitem_state);
+            listItemView.state = (TextView)convertView.findViewById(R.id.exploreproject_listitem_statename);
             listItemView.manager = (TextView)convertView.findViewById(R.id.exploreproject_listitem_manager);
             convertView.setTag(listItemView);
 

@@ -19,10 +19,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.AppManager;
 import com.xcmgxs.xsmixfeedback.R;
+import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BroadcastController;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
@@ -32,6 +35,7 @@ import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
 
+import org.apache.http.Header;
 
 
 /**
@@ -143,6 +147,9 @@ public class LoginActivity extends BaseActionBarActivity implements View.OnClick
         mAppContext.saveAccountInfo(CyptoUtils.encode(Contanst.ACCOUNT_EMAIL, email), CyptoUtils.encode(Contanst.ACCOUNT_PWD, passwd));
 
         login(email, passwd);
+
+
+
     }
 
     // 登录验证
@@ -234,7 +241,6 @@ public class LoginActivity extends BaseActionBarActivity implements View.OnClick
         imm.hideSoftInputFromWindow(mPasswordEditText.getWindowToken(), 0);
         checkLogin();
     }
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

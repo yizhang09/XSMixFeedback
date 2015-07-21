@@ -35,7 +35,7 @@ public class User extends Entity {
     private Date addTime;
 
     @JsonProperty("DepartmentID")
-    private String departmentid;// 头像
+    private String departmentid;
 
     @JsonProperty("Department")
     private Department department;

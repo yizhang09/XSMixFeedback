@@ -43,12 +43,12 @@
                     <TextView
                         android:id="@+id/project_name"
                         style="@style/project_detail_projectname"
-                        android:text="张毅"/>
+                        android:text="XXXXX项目"/>
 
                     <TextView
                         android:id="@+id/project_update"
                         style="@style/project_detail_updatetime"
-                        android:text=""/>
+                        android:text="2015-07-17"/>
                     </LinearLayout>
 
                     <ImageView

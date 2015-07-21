@@ -19,7 +19,11 @@
 
         </LinearLayout>
 
-    <include layout="@layout/horizontal_divider_view"></include>
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1.6dip"
+        android:background="@drawable/icon_bgline"
+        android:id="@+id/divider1"/>
 
     <LinearLayout
         android:id="@+id/menu_item_schedule"

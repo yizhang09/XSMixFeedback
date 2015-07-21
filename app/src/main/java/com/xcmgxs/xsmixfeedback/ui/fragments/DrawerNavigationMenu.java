@@ -11,14 +11,17 @@ import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.api.URLs;
+import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BroadcastController;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
@@ -27,6 +30,8 @@ import com.xcmgxs.xsmixfeedback.util.ImageLoaderUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.widget.BadgeView;
 import com.xcmgxs.xsmixfeedback.widget.CircleImageView;
+
+import org.apache.http.Header;
 
 /**
  * @author zhangyi 20150318
@@ -52,6 +57,7 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
     private LinearLayout mMenu_item_files;
     private LinearLayout mMenu_item_setting;
     private View mMenu_item_exit;
+    private ImageView mMenu_item_divider1;
 
     private DrawerMenuCallBack mCallBack;
     private AppContext mApplication;
@@ -123,6 +129,7 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
         mMenu_item_issues = (LinearLayout) view.findViewById(R.id.menu_item_issues);
         mMenu_item_files = (LinearLayout) view.findViewById(R.id.menu_item_files);
         mMenu_item_setting = (LinearLayout) view.findViewById(R.id.menu_item_setting);
+        mMenu_item_divider1 = (ImageView) view.findViewById(R.id.divider1);
         mMenu_item_exit = view.findViewById(R.id.menu_item_exit);
 
         mMenu_user_layout.setOnClickListener(this);
@@ -133,6 +140,8 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
         mMenu_item_files.setOnClickListener(this);
         mMenu_item_setting.setOnClickListener(this);
         mMenu_item_exit.setOnClickListener(this);
+
+
 
 
     }
@@ -146,6 +155,24 @@ public class DrawerNavigationMenu extends Fragment implements View.OnClickListen
             mMenu_user_login_tips.setVisibility(View.VISIBLE);
             return;
         }
+
+        XsFeedbackApi.getUserRole(mApplication.getLoginUid(), new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String value = new String(responseBody);
+                //19是项目经理
+                mApplication.saveRoleInfo(value);
+                if(StringUtils.toInt(value) == 19){
+                    mMenu_item_projects.setVisibility(View.GONE);
+                    mMenu_item_divider1.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
 
         mMenu_user_info_layout.setVisibility(View.VISIBLE);
         mMenu_user_login_tips.setVisibility(View.GONE);

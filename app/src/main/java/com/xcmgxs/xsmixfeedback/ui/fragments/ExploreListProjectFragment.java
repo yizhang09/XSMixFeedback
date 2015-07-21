@@ -30,9 +30,9 @@ public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project
 
     public final static byte TYPE_ALL = 0x0;
 
-    public final static byte TYPE_MY = 0x1;
+    public final static byte TYPE_BUILDING = 0x1;
 
-    public final static byte TYPE_LATEST = 0x2;
+    public final static byte TYPE_STOP = 0x2;
 
     private byte type = 0;
 
@@ -78,11 +78,11 @@ public class ExploreListProjectFragment extends BaseSwipeRefreshFragment<Project
             case TYPE_ALL:
                 list = mApplication.getExploreAllProject(page, refresh);
                 break;
-            case TYPE_MY:
-                list = mApplication.getExploreMyProject(page, refresh);
+            case TYPE_BUILDING:
+                list = mApplication.getExploreBuildingProject(page, refresh);
                 break;
-            case TYPE_LATEST:
-                list = mApplication.getExploreUpdateProject(page, refresh);
+            case TYPE_STOP:
+                list = mApplication.getExploreStopProject(page, refresh);
                 break;
         }
         return list;

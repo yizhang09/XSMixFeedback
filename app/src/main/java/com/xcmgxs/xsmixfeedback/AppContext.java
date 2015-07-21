@@ -29,6 +29,7 @@ import java.util.UUID;
 import static com.xcmgxs.xsmixfeedback.common.Contanst.*;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
@@ -41,6 +42,7 @@ import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper;
+import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
 import com.xcmgxs.xsmixfeedback.bean.CommonList;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.ProjectDoc;
@@ -55,6 +57,8 @@ import com.xcmgxs.xsmixfeedback.util.StringUtils;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.api.ApiClient;
 import com.xcmgxs.xsmixfeedback.util.TLog;
+
+import org.apache.http.Header;
 
 /**
  * 全局应用程序类：用于保存和调用全局应用配置及访问网络数据
@@ -78,6 +82,7 @@ public class AppContext extends Application {
 
     private boolean login = false; // 登录状态
     private int loginUid = 0; // 登录用户的id
+    private int roleid = 0;
     private Hashtable<String, Object> memCacheRegion = new Hashtable<String, Object>();
 
 //    private Handler unLoginHandler = new Handler() {
@@ -145,6 +150,7 @@ public class AppContext extends Application {
             // 记录用户的id和状态
             this.loginUid = StringUtils.toInt(loginUser.getId());
             this.login = true;
+            this.roleid = StringUtils.toInt(getProperty(PROP_ROLEID));
         }
     }
 
@@ -601,7 +607,6 @@ public class AppContext extends Application {
         }
         return user;
     }
-
     /**
      * 获取登录信息
      *
@@ -624,6 +629,19 @@ public class AppContext extends Application {
     public void saveAccountInfo(String email, String pwd) {
         setProperty(ACCOUNT_EMAIL, email);
         setProperty(ACCOUNT_PWD, pwd);
+    }
+
+    public void saveRoleInfo(final String roleid){
+        this.roleid = StringUtils.toInt(roleid);
+        setProperties(new Properties() {
+            {
+                setProperty(PROP_ROLEID, roleid);
+            }
+        });
+    }
+
+    public int getRoleInfo(){
+        return this.roleid;
     }
 
     /**
@@ -803,12 +821,12 @@ public class AppContext extends Application {
         return list;
     }
 
-    public CommonList<Project> getExploreMyProject(int page,boolean isrefresh) throws AppException{
+    public CommonList<Project> getExploreBuildingProject(int page,boolean isrefresh) throws AppException{
         CommonList<Project> list = null;
-        String cacheKey = "MyProjectList_" + page +"_" + PAGE_SIZE;
+        String cacheKey = "BuildingProjectList_" + page +"_" + PAGE_SIZE;
         if(!isReadDataCache(cacheKey) || isrefresh){
             try {
-                list = ApiClient.getUserProjects(this, page);
+                list = ApiClient.getBuildingProjects(this, page);
 
                 if(list != null && page == 1){
                     list.setCacheKey(cacheKey);
@@ -833,12 +851,12 @@ public class AppContext extends Application {
         return list;
     }
 
-    public CommonList<Project> getExploreUpdateProject(int page,boolean isrefresh) throws AppException{
+    public CommonList<Project> getExploreStopProject(int page,boolean isrefresh) throws AppException{
         CommonList<Project> list = null;
-        String cacheKey = "allProjectList_" + page +"_" + PAGE_SIZE;
+        String cacheKey = "StopProjectList_" + page +"_" + PAGE_SIZE;
         if(!isReadDataCache(cacheKey) || isrefresh){
             try {
-                list = ApiClient.getUpdateProjects(this, page);
+                list = ApiClient.getStopProjects(this, page);
 
                 if(list != null && page == 1){
                     list.setCacheKey(cacheKey);
@@ -876,7 +894,7 @@ public class AppContext extends Application {
     @SuppressWarnings("unchecked")
     public CommonList<ProjectLog> getProjectLogByProjectID(int page,boolean isrefresh,String projectid) throws AppException{
         CommonList<ProjectLog> list = null;
-        String cacheKey = "allProjectList_" + page +"_" + PAGE_SIZE+"_" + projectid;
+        String cacheKey = "allProjectLogList_" + page +"_" + PAGE_SIZE+"_" + projectid;
         if(!isReadDataCache(cacheKey) || isrefresh){
             try {
                 list = ApiClient.getProjectLogs(this, page,projectid);

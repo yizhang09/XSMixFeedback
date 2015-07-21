@@ -28,7 +28,7 @@
             android:id="@+id/project_step"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:src="@drawable/step7" />
+            android:src="@drawable/s7" />
 
     </LinearLayout>
 

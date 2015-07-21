@@ -132,6 +132,17 @@ public class Project extends Entity {
     @JsonProperty("UpdateDate")
     private String updatetime;
 
+    @JsonProperty("IsStop")
+    private boolean isStop;
+
+    public boolean isStop() {
+        return isStop;
+    }
+
+    public void setIsStop(boolean isStop) {
+        this.isStop = isStop;
+    }
+
     public String getUpdatetime() {
         return updatetime;
     }

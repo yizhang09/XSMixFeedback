@@ -34,6 +34,7 @@ public class XsFeedbackApi {
     public final static String PROJECT_LOG = BASE_URL + "/projectlog";
     public final static String PROJECT_DOC = BASE_URL + "/projectdoc";
     public final static String USER = BASE_URL + "/user";
+    public final static String ROLE = BASE_URL + "/role";
     public final static String UPLOAD = BASE_URL + "/upload";
     public final static String NOTIFICATION = BASE_URL + "/notification";
     public final static String VERSION = BASE_URL + "/update";
@@ -237,6 +238,12 @@ public class XsFeedbackApi {
         params.put("year", year);
         params.put("category", category);
         AsyncHttpHelper.get(STAT, params, handler);
+    }
+
+    public static void getUserRole(int uid,AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("userid", uid);
+        AsyncHttpHelper.get(ROLE, params, handler);
     }
 
 
