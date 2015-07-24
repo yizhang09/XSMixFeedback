@@ -98,6 +98,7 @@
     <string name="title_activity_notification_detail">通知</string>
     <string name="title_activity_project_stat">项目信息汇总</string>
     <string name="title_activity_project_state">状态分类列表</string>
+    <string name="title_activity_project_doc">ProjectDocActivity</string>
 
 
 </resources>

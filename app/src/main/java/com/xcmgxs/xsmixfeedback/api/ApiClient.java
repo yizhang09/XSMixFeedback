@@ -224,7 +224,7 @@ public class ApiClient {
         return lst;
     }
 
-    public static CommonList<ProjectLog> getProjectLogs(final AppContext appContext, int page,String projectid) throws AppException {
+    public static CommonList<ProjectLog> getProjectLogs(final AppContext appContext, int page,String projectid,int state) throws AppException {
         CommonList<ProjectLog> lst = new CommonList<ProjectLog>();
         Map<String,Object> params = new HashMap<>();
         params.put(PRIVATE_TOKEN,getToken(appContext));
@@ -232,7 +232,9 @@ public class ApiClient {
         if(projectid != "-1") {
             params.put("projectid", projectid);
         }
+        params.put("state", state);
         String url = makeURL(URLs.PROJECTLOG,params);
+        TLog.log(url);
         List<ProjectLog> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(ProjectLog[].class);
         lst.setCount(list.size());
         lst.setList(list);

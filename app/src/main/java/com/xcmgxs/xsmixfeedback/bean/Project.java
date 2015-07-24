@@ -135,6 +135,17 @@ public class Project extends Entity {
     @JsonProperty("IsStop")
     private boolean isStop;
 
+    @JsonProperty("StopReason")
+    private String  stopReason;
+
+    public String getStopReason() {
+        return stopReason;
+    }
+
+    public void setStopReason(String stopreason) {
+        this.stopReason = stopreason;
+    }
+
     public boolean isStop() {
         return isStop;
     }

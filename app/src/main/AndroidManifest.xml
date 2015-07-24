@@ -157,6 +157,10 @@
             android:name=".ui.ProjectStateActivity"
             android:label="@string/title_activity_project_state" >
         </activity>
+        <activity
+            android:name=".ui.ProjectDocActivity"
+            android:label="@string/title_activity_project_doc" >
+        </activity>
     </application>
 
 </manifest>

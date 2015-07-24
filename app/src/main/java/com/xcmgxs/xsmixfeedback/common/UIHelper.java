@@ -276,6 +276,17 @@ public class UIHelper {
 
     }
 
+    public static void showProjectListActivity(Context context,Project project,int type,int state){
+        Intent intent = new Intent(context, ProjectSomeInfoListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Contanst.PROJECT, project);
+        bundle.putInt("project_list_type", type);
+        bundle.putInt("project_list_state", state);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+
+    }
+
     public static void showLogEditOrCreate(Context context,Project project,ProjectLog log){
         Intent intent = new Intent(context, LogEditActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

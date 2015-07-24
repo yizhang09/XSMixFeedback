@@ -86,25 +86,25 @@ public class ReportProjectAdapter extends MyBaseAdapter<Project> {
 
         switch (project.getState()){
             case "基础未做":
-                listItemView.stepImage.setImageResource(R.drawable.step1);
+                listItemView.stepImage.setImageResource(R.drawable.s1);
                 break;
             case "基础制作":
-                listItemView.stepImage.setImageResource(R.drawable.step2);
+                listItemView.stepImage.setImageResource(R.drawable.s2);
                 break;
             case "筒仓施工":
-                listItemView.stepImage.setImageResource(R.drawable.step3);
+                listItemView.stepImage.setImageResource(R.drawable.s3);
                 break;
             case "正在发车":
-                listItemView.stepImage.setImageResource(R.drawable.step4);
+                listItemView.stepImage.setImageResource(R.drawable.s4);
                 break;
             case "正在安装":
-                listItemView.stepImage.setImageResource(R.drawable.step5);
+                listItemView.stepImage.setImageResource(R.drawable.s5);
                 break;
             case "安装完毕":
-                listItemView.stepImage.setImageResource(R.drawable.step6);
+                listItemView.stepImage.setImageResource(R.drawable.s6);
                 break;
             case "签字验收":
-                listItemView.stepImage.setImageResource(R.drawable.step7);
+                listItemView.stepImage.setImageResource(R.drawable.s7);
                 break;
         }
 

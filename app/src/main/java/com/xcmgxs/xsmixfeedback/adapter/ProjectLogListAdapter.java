@@ -39,6 +39,7 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
         public ImageView picture4;
         public ImageView picture5;
         public TextView projectname;
+        public TextView logtype;
     }
 
     public ProjectLogListAdapter(Context context, List<ProjectLog> listData, int itemViewResource,boolean isShowProjectName) {
@@ -60,6 +61,7 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
             listItemView.content = (TextView)convertView.findViewById(R.id.projectlog_listitem_content);
             listItemView.username = (TextView)convertView.findViewById(R.id.projectlog_listitem_username);
             listItemView.projectname = (TextView)convertView.findViewById(R.id.projectlog_listitem_projectname);
+            listItemView.logtype = (TextView)convertView.findViewById(R.id.projectlog_listitem_type);
             listItemView.picture1 = (ImageView)convertView.findViewById(R.id.projectlog_listitem_pic1);
             listItemView.picture2 = (ImageView)convertView.findViewById(R.id.projectlog_listitem_pic2);
             listItemView.picture3 = (ImageView)convertView.findViewById(R.id.projectlog_listitem_pic3);
@@ -73,6 +75,7 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
         }
 
         final ProjectLog log = listData.get(position);
+
 
 
         // 1.加载头像
@@ -142,6 +145,7 @@ public class ProjectLogListAdapter extends MyBaseAdapter<ProjectLog> {
         listItemView.projectname.setText(log.getProject().getName());
         listItemView.content.setText(log.getContent());
         listItemView.date.setText(log.getCreatedate());
+        listItemView.logtype.setText(log.getType());
 
 //        listItemView.picture.setOnClickListener(new View.OnClickListener() {
 //            @Override

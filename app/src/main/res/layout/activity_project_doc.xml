@@ -1,0 +1,365 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <com.xcmgxs.xsmixfeedback.widget.CustomerScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/graywhite"
+        android:scrollbars="none"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_doc_1"
+                    style="@style/project_detail_mid_grid_item"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/project_detail_icon_commit"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="搅拌站安装告知函" />
+
+                    <TextView
+                        android:id="@+id/project_doc_uploader_1"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="张某某"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_doc_2"
+                    style="@style/project_detail_mid_grid_item"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/project_detail_icon_commit"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="筒仓进场验收通知单" />
+
+                    <TextView
+                        android:id="@+id/project_doc_uploader_2"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="张某某"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_doc_3"
+                    style="@style/project_detail_mid_grid_item"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/project_detail_icon_commit"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="筒仓涂装方案确认单" />
+
+                    <TextView
+                        android:id="@+id/project_doc_uploader_3"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="张某某"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_doc_4"
+                    style="@style/project_detail_mid_grid_item"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/project_detail_icon_commit"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="筒仓、外加剂罐制作验收报告" />
+
+                    <TextView
+                        android:id="@+id/project_doc_uploader_4"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="张某某"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_doc_5"
+                    style="@style/project_detail_mid_grid_item"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/project_detail_icon_commit"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="设备进场安装条件验收报告" />
+
+                    <TextView
+                        android:id="@+id/project_doc_uploader_5"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="张某某"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_doc_6"
+                    style="@style/project_detail_mid_grid_item"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/project_detail_icon_commit"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="混凝土搅拌站综合验收通知单" />
+
+                    <TextView
+                        android:id="@+id/project_doc_uploader_6"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="张某某"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_doc_7"
+                    style="@style/project_detail_mid_grid_item"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/project_detail_icon_commit"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="混凝土搅拌设备用户培训确认单" />
+
+                    <TextView
+                        android:id="@+id/project_doc_uploader_7"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="张某某"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_doc_8"
+                    style="@style/project_detail_mid_grid_item"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/project_detail_icon_commit"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="客户满意度调查表" />
+
+                    <TextView
+                        android:id="@+id/project_doc_uploader_8"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="张某某"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_doc_10"
+                    style="@style/project_detail_mid_grid_item"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/project_detail_icon_commit"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="混凝土搅拌设备安装服务卡" />
+
+                    <TextView
+                        android:id="@+id/project_doc_uploader_10"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="张某某"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/project_doc_9"
+                    style="@style/project_detail_mid_grid_item"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/project_detail_mid_grid_item_img"
+                        android:background="@drawable/project_detail_icon_commit"
+                        android:contentDescription="@string/img_description" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="混凝土搅拌设备验收报告" />
+
+                    <TextView
+                        android:id="@+id/project_doc_uploader_9"
+                        style="@style/project_detail_mid_info_text"
+                        android:text="张某某"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+        </LinearLayout>
+
+
+    </com.xcmgxs.xsmixfeedback.widget.CustomerScrollView>
+
+
+</FrameLayout>

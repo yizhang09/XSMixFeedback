@@ -892,12 +892,13 @@ public class AppContext extends Application {
     *获取项目日志列表信息
      */
     @SuppressWarnings("unchecked")
-    public CommonList<ProjectLog> getProjectLogByProjectID(int page,boolean isrefresh,String projectid) throws AppException{
+    public CommonList<ProjectLog> getProjectLogByProjectID(int page,boolean isrefresh,String projectid,int state) throws AppException{
         CommonList<ProjectLog> list = null;
         String cacheKey = "allProjectLogList_" + page +"_" + PAGE_SIZE+"_" + projectid;
         if(!isReadDataCache(cacheKey) || isrefresh){
             try {
-                list = ApiClient.getProjectLogs(this, page,projectid);
+
+                list = ApiClient.getProjectLogs(this, page,projectid,state);
                 if(list != null && page == 1){
                     list.setCacheKey(cacheKey);
                     saveObject(list,cacheKey);

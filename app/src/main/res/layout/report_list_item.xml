@@ -74,7 +74,7 @@
             android:id="@+id/report_list_item_step_image"
             android:layout_width="wrap_content"
             android:layout_height="40dip"
-            android:src="@drawable/step7" />
+            android:src="@drawable/s7" />
 
     </LinearLayout>
 

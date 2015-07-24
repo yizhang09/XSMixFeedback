@@ -52,11 +52,37 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/project_stop"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="10dip"
+                        android:contentDescription="@string/img_description"
+                        android:background="@drawable/redball"/>
+
+                    <ImageView
                         android:id="@+id/project_flag"
                         android:layout_width="70dp"
                         android:layout_height="45dp"
                         android:contentDescription="@string/img_description"
                         android:background="@drawable/mixstation"/>
+
+            </LinearLayout>
+
+            <View style="@style/h_line" />
+
+            <LinearLayout
+                android:id="@+id/project_layout_stopreason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/project_stopreason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    style="@style/project_detail_description"
+                    android:text="异常描述"/>
 
             </LinearLayout>
 

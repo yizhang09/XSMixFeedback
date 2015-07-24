@@ -177,25 +177,25 @@ public class ProjectReportActivity extends BaseActionBarActivity implements View
 
         switch (mProject.getState()) {
             case "基础未做":
-                mProjectStep.setImageResource(R.drawable.step1);
+                mProjectStep.setImageResource(R.drawable.s1);
                 break;
             case "基础制作":
-                mProjectStep.setImageResource(R.drawable.step2);
+                mProjectStep.setImageResource(R.drawable.s2);
                 break;
             case "筒仓施工":
-                mProjectStep.setImageResource(R.drawable.step3);
+                mProjectStep.setImageResource(R.drawable.s3);
                 break;
             case "正在发车":
-                mProjectStep.setImageResource(R.drawable.step4);
+                mProjectStep.setImageResource(R.drawable.s4);
                 break;
             case "正在安装":
-                mProjectStep.setImageResource(R.drawable.step5);
+                mProjectStep.setImageResource(R.drawable.s5);
                 break;
             case "安装完毕":
-                mProjectStep.setImageResource(R.drawable.step6);
+                mProjectStep.setImageResource(R.drawable.s6);
                 break;
             case "签字验收":
-                mProjectStep.setImageResource(R.drawable.step7);
+                mProjectStep.setImageResource(R.drawable.s7);
                 break;
         }
         loadPieChartData();

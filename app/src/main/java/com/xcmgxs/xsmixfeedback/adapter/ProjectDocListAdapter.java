@@ -89,9 +89,10 @@ public class ProjectDocListAdapter extends MyBaseAdapter<ProjectDoc> {
         listItemView.username.setText(doc.getUploader().getName());
         listItemView.projectname.setText(doc.getProject().getName());
 
-        listItemView.content.setText(doc.getDescription());
+        listItemView.content.setText(doc.getType());
         listItemView.date.setText(doc.getUploadDate());
         listItemView.type.setText(doc.getType());
+        listItemView.type.setVisibility(View.GONE);
 
         listItemView.pic1.setOnClickListener(new View.OnClickListener() {
             @Override

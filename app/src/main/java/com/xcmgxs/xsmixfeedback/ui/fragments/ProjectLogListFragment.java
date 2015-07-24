@@ -41,6 +41,8 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
 
     private Project mProject;
 
+    private int mProjectState;
+
     private static boolean IS_ALL = false;
 
     private AppContext mContext;
@@ -49,6 +51,16 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
         ProjectLogListFragment fragment = new ProjectLogListFragment();
         Bundle args = new Bundle();
         args.putSerializable(Contanst.PROJECT, project);
+        fragment.setArguments(args);
+        IS_ALL = false;
+        return fragment;
+    }
+
+    public static ProjectLogListFragment newInstance(Project project,int state) {
+        ProjectLogListFragment fragment = new ProjectLogListFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(Contanst.PROJECT, project);
+        args.putInt("project_state", state);
         fragment.setArguments(args);
         IS_ALL = false;
         return fragment;
@@ -66,6 +78,7 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
         Bundle args = getArguments();
         if(!IS_ALL) {
             mProject = (Project) args.getSerializable(Contanst.PROJECT);
+            mProjectState = args.getInt("project_state",0);
         }
         super.update();
         mContext = getXsApplication();
@@ -96,7 +109,7 @@ public class ProjectLogListFragment extends BaseSwipeRefreshFragment<ProjectLog,
 
 
     private CommonList<ProjectLog> getList(int page, boolean refresh,String projectid) throws AppException {
-        CommonList<ProjectLog> list = mApplication.getProjectLogByProjectID(page,refresh,projectid);
+        CommonList<ProjectLog> list = mApplication.getProjectLogByProjectID(page,refresh,projectid,mProjectState);
         return list;
     }
 

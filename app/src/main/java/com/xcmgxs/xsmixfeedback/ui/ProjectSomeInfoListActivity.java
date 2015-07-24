@@ -59,6 +59,8 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
 
     private int mListType;
 
+    private int mProjectState;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +77,7 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
         if(intent != null){
             mProject = (Project)intent.getSerializableExtra(Contanst.PROJECT);
             mListType = intent.getIntExtra("project_list_type", 0);
+            mProjectState = intent.getIntExtra("project_list_state", 0);
             mTitle = getTitle(mListType);
             if(mProject != null) {
                 mSubTitle = mProject.getName();
@@ -130,7 +133,7 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
             fragmentTransaction.replace(R.id.content, ProjectIssueListFragment.newInstance(mProject)).commit();
         }
         if(type == PROJECT_LIST_TYPE_LOGS){
-            fragmentTransaction.replace(R.id.content, ProjectLogListFragment.newInstance(mProject)).commit();
+            fragmentTransaction.replace(R.id.content, ProjectLogListFragment.newInstance(mProject,mProjectState)).commit();
         }
         if(type == PROJECT_LIST_TYPE_FILES){
             fragmentTransaction.replace(R.id.content, ProjectFileListFragment.newInstance(mProject)).commit();

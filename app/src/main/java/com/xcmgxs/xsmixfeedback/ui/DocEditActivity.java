@@ -30,7 +30,6 @@ import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.ProjectDoc;
-import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
@@ -73,12 +72,18 @@ public class DocEditActivity extends BaseActionBarActivity implements View.OnCli
     private String tempDocKey = AppConfig.TEMP_DOC;
     private String tempDocImageKey = AppConfig.TEMP_DOC_IMAGE;
 
-    private static final String[] TYPES =
-            {"搅拌站安装告知函", "筒仓进场验收通知单",
-            "筒仓涂装方案确认单", "筒仓、外加剂罐制作验收报告",
-            "设备进场安装条件验收报告", "混凝土搅拌站综合验收通知单",
-            "混凝土搅拌设备用户培训确认单", "客户满意度调查表",
-            "混凝土搅拌设备验收报告", "混凝土搅拌设备安装服务卡"};
+    private static final String[] TYPES = {
+            "搅拌站安装告知函",
+            "筒仓进场验收通知单",
+            "筒仓涂装方案确认单",
+            "筒仓、外加剂罐制作验收报告",
+            "设备进场安装条件验收报告",
+            "混凝土搅拌站综合验收通知单",
+            "混凝土搅拌设备用户培训确认单",
+            "客户满意度调查表",
+            "混凝土搅拌设备验收报告",
+            "混凝土搅拌设备安装服务卡"
+    };
 
     private ArrayAdapter<String> adapter;
 

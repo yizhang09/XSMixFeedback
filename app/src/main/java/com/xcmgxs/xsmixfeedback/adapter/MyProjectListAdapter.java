@@ -37,6 +37,8 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
         public TextView type;
         public TextView state;
         public TextView manager;
+        public ImageView statepic;
+        public ImageView isstop;
     }
 
     public MyProjectListAdapter(Context context, List<Project> listData, int itemViewResource) {
@@ -60,6 +62,8 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
             listItemView.type = (TextView)convertView.findViewById(R.id.exploreproject_listitem_type);
             listItemView.state = (TextView)convertView.findViewById(R.id.exploreproject_listitem_statename);
             listItemView.manager = (TextView)convertView.findViewById(R.id.exploreproject_listitem_manager);
+            listItemView.statepic = (ImageView)convertView.findViewById(R.id.exploreproject_listitem_state);
+            listItemView.isstop = (ImageView)convertView.findViewById(R.id.exploreproject_listitem_isstop);
             convertView.setTag(listItemView);
 
         }
@@ -110,6 +114,38 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
 
         listItemView.type.setText(project.getType());
         listItemView.state.setText(project.getState());
+
+        switch (project.getState()) {
+            case "基础未做":
+                listItemView.statepic.setImageResource(R.drawable.s1);
+                break;
+            case "基础制作":
+                listItemView.statepic.setImageResource(R.drawable.s2);
+                break;
+            case "筒仓施工":
+                listItemView.statepic.setImageResource(R.drawable.s3);
+                break;
+            case "正在发车":
+                listItemView.statepic.setImageResource(R.drawable.s4);
+                break;
+            case "正在安装":
+                listItemView.statepic.setImageResource(R.drawable.s5);
+                break;
+            case "安装完毕":
+                listItemView.statepic.setImageResource(R.drawable.s6);
+                break;
+            case "签字验收":
+                listItemView.statepic.setImageResource(R.drawable.s7);
+                break;
+        }
+
+        if(project.isStop()){
+            listItemView.isstop.setVisibility(View.VISIBLE);
+        }
+        else {
+            listItemView.isstop.setVisibility(View.GONE);
+        }
+
         return convertView;
 
     }

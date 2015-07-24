@@ -100,13 +100,23 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
 
     private LinearLayout mLLprojectdocs;
 
-    private ImageView mProjectStep;
+    private ImageView mProjectStep1;
+    private ImageView mProjectStep2;
+    private ImageView mProjectStep3;
+    private ImageView mProjectStep4;
+    private ImageView mProjectStep5;
+    private ImageView mProjectStep6;
+    private ImageView mProjectStep7;
+
+    private ImageView mProjectStop;
+
+    private LinearLayout mLLProjectStopReason;
+
+    private TextView mProjectStopReason;
 
     private HorizontalBarChart mBarchart;
 
     private PieChart mPiechart;
-
-
 
     private String url_Link;
 
@@ -146,15 +156,33 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
         mLLprojectlogs = (LinearLayout)this.findViewById(R.id.project_logs);
         mLLprojectmanager = (LinearLayout)this.findViewById(R.id.project_manager);
         mLLprojectdocs  =  (LinearLayout)this.findViewById(R.id.project_docs);
-        mProjectStep  =  (ImageView)this.findViewById(R.id.project_step);
+        mProjectStep1  =  (ImageView)this.findViewById(R.id.project_step1);
+        mProjectStep2  =  (ImageView)this.findViewById(R.id.project_step2);
+        mProjectStep3  =  (ImageView)this.findViewById(R.id.project_step3);
+        mProjectStep4  =  (ImageView)this.findViewById(R.id.project_step4);
+        mProjectStep5  =  (ImageView)this.findViewById(R.id.project_step5);
+        mProjectStep6  =  (ImageView)this.findViewById(R.id.project_step6);
+        mProjectStep7  =  (ImageView)this.findViewById(R.id.project_step7);
         mPiechart = (PieChart)this.findViewById(R.id.project_issue_piechart);
         mBarchart = (HorizontalBarChart)this.findViewById(R.id.project_issue_barchart);
+
+        mProjectStop  =  (ImageView)this.findViewById(R.id.project_stop);
+        mLLProjectStopReason  =  (LinearLayout)this.findViewById(R.id.project_layout_stopreason);
+        mProjectStopReason  =  (TextView)this.findViewById(R.id.project_stopreason);
+
         mLLprojectmanager.setOnClickListener(this);
         mLLprojectinfo.setOnClickListener(this);
         mLLprojectissues.setOnClickListener(this);
         mLLprojectlogs.setOnClickListener(this);
         mLLprojectfiles.setOnClickListener(this);
         mLLprojectdocs.setOnClickListener(this);
+        //mProjectStep1.setOnClickListener(this);
+        mProjectStep2.setOnClickListener(this);
+        mProjectStep3.setOnClickListener(this);
+        mProjectStep4.setOnClickListener(this);
+        mProjectStep5.setOnClickListener(this);
+        mProjectStep6.setOnClickListener(this);
+        mProjectStep7.setOnClickListener(this);
 
         if(null == mProject){
             loadProject(ACTION_LOAD_PROJECT,projectid);
@@ -178,28 +206,80 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
         mProjectState.setText(mProject.getState());
         mStationType.setText(mProject.getType());
 
+        if(mProject.isStop()){
+            mProjectStop.setVisibility(View.VISIBLE);
+            mLLProjectStopReason.setVisibility(View.VISIBLE);
+            mProjectStopReason.setText(mProject.getStopReason());
+        }
+        else {
+            mProjectStop.setVisibility(View.GONE);
+            mLLProjectStopReason.setVisibility(View.GONE);
+        }
+
 
         switch (mProject.getState()) {
             case "基础未做":
-                mProjectStep.setImageResource(R.drawable.step1);
+                mProjectStep1.setImageResource(R.drawable.step1);
+                mProjectStep2.setImageResource(R.drawable.blank);
+                mProjectStep3.setImageResource(R.drawable.blank);
+                mProjectStep4.setImageResource(R.drawable.blank);
+                mProjectStep5.setImageResource(R.drawable.blank);
+                mProjectStep6.setImageResource(R.drawable.blank);
+                mProjectStep7.setImageResource(R.drawable.blank);
                 break;
             case "基础制作":
-                mProjectStep.setImageResource(R.drawable.step2);
+                mProjectStep1.setImageResource(R.drawable.step1);
+                mProjectStep2.setImageResource(R.drawable.step2);
+                mProjectStep3.setImageResource(R.drawable.blank);
+                mProjectStep4.setImageResource(R.drawable.blank);
+                mProjectStep5.setImageResource(R.drawable.blank);
+                mProjectStep6.setImageResource(R.drawable.blank);
+                mProjectStep7.setImageResource(R.drawable.blank);
                 break;
             case "筒仓施工":
-                mProjectStep.setImageResource(R.drawable.step3);
+                mProjectStep1.setImageResource(R.drawable.step1);
+                mProjectStep2.setImageResource(R.drawable.step2);
+                mProjectStep3.setImageResource(R.drawable.step3);
+                mProjectStep4.setImageResource(R.drawable.blank);
+                mProjectStep5.setImageResource(R.drawable.blank);
+                mProjectStep6.setImageResource(R.drawable.blank);
+                mProjectStep7.setImageResource(R.drawable.blank);
                 break;
             case "正在发车":
-                mProjectStep.setImageResource(R.drawable.step4);
+                mProjectStep1.setImageResource(R.drawable.step1);
+                mProjectStep2.setImageResource(R.drawable.step2);
+                mProjectStep3.setImageResource(R.drawable.step3);
+                mProjectStep4.setImageResource(R.drawable.step4);
+                mProjectStep5.setImageResource(R.drawable.blank);
+                mProjectStep6.setImageResource(R.drawable.blank);
+                mProjectStep7.setImageResource(R.drawable.blank);
                 break;
             case "正在安装":
-                mProjectStep.setImageResource(R.drawable.step5);
+                mProjectStep1.setImageResource(R.drawable.step1);
+                mProjectStep2.setImageResource(R.drawable.step2);
+                mProjectStep3.setImageResource(R.drawable.step3);
+                mProjectStep4.setImageResource(R.drawable.step4);
+                mProjectStep5.setImageResource(R.drawable.step5);
+                mProjectStep6.setImageResource(R.drawable.blank);
+                mProjectStep7.setImageResource(R.drawable.blank);
                 break;
             case "安装完毕":
-                mProjectStep.setImageResource(R.drawable.step6);
+                mProjectStep1.setImageResource(R.drawable.step1);
+                mProjectStep2.setImageResource(R.drawable.step2);
+                mProjectStep3.setImageResource(R.drawable.step3);
+                mProjectStep4.setImageResource(R.drawable.step4);
+                mProjectStep5.setImageResource(R.drawable.step5);
+                mProjectStep6.setImageResource(R.drawable.step6);
+                mProjectStep7.setImageResource(R.drawable.blank);
                 break;
             case "签字验收":
-                mProjectStep.setImageResource(R.drawable.step7);
+                mProjectStep1.setImageResource(R.drawable.step1);
+                mProjectStep2.setImageResource(R.drawable.step2);
+                mProjectStep3.setImageResource(R.drawable.step3);
+                mProjectStep4.setImageResource(R.drawable.step4);
+                mProjectStep5.setImageResource(R.drawable.step5);
+                mProjectStep6.setImageResource(R.drawable.step6);
+                mProjectStep7.setImageResource(R.drawable.step7);
                 break;
         }
         loadPieChartData();
@@ -383,6 +463,27 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
                 break;
             case R.id.project_docs:
                 UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_DOCS);
+                break;
+            case R.id.project_step1:
+                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_LOGS,1);
+                break;
+            case R.id.project_step2:
+                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_LOGS,2);
+                break;
+            case R.id.project_step3:
+                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_LOGS,3);
+                break;
+            case R.id.project_step4:
+                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_LOGS,4);
+                break;
+            case R.id.project_step5:
+                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_LOGS,5);
+                break;
+            case R.id.project_step6:
+                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_LOGS,6);
+                break;
+            case R.id.project_step7:
+                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_LOGS,7);
                 break;
         }
     }
