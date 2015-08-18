@@ -56,12 +56,16 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
 
     @InjectView(R.id.issue_edit_loading)
     ProgressBar mIssueEditLoading;
-    @InjectView(R.id.issue_edit_title)
-    EditText mIssueEditTitle;
     @InjectView(R.id.issue_edit_type)
     Spinner mIssueEditType;
+    @InjectView(R.id.issue_edit_state)
+    Spinner mIssueEditState;
     @InjectView(R.id.issue_edit_desc)
     EditText mIssueEditDesc;
+    @InjectView(R.id.issue_edit_prereason)
+    EditText mIssueEditPreReason;
+    @InjectView(R.id.issue_edit_advice)
+    EditText mIssueEditAdvice;
     @InjectView(R.id.issue_pub_image1)
     ImageView mImage1;
     @InjectView(R.id.issue_pub_image2)
@@ -92,7 +96,11 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
     private static final String[] TYPES = {"斜皮带输送系统", "搅拌主机", "电路", "平皮带输送系统", "气路系统", "控制系统", "控制室"
             , "骨料仓总成", "机制砂", "主机楼", "提斗机", "供水系统", "螺旋输送系统", "砂浆站", "外加剂供给系统","其他"};
 
+    private static final String[] STATES = {"正在处理", "已处理"};
+
     private ArrayAdapter<String> adapter;
+
+    private ArrayAdapter<String> stateAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +123,11 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, TYPES);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mIssueEditType.setAdapter(adapter);
+
+        stateAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, STATES);
+        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mIssueEditState.setAdapter(stateAdapter);
+
         mImageUpload.setOnClickListener(this);
 
         mImage1.setOnClickListener(this);
@@ -371,11 +384,15 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
     }
 
     private void pubIssue() {
-        String title = mIssueEditTitle.getText().toString();
-        String desc = mIssueEditDesc.getText().toString();
-        String type = mIssueEditType.getSelectedItem().toString();
+        ProjectIssue issue = new ProjectIssue();
+        issue.setTitle("");
+        issue.setContent(mIssueEditDesc.getText().toString());
+        issue.setPreReason(mIssueEditPreReason.getText().toString());
+        issue.setAdvice(mIssueEditAdvice.getText().toString());
+        issue.setType( mIssueEditType.getSelectedItem().toString());
+        issue.setState( mIssueEditState.getSelectedItem().toString());
         final AlertDialog pubing = LightProgressDialog.create(this, "提交中...");
-        XsFeedbackApi.pubCreateIssue(mProject.getId(), title, desc, type,imgFiles, new AsyncHttpResponseHandler() {
+        XsFeedbackApi.pubCreateIssue(mProject.getId(),issue,imgFiles, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 ProjectIssue issue = JsonUtils.toBean(ProjectIssue.class,responseBody);

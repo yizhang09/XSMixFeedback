@@ -149,9 +149,8 @@ public class ProjectIssueListAdapter extends MyBaseAdapter<ProjectIssue> {
         listItemView.content.setText(issue.getContent());
         listItemView.date.setText(issue.getCreatedate());
         listItemView.type.setText(issue.getType());
-
-        if (!StringUtils.isEmpty(issue.getSolution())) {
-            listItemView.isdone.setText("已解决");
+        listItemView.isdone.setText(issue.getState());
+        if (listItemView.isdone.getText().toString().equals("已处理")) {
             listItemView.isdone.setTextColor(mContext.getResources().getColor(R.color.green));
         }
 

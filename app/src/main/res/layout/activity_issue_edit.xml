@@ -14,24 +14,39 @@
 
 
     <EditText
-        android:id="@+id/issue_edit_title"
-        android:layout_width="match_parent"
-        android:hint="标题"
-        android:layout_margin="10dp"
-        android:padding="20dp"
-        android:layout_height="wrap_content" />
-
-    <EditText
         android:id="@+id/issue_edit_desc"
         android:padding="20dp"
         android:layout_margin="10dp"
-        android:hint="描述"
+        android:hint="故障概述"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/issue_edit_prereason"
+        android:padding="20dp"
+        android:layout_margin="10dp"
+        android:hint="初步原因分析"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/issue_edit_advice"
+        android:padding="20dp"
+        android:layout_margin="10dp"
+        android:hint="建议措施"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 
     <Spinner
         android:id="@+id/issue_edit_type"
+        android:layout_margin="10dp"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Spinner>
+
+    <Spinner
+        android:id="@+id/issue_edit_state"
         android:layout_margin="10dp"
         android:padding="20dp"
         android:layout_width="match_parent"

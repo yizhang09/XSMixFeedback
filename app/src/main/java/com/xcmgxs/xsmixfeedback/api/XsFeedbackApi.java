@@ -5,6 +5,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
+import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 
@@ -75,17 +76,18 @@ public class XsFeedbackApi {
      * 创建一个issue
      *
      * @param projectId
-     * @param title
-     * @param description
-     * @param type
+     * @param issue
      * @return
      */
-    public static void pubCreateIssue(String projectId, String title, String description, String type,File[] imgFiles, AsyncHttpResponseHandler handler) {
+    public static void pubCreateIssue(String projectId,ProjectIssue issue, File[] imgFiles, AsyncHttpResponseHandler handler) {
         try {
             RequestParams params = getPrivateTokenWithParams();
-            params.put("Content", description);
-            params.put("Title", title);
-            params.put("Type", type);
+            params.put("Content", issue.getContent());
+            params.put("Title",issue.getTitle());
+            params.put("Type", issue.getType());
+            params.put("PreReason", issue.getPreReason());
+            params.put("Advice", issue.getAdvice());
+            params.put("State", issue.getState());
             params.put("ProjectID", projectId);
             for (int i = 0; i < imgFiles.length; i++) {
                 if (imgFiles[i] != null) {

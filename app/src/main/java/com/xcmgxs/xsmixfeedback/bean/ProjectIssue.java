@@ -25,6 +25,13 @@ public class ProjectIssue extends Entity {
     @JsonProperty("Reason")
     private String reason;
 
+    @JsonProperty("PreReason")
+    private String preReason;
+
+
+    @JsonProperty("Advice")
+    private String advice;
+
     @JsonProperty("Solution")
     private String solution;
 
@@ -54,6 +61,33 @@ public class ProjectIssue extends Entity {
 
     @JsonProperty("Pic5")
     private String pic5;
+
+    @JsonProperty("State")
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getAdvice() {
+        return advice;
+    }
+
+    public void setAdvice(String advice) {
+        this.advice = advice;
+    }
+
+    public String getPreReason() {
+        return preReason;
+    }
+
+    public void setPreReason(String preReason) {
+        this.preReason = preReason;
+    }
 
     public String getReason() {
         return reason;
