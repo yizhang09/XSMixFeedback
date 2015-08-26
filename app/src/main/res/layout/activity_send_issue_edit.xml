@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <ProgressBar
-        android:id="@+id/issue_edit_loading"
+        android:id="@+id/sendissue_edit_loading"
         style="@style/ListSpinner"
         android:layout_width="64dp"
         android:layout_height="64dp"
@@ -14,39 +14,40 @@
 
 
     <EditText
-        android:id="@+id/issue_edit_desc"
+        android:id="@+id/sendissue_edit_meterialname"
         android:padding="20dp"
         android:layout_margin="10dp"
-        android:hint="故障概述"
+        android:hint="物料名称(必填)"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/issue_edit_reason"
+        android:id="@+id/sendissue_edit_materialno"
         android:padding="20dp"
         android:layout_margin="10dp"
-        android:hint="初步原因分析"
+        android:hint="物料号"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <EditText
+        android:id="@+id/sendissue_edit_listnum"
+        android:padding="20dp"
+        android:layout_margin="10dp"
+        android:hint="清单数量(必填)"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/issue_edit_solution"
+        android:id="@+id/sendissue_edit_wrongnum"
         android:padding="20dp"
         android:layout_margin="10dp"
-        android:hint="建议措施"
+        android:hint="错误数量"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
     <Spinner
-        android:id="@+id/issue_edit_type"
-        android:layout_margin="10dp"
-        android:padding="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Spinner>
-
-    <Spinner
-        android:id="@+id/issue_edit_state"
+        android:id="@+id/sendissue_edit_state"
         android:layout_margin="10dp"
         android:padding="20dp"
         android:layout_width="match_parent"
@@ -58,7 +59,7 @@
 
 
         <ImageView
-            android:id="@+id/issue_pub_image1"
+            android:id="@+id/sendissue_pub_image1"
             android:layout_width="60.0dip"
             android:layout_height="45.0dip"
             android:layout_marginLeft="5.0dip"
@@ -66,7 +67,7 @@
             android:visibility="gone" />
 
         <ImageView
-            android:id="@+id/issue_pub_image2"
+            android:id="@+id/sendissue_pub_image2"
             android:layout_width="60.0dip"
             android:layout_height="45.0dip"
             android:layout_marginLeft="5.0dip"
@@ -74,7 +75,7 @@
             android:visibility="gone" />
 
         <ImageView
-            android:id="@+id/issue_pub_image3"
+            android:id="@+id/sendissue_pub_image3"
             android:layout_width="60.0dip"
             android:layout_height="45.0dip"
             android:layout_marginLeft="5.0dip"
@@ -82,7 +83,7 @@
             android:visibility="gone" />
 
         <ImageView
-            android:id="@+id/issue_pub_image4"
+            android:id="@+id/sendissue_pub_image4"
             android:layout_width="60.0dip"
             android:layout_height="45.0dip"
             android:layout_marginLeft="5.0dip"
@@ -90,7 +91,7 @@
             android:visibility="gone" />
 
         <ImageView
-            android:id="@+id/issue_pub_image5"
+            android:id="@+id/sendissue_pub_image5"
             android:layout_width="60.0dip"
             android:layout_height="45.0dip"
             android:layout_marginLeft="5.0dip"
@@ -98,7 +99,7 @@
             android:visibility="gone" />
 
         <ImageView
-            android:id="@+id/issue_pub_image_upload"
+            android:id="@+id/sendissue_pub_image_upload"
             android:layout_width="60.0dip"
             android:layout_height="45.0dip"
             android:layout_marginLeft="5.0dip"

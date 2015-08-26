@@ -20,6 +20,7 @@ import com.xcmgxs.xsmixfeedback.ui.fragments.ProjectDocListFragment;
 import com.xcmgxs.xsmixfeedback.ui.fragments.ProjectFileListFragment;
 import com.xcmgxs.xsmixfeedback.ui.fragments.ProjectIssueListFragment;
 import com.xcmgxs.xsmixfeedback.ui.fragments.ProjectLogListFragment;
+import com.xcmgxs.xsmixfeedback.ui.fragments.ProjectSendIssueListFragment;
 
 /**
  * Created by zhangyi on 2015-4-16.
@@ -40,12 +41,17 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
 
     public final static int PROJECT_LIST_TYPE_DOCS = 6;
 
+    public final static int PROJECT_LIST_TYPE_SENDISSUES = 7;
+
+    public final static int ALL_LIST_TYPE_SENDISSUES = 8;
 
     private final int MENU_CREATE_LOG_ID = 0;
 
     private final int MENU_CREATE_ISSUE_ID = 1;
 
     private final int MENU_CREATE_DOC_ID = 2;
+
+    private final int MENU_CREATE_SENDISSUE_ID = 3;
 
     private FragmentManager fragmentManager;
 
@@ -110,6 +116,9 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
             case  PROJECT_LIST_TYPE_FILES:
                 title = "文件列表";
                 break;
+            case  PROJECT_LIST_TYPE_SENDISSUES:
+                title = "问题列表";
+                break;
             case ALL_LIST_TYPE_LOGS:
                 title = "最近日志";
                 break;
@@ -150,6 +159,9 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
         if(type == PROJECT_LIST_TYPE_DOCS){
             fragmentTransaction.replace(R.id.content, ProjectDocListFragment.newInstance(mProject)).commit();
         }
+        if(type == PROJECT_LIST_TYPE_SENDISSUES){
+            fragmentTransaction.replace(R.id.content, ProjectSendIssueListFragment.newInstance(mProject)).commit();
+        }
     }
 
     @Override
@@ -161,12 +173,17 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
                 MenuItemCompat.setShowAsAction(createOption, MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
             }
             if (mListType == PROJECT_LIST_TYPE_ISSUES) {
-                MenuItem createOption = menu.add(0, MENU_CREATE_ISSUE_ID, MENU_CREATE_ISSUE_ID, "创建问题反馈");
+                MenuItem createOption = menu.add(0, MENU_CREATE_ISSUE_ID, MENU_CREATE_ISSUE_ID, "创建质量反馈");
                 createOption.setIcon(R.drawable.action_create);
                 MenuItemCompat.setShowAsAction(createOption, MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
             }
             if (mListType == PROJECT_LIST_TYPE_DOCS) {
                 MenuItem createOption = menu.add(0, MENU_CREATE_DOC_ID, MENU_CREATE_DOC_ID, "上传单据");
+                createOption.setIcon(R.drawable.action_create);
+                MenuItemCompat.setShowAsAction(createOption, MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+            }
+            if (mListType == PROJECT_LIST_TYPE_SENDISSUES) {
+                MenuItem createOption = menu.add(0, MENU_CREATE_SENDISSUE_ID, MENU_CREATE_SENDISSUE_ID, "创建发运问题");
                 createOption.setIcon(R.drawable.action_create);
                 MenuItemCompat.setShowAsAction(createOption, MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
             }
@@ -192,7 +209,10 @@ public class ProjectSomeInfoListActivity extends BaseActionBarActivity {
                 UIHelper.showIssueEditOrCreate(getXSApplication(), mProject, null);
                 break;
             case MENU_CREATE_DOC_ID:
-                UIHelper.showDocEditOrCreate(getXSApplication(),mProject,null);
+                UIHelper.showDocEditOrCreate(getXSApplication(), mProject, null);
+                break;
+            case MENU_CREATE_SENDISSUE_ID:
+                UIHelper.showSendIssueEditOrCreate(getXSApplication(),mProject,null);
                 break;
         }
 

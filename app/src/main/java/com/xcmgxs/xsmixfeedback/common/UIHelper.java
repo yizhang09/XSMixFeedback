@@ -45,6 +45,7 @@ import com.xcmgxs.xsmixfeedback.ui.ProjectSomeInfoListActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectStatActivity;
 import com.xcmgxs.xsmixfeedback.ui.ProjectStateActivity;
 import com.xcmgxs.xsmixfeedback.ui.SearchActivity;
+import com.xcmgxs.xsmixfeedback.ui.SendIssueEditActivity;
 import com.xcmgxs.xsmixfeedback.ui.SettingActivity;
 import com.xcmgxs.xsmixfeedback.util.FileUtils;
 import com.xcmgxs.xsmixfeedback.util.ImageUtils;
@@ -383,6 +384,16 @@ public class UIHelper {
         Bundle bundle = new Bundle();
         bundle.putSerializable(Contanst.PROJECT, project);
         bundle.putSerializable(Contanst.PROJECT_DOC, doc);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    public static void showSendIssueEditOrCreate(Context context, Project project, ProjectDoc doc) {
+        Intent intent = new Intent(context, SendIssueEditActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Contanst.PROJECT, project);
+        bundle.putSerializable(Contanst.PROJECT_SENDISSUE, doc);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }

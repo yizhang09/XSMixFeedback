@@ -7,6 +7,7 @@ import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
+import com.xcmgxs.xsmixfeedback.bean.ProjectSendIssue;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
 
 import java.io.File;
@@ -32,6 +33,7 @@ public class XsFeedbackApi {
     public final static String BASE_URL = HTTP + HOST + "/api";
     public final static String PROJECT = BASE_URL + "/project";
     public final static String PROJECT_ISSUE = BASE_URL + "/projectissue";
+    public final static String PROJECT_SENDISSUE = BASE_URL + "/projectsendissue";
     public final static String PROJECT_LOG = BASE_URL + "/projectlog";
     public final static String PROJECT_DOC = BASE_URL + "/projectdoc";
     public final static String USER = BASE_URL + "/user";
@@ -87,6 +89,8 @@ public class XsFeedbackApi {
             params.put("Type", issue.getType());
             params.put("PreReason", issue.getPreReason());
             params.put("Advice", issue.getAdvice());
+            params.put("Reason", issue.getReason());
+            params.put("Solution", issue.getSolution());
             params.put("State", issue.getState());
             params.put("ProjectID", projectId);
             for (int i = 0; i < imgFiles.length; i++) {
@@ -96,6 +100,36 @@ public class XsFeedbackApi {
             }
             params.put("CreatorID", AppContext.getInstance().getLoginUid());
             post(PROJECT_ISSUE, params, handler);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /**
+     * 创建一个issue
+     *
+     * @param projectId
+     * @param issue
+     * @return
+     */
+    public static void pubCreateSendIssue(String projectId,ProjectSendIssue issue, File[] imgFiles, AsyncHttpResponseHandler handler) {
+        try {
+            RequestParams params = getPrivateTokenWithParams();
+            params.put("MaterialName", issue.getMaterialName());
+            params.put("ListNum",issue.getListNum());
+            params.put("MaterialNo", issue.getMaterialNo());
+            params.put("WrongNum", issue.getWrongNum());
+            params.put("State", issue.getState());
+            params.put("ProjectID", projectId);
+            for (int i = 0; i < imgFiles.length; i++) {
+                if (imgFiles[i] != null) {
+                    params.put("file" + i, imgFiles[i]);
+                }
+            }
+            params.put("CreatorID", AppContext.getInstance().getLoginUid());
+            post(PROJECT_SENDISSUE, params, handler);
         }catch(Exception e){
             e.printStackTrace();
         }

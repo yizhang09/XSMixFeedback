@@ -19,7 +19,7 @@
     <string name="main_menu_title_schedule">项目进度</string>
     <string name="main_menu_title_logs">项目日志</string>
     <string name="main_menu_title_notice">通知</string>
-    <string name="main_menu_title_issues">问题反馈</string>
+    <string name="main_menu_title_issues">质量反馈</string>
     <string name="main_menu_title_files">项目附件</string>
     <string name="main_menu_title_setting">设置</string>
     <string name="main_menu_title_about">关于</string>
@@ -48,7 +48,7 @@
     <string name="title_activity_user_info">用户信息</string>
     <string name="title_activity_my_self_info">我的信息</string>
     <string name="title_activity_project_issue">项目问题反馈</string>
-    <string name="title_activity_issue_edit">问题反馈</string>
+    <string name="title_activity_issue_edit">质量反馈</string>
     <string name="title_activity_project_edit">项目状态</string>
     <string name="title_activity_project_state_edit">项目状态</string>
     <string name="title_activity_about">关于</string>
@@ -99,6 +99,7 @@
     <string name="title_activity_project_stat">项目信息汇总</string>
     <string name="title_activity_project_state">状态分类列表</string>
     <string name="title_activity_project_doc">ProjectDocActivity</string>
+    <string name="title_activity_send_issue_edit">SendIssueEditActivity</string>
 
 
 </resources>

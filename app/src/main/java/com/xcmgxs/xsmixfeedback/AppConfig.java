@@ -76,6 +76,9 @@ public class AppConfig {
     public static final String TEMP_FILE = "temp_file";
     public static final String TEMP_FILE_IMAGE = "temp_file_image";
 
+    public static final String TEMP_SENDISSUE = "temp_sendissue";
+    public static final String TEMP_SENDISSUE_IMAGE = "temp_sendissue_image";
+
     private Context mContext;
     private static AppConfig appConfig;
 

@@ -98,6 +98,8 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
 
     private LinearLayout mLLprojectissues;
 
+    private LinearLayout mLLprojectsendissues;
+
     private LinearLayout mLLprojectdocs;
 
     private ImageView mProjectStep1;
@@ -153,6 +155,7 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
         mLLprojectfiles = (LinearLayout)this.findViewById(R.id.project_files);
         mLLprojectinfo = (LinearLayout)this.findViewById(R.id.project_info);
         mLLprojectissues = (LinearLayout)this.findViewById(R.id.project_issues);
+        mLLprojectsendissues = (LinearLayout)this.findViewById(R.id.project_sendissues);
         mLLprojectlogs = (LinearLayout)this.findViewById(R.id.project_logs);
         mLLprojectmanager = (LinearLayout)this.findViewById(R.id.project_manager);
         mLLprojectdocs  =  (LinearLayout)this.findViewById(R.id.project_docs);
@@ -176,6 +179,7 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
         mLLprojectlogs.setOnClickListener(this);
         mLLprojectfiles.setOnClickListener(this);
         mLLprojectdocs.setOnClickListener(this);
+        mLLprojectsendissues.setOnClickListener(this);
         //mProjectStep1.setOnClickListener(this);
         mProjectStep2.setOnClickListener(this);
         mProjectStep3.setOnClickListener(this);
@@ -298,7 +302,7 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
                     msg.what = 1;
                 }
                 catch (Exception ex){
-                    mLoading.setVisibility(View.GONE);
+                    //mLoading.setVisibility(View.GONE);
                     msg.what = -1;
                     msg.obj = ex;
                     ex.printStackTrace();
@@ -460,6 +464,9 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
                 break;
             case R.id.project_issues:
                 UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_ISSUES);
+                break;
+            case R.id.project_sendissues:
+                UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_SENDISSUES);
                 break;
             case R.id.project_docs:
                 UIHelper.showProjectListActivity(ProjectActivity.this, mProject, ProjectSomeInfoListActivity.PROJECT_LIST_TYPE_DOCS);

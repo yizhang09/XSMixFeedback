@@ -132,39 +132,47 @@ public class ProjectIssueListFragment extends BaseSwipeRefreshFragment<ProjectIs
     @Override
     protected boolean onItemLongClick(int position, final ProjectIssue issue) {
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                .setItems(new CharSequence[]{"删除"}, new DialogInterface.OnClickListener() {
+                .setItems(new CharSequence[]{"设为已处理","设为正在处理","删除"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        if(mContext.getLoginUid() == issue.getCreatorid()){
-                            AlertDialog builder = new AlertDialog.Builder(getActivity())
-                                    .setTitle("删除反馈")
-                                    .setMessage("确认删除？")
-                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                            delIssue(issue);
-                                        }
-                                    })
-                                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    }).create();
-                            builder.show();
+                        if(which == 0){
+
                         }
-                        else {
-                            new AlertDialog.Builder(getActivity())
-                                    .setTitle("删除反馈")
-                                    .setMessage("只可以删除自己创建的反馈！")
-                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    }).show();
+                        if(which == 1){
+
+                        }
+                        if(which == 2){
+                            dialog.dismiss();
+                            if(mContext.getLoginUid() == issue.getCreatorid()){
+                                AlertDialog builder = new AlertDialog.Builder(getActivity())
+                                        .setTitle("删除反馈")
+                                        .setMessage("确认删除？")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                delIssue(issue);
+                                            }
+                                        })
+                                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        }).create();
+                                builder.show();
+                            }
+                            else {
+                                new AlertDialog.Builder(getActivity())
+                                        .setTitle("删除反馈")
+                                        .setMessage("只可以删除自己创建的反馈！")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        }).show();
+                            }
                         }
                     }
                 }).create();

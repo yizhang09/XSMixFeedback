@@ -88,7 +88,30 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="问题反馈"/>
+            android:text="质量反馈"/>
+
+        <ImageView
+            style="@style/project_detail_sorrow_img"
+            android:contentDescription="@string/img_description"/>
+
+    </LinearLayout>
+
+    <View style="@style/h_line" />
+
+    <LinearLayout
+        android:id="@+id/project_sendissues"
+        style="@style/project_detail_layout_style">
+
+        <ImageView
+            style="@style/project_detail_mid_grid_item_img"
+            android:contentDescription="@string/img_description"
+            android:background="@drawable/project_detail_icon_issue"/>
+
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="发运问题"/>
 
         <ImageView
             style="@style/project_detail_sorrow_img"

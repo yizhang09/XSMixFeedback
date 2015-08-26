@@ -30,6 +30,7 @@ import com.xcmgxs.xsmixfeedback.R;
 import com.xcmgxs.xsmixfeedback.api.XsFeedbackApi;
 import com.xcmgxs.xsmixfeedback.bean.Project;
 import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
+import com.xcmgxs.xsmixfeedback.bean.ProjectSendIssue;
 import com.xcmgxs.xsmixfeedback.common.Contanst;
 import com.xcmgxs.xsmixfeedback.common.UIHelper;
 import com.xcmgxs.xsmixfeedback.ui.baseactivity.BaseActionBarActivity;
@@ -43,41 +44,40 @@ import com.xcmgxs.xsmixfeedback.util.ViewUtils;
 import org.apache.http.Header;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 
-public class IssueEditActivity extends BaseActionBarActivity  implements View.OnClickListener {
+public class SendIssueEditActivity extends BaseActionBarActivity implements View.OnClickListener {
 
-    @InjectView(R.id.issue_edit_loading)
-    ProgressBar mIssueEditLoading;
-    @InjectView(R.id.issue_edit_type)
-    Spinner mIssueEditType;
-    @InjectView(R.id.issue_edit_state)
-    Spinner mIssueEditState;
-    @InjectView(R.id.issue_edit_desc)
-    EditText mIssueEditDesc;
-    @InjectView(R.id.issue_edit_reason)
-    EditText mIssueEditReason;
-    @InjectView(R.id.issue_edit_solution)
-    EditText mIssueEditSolution;
-    @InjectView(R.id.issue_pub_image1)
-    ImageView mImage1;
-    @InjectView(R.id.issue_pub_image2)
-    ImageView mImage2;
-    @InjectView(R.id.issue_pub_image3)
-    ImageView mImage3;
-    @InjectView(R.id.issue_pub_image4)
-    ImageView mImage4;
-    @InjectView(R.id.issue_pub_image5)
-    ImageView mImage5;
-    @InjectView(R.id.issue_pub_image_upload)
-    ImageView mImageUpload;
+    @InjectView(R.id.sendissue_edit_loading)
+    ProgressBar mSendissueEditLoading;
+    @InjectView(R.id.sendissue_edit_meterialname)
+    EditText mSendissueEditMeterialname;
+    @InjectView(R.id.sendissue_edit_materialno)
+    EditText mSendissueEditMaterialno;
+    @InjectView(R.id.sendissue_edit_listnum)
+    EditText mSendissueEditListnum;
+    @InjectView(R.id.sendissue_edit_wrongnum)
+    EditText mSendissueEditWrongnum;
+    @InjectView(R.id.sendissue_edit_state)
+    Spinner mSendissueEditState;
+    @InjectView(R.id.sendissue_pub_image1)
+    ImageView mSendissuePubImage1;
+    @InjectView(R.id.sendissue_pub_image2)
+    ImageView mSendissuePubImage2;
+    @InjectView(R.id.sendissue_pub_image3)
+    ImageView mSendissuePubImage3;
+    @InjectView(R.id.sendissue_pub_image4)
+    ImageView mSendissuePubImage4;
+    @InjectView(R.id.sendissue_pub_image5)
+    ImageView mSendissuePubImage5;
+    @InjectView(R.id.sendissue_pub_image_upload)
+    ImageView mSendissuePubImageUpload;
+
 
     Project mProject;
 
@@ -86,119 +86,110 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
     private String theLarge;
     private String theThumbnail;
 
+
     private InputMethodManager imm;
 
     private Context mContext;
 
-    private String tempIssueKey = AppConfig.TEMP_ISSUE;
-    private String tempIssueImageKey = AppConfig.TEMP_ISSUE_IMAGE;
+    private String tempSendIssueKey = AppConfig.TEMP_SENDISSUE;
+    private String tempSendIssueImageKey = AppConfig.TEMP_SENDISSUE_IMAGE;
 
-    private static final String[] TYPES = {"斜皮带输送系统", "搅拌主机", "电路", "平皮带输送系统", "气路系统", "控制系统", "控制室"
-            , "骨料仓总成", "机制砂", "主机楼", "提斗机", "供水系统", "螺旋输送系统", "砂浆站", "外加剂供给系统","其他"};
 
     private static final String[] STATES = {"正在处理", "已处理"};
 
     private ArrayAdapter<String> adapter;
 
-    private ArrayAdapter<String> stateAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_issue_edit);
+        setContentView(R.layout.activity_send_issue_edit);
         ButterKnife.inject(this);
         mContext = this;
-
-        imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         initView();
     }
 
     private void initView() {
         mProject = (Project) getIntent().getSerializableExtra(Contanst.PROJECT);
 
-        mActionBar.setTitle("新建问题反馈");
+        mActionBar.setTitle("新建发运问题");
         mActionBar.setSubtitle(mProject.getName() + "/" + mProject.getCustomer());
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, TYPES);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, STATES);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mIssueEditType.setAdapter(adapter);
+        mSendissueEditState.setAdapter(adapter);
 
-        stateAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, STATES);
-        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mIssueEditState.setAdapter(stateAdapter);
+        mSendissuePubImageUpload.setOnClickListener(this);
 
-        mImageUpload.setOnClickListener(this);
-
-        mImage1.setOnClickListener(this);
-        mImage2.setOnClickListener(this);
-        mImage3.setOnClickListener(this);
-        mImage4.setOnClickListener(this);
-        mImage5.setOnClickListener(this);
-
+        mSendissuePubImage1.setOnClickListener(this);
+        mSendissuePubImage2.setOnClickListener(this);
+        mSendissuePubImage3.setOnClickListener(this);
+        mSendissuePubImage4.setOnClickListener(this);
+        mSendissuePubImage5.setOnClickListener(this);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_issue_edit, menu);
+        getMenuInflater().inflate(R.menu.menu_send_issue_edit, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.issue_actionbar_menu_save) {
-            pubIssue();
+        if (id == R.id.sendissue_actionbar_menu_save) {
+            pubSendIssue();
         }
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
-            case R.id.issue_pub_image_upload:
-                imm.hideSoftInputFromInputMethod(v.getWindowToken(),0);
+        switch (v.getId()) {
+            case R.id.sendissue_pub_image_upload:
+                imm.hideSoftInputFromInputMethod(v.getWindowToken(), 0);
 
                 CharSequence[] items = {
-                        IssueEditActivity.this.getString(R.string.img_from_album),
-                        IssueEditActivity.this.getString(R.string.img_from_camera)
+                        SendIssueEditActivity.this.getString(R.string.img_from_album),
+                        SendIssueEditActivity.this.getString(R.string.img_from_camera)
                 };
                 imgChooseItem(items);
                 break;
-            case R.id.issue_pub_image1:
-                mImage1.setImageBitmap(null);
-                mImage1.setVisibility(View.GONE);
+            case R.id.sendissue_pub_image1:
+                mSendissuePubImage1.setImageBitmap(null);
+                mSendissuePubImage1.setVisibility(View.GONE);
                 imgFiles[0] = null;
                 break;
-            case R.id.issue_pub_image2:
-                mImage2.setImageBitmap(null);
-                mImage2.setVisibility(View.GONE);
+            case R.id.sendissue_pub_image2:
+                mSendissuePubImage2.setImageBitmap(null);
+                mSendissuePubImage2.setVisibility(View.GONE);
                 imgFiles[1] = null;
                 break;
-            case R.id.issue_pub_image3:
-                mImage3.setImageBitmap(null);
-                mImage3.setVisibility(View.GONE);
+            case R.id.sendissue_pub_image3:
+                mSendissuePubImage3.setImageBitmap(null);
+                mSendissuePubImage3.setVisibility(View.GONE);
                 imgFiles[2] = null;
                 break;
-            case R.id.issue_pub_image4:
-                mImage4.setImageBitmap(null);
-                mImage4.setVisibility(View.GONE);
+            case R.id.sendissue_pub_image4:
+                mSendissuePubImage4.setImageBitmap(null);
+                mSendissuePubImage4.setVisibility(View.GONE);
                 imgFiles[3] = null;
                 break;
-            case R.id.issue_pub_image5:
-                mImage5.setImageBitmap(null);
-                mImage5.setVisibility(View.GONE);
+            case R.id.sendissue_pub_image5:
+                mSendissuePubImage5.setImageBitmap(null);
+                mSendissuePubImage5.setVisibility(View.GONE);
                 imgFiles[4] = null;
                 break;
-            default:break;
+            default:
+                break;
         }
     }
 
-    private void imgChooseItem(CharSequence[] items){
+    private void imgChooseItem(CharSequence[] items) {
         AlertDialog imageDialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.ui_insert_image)
                 .setIcon(android.R.drawable.btn_star)
@@ -229,19 +220,19 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
                             }
 
                             if (StringUtils.isEmpty(savePath)) {
-                                UIHelper.ToastMessage(IssueEditActivity.this,"无法保存照片，请检查SD卡是否挂载");
+                                UIHelper.ToastMessage(SendIssueEditActivity.this, "无法保存照片，请检查SD卡是否挂载");
                                 return;
                             }
 
                             String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-                            String fileName = "xs_"+timestamp+".jpg";
-                            File out = new File(savePath,fileName);
+                            String fileName = "xs_" + timestamp + ".jpg";
+                            File out = new File(savePath, fileName);
                             Uri uri = Uri.fromFile(out);
 
                             theLarge = savePath + fileName;
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
-                            startActivityForResult(intent,ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                            startActivityForResult(intent, ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
 
                         }
                     }
@@ -250,131 +241,117 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
 
     }
 
+
     @SuppressLint("HandlerLeak")
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        if(resultCode != RESULT_OK){
+        if (resultCode != RESULT_OK) {
             return;
         }
 
-        final Handler handler = new Handler(){
+        final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                if(msg.obj != null){
-                    switch (msg.what){
+                if (msg.obj != null) {
+                    switch (msg.what) {
                         case -1:
                             ViewUtils.showToast("最多只能上传5张照片!");
                             break;
                         case 1:
-                            mImage1.setImageBitmap((Bitmap)msg.obj);
-                            mImage1.setVisibility(View.VISIBLE);
+                            mSendissuePubImage1.setImageBitmap((Bitmap) msg.obj);
+                            mSendissuePubImage1.setVisibility(View.VISIBLE);
                             break;
                         case 2:
-                            mImage2.setImageBitmap((Bitmap) msg.obj);
-                            mImage2.setVisibility(View.VISIBLE);
+                            mSendissuePubImage2.setImageBitmap((Bitmap) msg.obj);
+                            mSendissuePubImage2.setVisibility(View.VISIBLE);
                             break;
                         case 3:
-                            mImage3.setImageBitmap((Bitmap)msg.obj);
-                            mImage3.setVisibility(View.VISIBLE);
+                            mSendissuePubImage3.setImageBitmap((Bitmap) msg.obj);
+                            mSendissuePubImage3.setVisibility(View.VISIBLE);
                             break;
                         case 4:
-                            mImage4.setImageBitmap((Bitmap)msg.obj);
-                            mImage4.setVisibility(View.VISIBLE);
+                            mSendissuePubImage4.setImageBitmap((Bitmap) msg.obj);
+                            mSendissuePubImage4.setVisibility(View.VISIBLE);
                             break;
                         case 5:
-                            mImage5.setImageBitmap((Bitmap)msg.obj);
-                            mImage5.setVisibility(View.VISIBLE);
+                            mSendissuePubImage5.setImageBitmap((Bitmap) msg.obj);
+                            mSendissuePubImage5.setVisibility(View.VISIBLE);
                             break;
                     }
                 }
             }
         };
 
-        new Thread(){
+        new Thread() {
             private String selectedImagePath;
 
-            public void run(){
+            public void run() {
                 Bitmap bitmap = null;
-                if(requestCode == ImageUtils.REQUEST_CODE_GETIMAGE_BYSDCARD){
-                    if(data == null){
+                if (requestCode == ImageUtils.REQUEST_CODE_GETIMAGE_BYSDCARD) {
+                    if (data == null) {
                         return;
                     }
 
                     Uri selectedImageUri = data.getData();
-                    if(selectedImageUri != null){
-                        selectedImagePath = ImageUtils.getImagePath(selectedImageUri,IssueEditActivity.this);
+                    if (selectedImageUri != null) {
+                        selectedImagePath = ImageUtils.getImagePath(selectedImageUri, SendIssueEditActivity.this);
 
                     }
 
-                    if(selectedImagePath != null){
+                    if (selectedImagePath != null) {
                         theLarge = selectedImagePath;
-                    }
-                    else {
-                        bitmap = ImageUtils.loadPicasaImageFromGalley(selectedImageUri, IssueEditActivity.this);
+                    } else {
+                        bitmap = ImageUtils.loadPicasaImageFromGalley(selectedImageUri, SendIssueEditActivity.this);
                     }
 
-                    if(AppContext.isMethodsCompat(Build.VERSION_CODES.ECLAIR_MR1)){
+                    if (AppContext.isMethodsCompat(Build.VERSION_CODES.ECLAIR_MR1)) {
                         String imaName = FileUtils.getFileName(theLarge);
-                        if(imaName != null){
-                            bitmap = ImageUtils.loadImgThumbnail(IssueEditActivity.this,imaName,MediaStore.Images.Thumbnails.MINI_KIND);
-                            if(bitmap == null && !StringUtils.isEmpty(theLarge)){
-                                bitmap = ImageUtils.loadImgThumbnail(theLarge,1000,1000);
+                        if (imaName != null) {
+                            bitmap = ImageUtils.loadImgThumbnail(SendIssueEditActivity.this, imaName, MediaStore.Images.Thumbnails.MINI_KIND);
+                            if (bitmap == null && !StringUtils.isEmpty(theLarge)) {
+                                bitmap = ImageUtils.loadImgThumbnail(theLarge, 1000, 1000);
                             }
                         }
                     }
-                }
-                else if(requestCode == ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA){
-                    if(bitmap == null && !StringUtils.isEmpty(theLarge)){
-                        bitmap = ImageUtils.loadImgThumbnail(theLarge,1000,1000);
-                        //bitmap = ImageUtils.getBitmapByPath(theLarge);
+                } else if (requestCode == ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA) {
+                    if (bitmap == null && !StringUtils.isEmpty(theLarge)) {
+                        bitmap = ImageUtils.loadImgThumbnail(theLarge, 1000, 1000);
                     }
                 }
                 int index = -1;
-                if(bitmap != null){
-                    String savePath = Environment.getExternalStorageDirectory().getAbsolutePath() +"/XSFeedback/Camera/";
+                if (bitmap != null) {
+                    String savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/XSFeedback/Camera/";
                     File saveDir = new File(savePath);
-                    if(!saveDir.exists()){
+                    if (!saveDir.exists()) {
                         saveDir.mkdirs();
                     }
-
                     String largeFileName = FileUtils.getFileName(theLarge);
                     String largeFilePath = savePath + largeFileName;
 
-
-                    if(largeFileName.startsWith("thumb_") && new File(largeFilePath).exists()){
+                    if (largeFileName.startsWith("thumb_") && new File(largeFilePath).exists()) {
                         theThumbnail = largeFilePath;
                         index = setImageFile(new File(theThumbnail));
-                        //imgFile1 = new File(theThumbnail);
-                    }
-                    else {
+                    } else {
                         String thumbFileName = "thumb_" + largeFileName;
                         theThumbnail = savePath + thumbFileName;
-                        if(new File(theThumbnail).exists()){
+                        if (new File(theThumbnail).exists()) {
                             index = setImageFile(new File(theThumbnail));
-                            //imgFile1 = new File(theThumbnail);
-                        }
-                        else {
+                        } else {
                             try {
-                                ImageUtils.createImageThumbnail(IssueEditActivity.this,theLarge,theThumbnail,800,100);
+                                ImageUtils.createImageThumbnail(SendIssueEditActivity.this, theLarge, theThumbnail, 800, 100);
                                 index = setImageFile(new File(theThumbnail));
-                                //imgFile1 = new File(theThumbnail);
-                            }catch (IOException ex){
+                            } catch (IOException ex) {
                                 ex.printStackTrace();
                             }
                         }
                     }
                 }
-
-                ((AppContext)getApplication()).setProperty(tempIssueImageKey,theThumbnail);
-
+                ((AppContext) getApplication()).setProperty(tempSendIssueImageKey, theThumbnail);
                 Message msg = new Message();
                 msg.what = index;
                 msg.obj = bitmap;
                 handler.sendMessage(msg);
-
             }
-
-
         }.start();
     }
 
@@ -389,30 +366,29 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
         return -1;
     }
 
-    private void pubIssue() {
-        ProjectIssue issue = new ProjectIssue();
-        issue.setTitle("");
-        issue.setContent(mIssueEditDesc.getText().toString());
-        issue.setReason(mIssueEditReason.getText().toString());
-        issue.setSolution(mIssueEditSolution.getText().toString());
-        issue.setType( mIssueEditType.getSelectedItem().toString());
-        issue.setState( mIssueEditState.getSelectedItem().toString());
+    private void pubSendIssue() {
+        ProjectSendIssue issue = new ProjectSendIssue();
+        issue.setListNum(mSendissueEditListnum.getText().toString());
+        issue.setMaterialName(mSendissueEditMeterialname.getText().toString());
+        issue.setMaterialNo(mSendissueEditMaterialno.getText().toString());
+        issue.setWrongNum(mSendissueEditWrongnum.getText().toString());
+        issue.setState(mSendissueEditState.getSelectedItem().toString());
         final AlertDialog pubing = LightProgressDialog.create(this, "提交中...");
-        XsFeedbackApi.pubCreateIssue(mProject.getId(),issue,imgFiles, new AsyncHttpResponseHandler() {
+        XsFeedbackApi.pubCreateSendIssue(mProject.getId(), issue, imgFiles, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                ProjectIssue issue = JsonUtils.toBean(ProjectIssue.class,responseBody);
-                if(issue != null){
-                    UIHelper.ToastMessage(AppContext.getInstance(),"创建成功");
-                    IssueEditActivity.this.finish();
+                ProjectIssue issue = JsonUtils.toBean(ProjectIssue.class, responseBody);
+                if (issue != null) {
+                    UIHelper.ToastMessage(AppContext.getInstance(), "创建成功");
+                    SendIssueEditActivity.this.finish();
                 } else {
-                    UIHelper.ToastMessage(AppContext.getInstance(),"创建失败");
+                    UIHelper.ToastMessage(AppContext.getInstance(), "创建失败");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                UIHelper.ToastMessage(AppContext.getInstance(),"创建失败" + statusCode);
+                UIHelper.ToastMessage(AppContext.getInstance(), "创建失败" + statusCode);
             }
 
             @Override
@@ -428,4 +404,5 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
             }
         });
     }
+
 }

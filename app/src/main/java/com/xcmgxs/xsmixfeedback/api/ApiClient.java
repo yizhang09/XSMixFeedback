@@ -12,6 +12,7 @@ import com.xcmgxs.xsmixfeedback.bean.ProjectDoc;
 import com.xcmgxs.xsmixfeedback.bean.ProjectFile;
 import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
+import com.xcmgxs.xsmixfeedback.bean.ProjectSendIssue;
 import com.xcmgxs.xsmixfeedback.bean.Result;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.util.CyptoUtils;
@@ -215,7 +216,7 @@ public class ApiClient {
         Map<String,Object> params = new HashMap<>();
         params.put(PRIVATE_TOKEN,getToken(appContext));
         params.put("page",page);
-        params.put("mode","STOP");
+        params.put("mode", "STOP");
         String url = makeURL(URLs.PROJECT,params);
         List<Project> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(Project[].class);
         lst.setCount(list.size());
@@ -284,6 +285,22 @@ public class ApiClient {
         }
         String url = makeURL(URLs.PROJECTISSUE,params);
         List<ProjectIssue> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(ProjectIssue[].class);
+        lst.setCount(list.size());
+        lst.setList(list);
+        lst.setPageSize(list.size());
+        return lst;
+    }
+
+    public static CommonList<ProjectSendIssue> getProjectSendIssues(final AppContext appContext, int page,String projectid) throws AppException {
+        CommonList<ProjectSendIssue> lst = new CommonList<ProjectSendIssue>();
+        Map<String,Object> params = new HashMap<>();
+        params.put(PRIVATE_TOKEN,getToken(appContext));
+        params.put("page",page);
+        if(projectid != "-1") {
+            params.put("projectid", projectid);
+        }
+        String url = makeURL(URLs.PROJECTSENDISSUE,params);
+        List<ProjectSendIssue> list = getHttpRequester().init(appContext,HTTPRequestor.GET_METHOD,url).getList(ProjectSendIssue[].class);
         lst.setCount(list.size());
         lst.setList(list);
         lst.setPageSize(list.size());

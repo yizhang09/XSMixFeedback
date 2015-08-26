@@ -161,6 +161,10 @@
             android:name=".ui.ProjectDocActivity"
             android:label="@string/title_activity_project_doc" >
         </activity>
+        <activity
+            android:name=".ui.SendIssueEditActivity"
+            android:label="@string/title_activity_send_issue_edit" >
+        </activity>
     </application>
 
 </manifest>

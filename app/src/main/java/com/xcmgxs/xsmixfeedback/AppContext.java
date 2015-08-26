@@ -49,6 +49,7 @@ import com.xcmgxs.xsmixfeedback.bean.ProjectDoc;
 import com.xcmgxs.xsmixfeedback.bean.ProjectFile;
 import com.xcmgxs.xsmixfeedback.bean.ProjectIssue;
 import com.xcmgxs.xsmixfeedback.bean.ProjectLog;
+import com.xcmgxs.xsmixfeedback.bean.ProjectSendIssue;
 import com.xcmgxs.xsmixfeedback.bean.Result;
 import com.xcmgxs.xsmixfeedback.bean.User;
 import com.xcmgxs.xsmixfeedback.common.BroadcastController;
@@ -952,6 +953,39 @@ public class AppContext extends Application {
         }
         return list;
     }
+
+    /*
+    *获取发运问题信息
+    */
+    @SuppressWarnings("unchecked")
+    public CommonList<ProjectSendIssue> getProjectSendIssuesByProjectID(int page,boolean isrefresh,String projectid) throws AppException{
+        CommonList<ProjectSendIssue> list = null;
+        String cacheKey = "allProjectSendIssueList_" + page +"_" + PAGE_SIZE+"_" + projectid;
+        if(!isReadDataCache(cacheKey) || isrefresh){
+            try {
+                list = ApiClient.getProjectSendIssues(this, page, projectid);
+                if(list != null && page == 1){
+                    list.setCacheKey(cacheKey);
+                    saveObject(list,cacheKey);
+                }
+            }
+            catch (AppException e){
+                e.printStackTrace();
+                list = (CommonList<ProjectSendIssue>)readObject(cacheKey);
+                if(list == null){
+                    throw e;
+                }
+            }
+        }
+        else {
+            list = (CommonList<ProjectSendIssue>)readObject(cacheKey);
+            if(list == null){
+                list = new CommonList<ProjectSendIssue>();
+            }
+        }
+        return list;
+    }
+
 
     /*
    *获取项目文件信息
