@@ -294,6 +294,7 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
             private String selectedImagePath;
 
             public void run(){
+                //首先获取图片文件到bitmap
                 Bitmap bitmap = null;
                 if(requestCode == ImageUtils.REQUEST_CODE_GETIMAGE_BYSDCARD){
                     if(data == null){
@@ -390,6 +391,16 @@ public class IssueEditActivity extends BaseActionBarActivity  implements View.On
     }
 
     private void pubIssue() {
+
+        if(StringUtils.isEmpty(mIssueEditDesc.getText().toString())){
+            UIHelper.ToastMessage(AppContext.getInstance(), "请输入故障描述！");
+            return;
+        }
+        if(imgFiles[0] == null){
+            UIHelper.ToastMessage(AppContext.getInstance(), "请至少上传一张照片！");
+            return;
+        }
+
         ProjectIssue issue = new ProjectIssue();
         issue.setTitle("");
         issue.setContent(mIssueEditDesc.getText().toString());

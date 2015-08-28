@@ -16,9 +16,9 @@
         <item>基础未做</item>
         <item>基础制作</item>
         <item>筒仓施工</item>
-        <item>正在发车</item>
         <item>正在安装</item>
         <item>安装完毕</item>
+        <item>调试出料</item>
         <item>签字验收</item>
     </string-array>
 

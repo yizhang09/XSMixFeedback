@@ -360,10 +360,8 @@ public class ImageUtils {
     public static int[] scaleImageSize(int[] img_size, int square_size) {
         if (img_size[0] <= square_size && img_size[1] <= square_size)
             return img_size;
-        double ratio = square_size
-                / (double) Math.max(img_size[0], img_size[1]);
-        return new int[] { (int) (img_size[0] * ratio),
-                (int) (img_size[1] * ratio) };
+        double ratio = square_size / (double) Math.max(img_size[0], img_size[1]);
+        return new int[] { (int) (img_size[0] * ratio), (int) (img_size[1] * ratio) };
     }
 
     /**
@@ -380,9 +378,7 @@ public class ImageUtils {
      *            输出图片质量
      * @throws IOException
      */
-    public static void createImageThumbnail(Context context,
-                                            String largeImagePath, String thumbfilePath, int square_size,
-                                            int quality) throws IOException {
+    public static void createImageThumbnail(Context context,String largeImagePath, String thumbfilePath, int square_size, int quality) throws IOException {
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inSampleSize = 1;
         // 原始图片bitmap

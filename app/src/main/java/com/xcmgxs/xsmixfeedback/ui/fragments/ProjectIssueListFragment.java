@@ -136,10 +136,16 @@ public class ProjectIssueListFragment extends BaseSwipeRefreshFragment<ProjectIs
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(which == 0){
-
+                            dialog.dismiss();
+                            if(mContext.getLoginUid() == issue.getCreatorid()){
+                                changeIssue(issue,"已处理");
+                            }
                         }
                         if(which == 1){
-
+                            dialog.dismiss();
+                            if(mContext.getLoginUid() == issue.getCreatorid()){
+                                changeIssue(issue,"正在处理");
+                            }
                         }
                         if(which == 2){
                             dialog.dismiss();
@@ -191,6 +197,21 @@ public class ProjectIssueListFragment extends BaseSwipeRefreshFragment<ProjectIs
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 ViewUtils.showToast("删除失败");
+            }
+        });
+    }
+
+    private void changeIssue(ProjectIssue issue,String state){
+        XsFeedbackApi.changeIssue(issue.getId(),state, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                ViewUtils.showToast("修改成功");
+                updateIssue();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                ViewUtils.showToast("修改失败");
             }
         });
     }

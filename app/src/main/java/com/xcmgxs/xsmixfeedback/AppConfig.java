@@ -48,20 +48,18 @@ public class AppConfig {
     public final static String DEFAULT_SAVE_IMAGE_PATH = Environment
             .getExternalStorageDirectory()
             + File.separator
-            + "XCMG_XS"
+            + "XSFeedback"
             + File.separator
-            + "Feedback"
+            + "Pictures"
             + File.separator;
 
-    //默认存放图片的路径
+    //默认存放文件的路径
     public final static String DEFAULT_SAVE_FILE_PATH = Environment
             .getExternalStorageDirectory()
             + File.separator
-            + "XCMG_XS"
+            + "XSFeedback"
             + File.separator
-            + "Feedback"
-            + File.separator
-            + "download"
+            + "Files"
             + File.separator;
 
     public static final String TEMP_LOG = "temp_log";

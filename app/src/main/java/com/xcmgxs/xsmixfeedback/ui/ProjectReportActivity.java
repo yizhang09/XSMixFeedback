@@ -185,13 +185,13 @@ public class ProjectReportActivity extends BaseActionBarActivity implements View
             case "筒仓施工":
                 mProjectStep.setImageResource(R.drawable.s3);
                 break;
-            case "正在发车":
+            case "正在安装":
                 mProjectStep.setImageResource(R.drawable.s4);
                 break;
-            case "正在安装":
+            case "安装完毕":
                 mProjectStep.setImageResource(R.drawable.s5);
                 break;
-            case "安装完毕":
+            case "调试出料":
                 mProjectStep.setImageResource(R.drawable.s6);
                 break;
             case "签字验收":

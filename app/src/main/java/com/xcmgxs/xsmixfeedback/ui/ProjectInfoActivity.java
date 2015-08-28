@@ -185,7 +185,7 @@ public class ProjectInfoActivity extends BaseActionBarActivity {
                     msg.obj = appContext.getProject(projectId);
                     msg.what = 1;
                 } catch (Exception ex) {
-                    mProjectDetailLoading2.setVisibility(View.GONE);
+                    //mProjectDetailLoading2.setVisibility(View.GONE);
                     msg.what = -1;
                     msg.obj = ex;
                     ex.printStackTrace();

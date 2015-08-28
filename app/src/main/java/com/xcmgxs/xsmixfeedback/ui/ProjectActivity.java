@@ -249,7 +249,7 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
                 mProjectStep6.setImageResource(R.drawable.blank);
                 mProjectStep7.setImageResource(R.drawable.blank);
                 break;
-            case "正在发车":
+            case "正在安装":
                 mProjectStep1.setImageResource(R.drawable.step1);
                 mProjectStep2.setImageResource(R.drawable.step2);
                 mProjectStep3.setImageResource(R.drawable.step3);
@@ -258,7 +258,7 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
                 mProjectStep6.setImageResource(R.drawable.blank);
                 mProjectStep7.setImageResource(R.drawable.blank);
                 break;
-            case "正在安装":
+            case "安装完毕":
                 mProjectStep1.setImageResource(R.drawable.step1);
                 mProjectStep2.setImageResource(R.drawable.step2);
                 mProjectStep3.setImageResource(R.drawable.step3);
@@ -267,7 +267,7 @@ public class ProjectActivity extends BaseActionBarActivity implements View.OnCli
                 mProjectStep6.setImageResource(R.drawable.blank);
                 mProjectStep7.setImageResource(R.drawable.blank);
                 break;
-            case "安装完毕":
+            case "调试出料":
                 mProjectStep1.setImageResource(R.drawable.step1);
                 mProjectStep2.setImageResource(R.drawable.step2);
                 mProjectStep3.setImageResource(R.drawable.step3);

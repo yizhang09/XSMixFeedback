@@ -125,7 +125,8 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
 
     private ArrayAdapter<String> adapterstep;
 
-    private static final String[] PROGRESS = {"基础未做","基础制作", "筒仓施工", "正在发车", "正在安装", "安装完毕","签字验收"};
+    //private static final String[] PROGRESS = {"基础未做","基础制作", "筒仓施工", "正在发车", "正在安装", "安装完毕","签字验收"};
+    private static final String[] PROGRESS = {"基础未做","基础制作", "筒仓施工", "正在安装", "安装完毕", "调试出料","签字验收"};
 
     private ArrayAdapter<String> adapterprogress;
 
@@ -516,6 +517,16 @@ public class LogEditActivity extends BaseActionBarActivity implements View.OnCli
 
     //发布日志
     private void pubLog(final byte logType,String content){
+
+        if(StringUtils.isEmpty(content)){
+            UIHelper.ToastMessage(AppContext.getInstance(), "请输入日志内容！");
+            return;
+        }
+        if(imgFiles[0] == null){
+            UIHelper.ToastMessage(AppContext.getInstance(), "请至少上传一张照片！");
+            return;
+        }
+
 
         IS_OVERTIME = false;
         log = new ProjectLog();

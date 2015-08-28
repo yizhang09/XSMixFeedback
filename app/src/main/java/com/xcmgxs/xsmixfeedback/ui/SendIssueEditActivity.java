@@ -39,6 +39,7 @@ import com.xcmgxs.xsmixfeedback.util.FileUtils;
 import com.xcmgxs.xsmixfeedback.util.ImageUtils;
 import com.xcmgxs.xsmixfeedback.util.JsonUtils;
 import com.xcmgxs.xsmixfeedback.util.StringUtils;
+import com.xcmgxs.xsmixfeedback.util.TLog;
 import com.xcmgxs.xsmixfeedback.util.ViewUtils;
 
 import org.apache.http.Header;
@@ -306,17 +307,23 @@ public class SendIssueEditActivity extends BaseActionBarActivity implements View
 
                     if (AppContext.isMethodsCompat(Build.VERSION_CODES.ECLAIR_MR1)) {
                         String imaName = FileUtils.getFileName(theLarge);
-                        if (imaName != null) {
-                            bitmap = ImageUtils.loadImgThumbnail(SendIssueEditActivity.this, imaName, MediaStore.Images.Thumbnails.MINI_KIND);
-                            if (bitmap == null && !StringUtils.isEmpty(theLarge)) {
-                                bitmap = ImageUtils.loadImgThumbnail(theLarge, 1000, 1000);
+                        try {
+                            if (imaName != null) {
+                                bitmap = ImageUtils.loadImgThumbnail(SendIssueEditActivity.this, imaName, MediaStore.Images.Thumbnails.MINI_KIND);
+                                if (bitmap == null && !StringUtils.isEmpty(theLarge)) {
+                                    bitmap = ImageUtils.loadImgThumbnail(theLarge, 1000, 1000);
+                                }
                             }
+                        } catch (Exception e) {
+                            TLog.log(bitmap.toString());
+                            e.printStackTrace();
                         }
                     }
                 } else if (requestCode == ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA) {
                     if (bitmap == null && !StringUtils.isEmpty(theLarge)) {
                         bitmap = ImageUtils.loadImgThumbnail(theLarge, 1000, 1000);
                     }
+
                 }
                 int index = -1;
                 if (bitmap != null) {
@@ -367,6 +374,20 @@ public class SendIssueEditActivity extends BaseActionBarActivity implements View
     }
 
     private void pubSendIssue() {
+
+        if(StringUtils.isEmpty(mSendissueEditMeterialname.getText().toString())){
+            UIHelper.ToastMessage(AppContext.getInstance(), "请输入物料名称！");
+            return;
+        }
+        if(StringUtils.isEmpty(mSendissueEditListnum.getText().toString())){
+            UIHelper.ToastMessage(AppContext.getInstance(), "请输入清单数量！");
+            return;
+        }
+        if(imgFiles[0] == null){
+            UIHelper.ToastMessage(AppContext.getInstance(), "请至少上传一张照片！");
+            return;
+        }
+
         ProjectSendIssue issue = new ProjectSendIssue();
         issue.setListNum(mSendissueEditListnum.getText().toString());
         issue.setMaterialName(mSendissueEditMeterialname.getText().toString());

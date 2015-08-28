@@ -50,6 +50,7 @@ import android.graphics.BitmapFactory;
 import com.xcmgxs.xsmixfeedback.AppContext;
 import com.xcmgxs.xsmixfeedback.AppException;
 import com.xcmgxs.xsmixfeedback.bean.Result;
+import com.xcmgxs.xsmixfeedback.util.TLog;
 
 /**
  * gitlabApi网络请求类
@@ -133,7 +134,7 @@ public class HTTPRequestor {
 
         this.mContext = appContext;
         this.url = url;
-
+        TLog.log(url);
         String urser_agent = appContext != null ? getUserAgent(appContext) : "";
         _method = getMethod(methodType, url, urser_agent);
         return this;

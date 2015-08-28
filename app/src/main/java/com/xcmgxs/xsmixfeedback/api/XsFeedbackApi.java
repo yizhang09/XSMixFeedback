@@ -19,6 +19,7 @@ import static com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper.get;
 import static com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper.getHttpClient;
 import static com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper.getPrivateTokenWithParams;
 import static com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper.post;
+import static com.xcmgxs.xsmixfeedback.api.AsyncHttpHelper.put;
 
 /**
  * Created by zhangyi on 2015-06-02.
@@ -245,6 +246,40 @@ public class XsFeedbackApi {
     public static void delIssue(String id, AsyncHttpResponseHandler handler) {
         try {
             delete(PROJECT_ISSUE + "/" + id, handler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void changeIssue(String id,String state, AsyncHttpResponseHandler handler) {
+        try {
+            RequestParams params = new RequestParams();
+            params.put("id", id);
+            params.put("state", state);
+            put(PROJECT_ISSUE, params, handler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public static void delSendIssue(String id, AsyncHttpResponseHandler handler) {
+        try {
+            delete(PROJECT_SENDISSUE + "/" + id, handler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void changeSendIssue(String id,String state, AsyncHttpResponseHandler handler) {
+        try {
+            RequestParams params = new RequestParams();
+            params.put("id", id);
+            params.put("state", state);
+            put(PROJECT_SENDISSUE,params,handler);
         } catch (Exception e) {
             e.printStackTrace();
         }

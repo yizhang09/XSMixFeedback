@@ -125,13 +125,13 @@ public class MyProjectListAdapter extends MyBaseAdapter<Project> {
             case "筒仓施工":
                 listItemView.statepic.setImageResource(R.drawable.s3);
                 break;
-            case "正在发车":
+            case "正在安装":
                 listItemView.statepic.setImageResource(R.drawable.s4);
                 break;
-            case "正在安装":
+            case "安装完毕":
                 listItemView.statepic.setImageResource(R.drawable.s5);
                 break;
-            case "安装完毕":
+            case "调试出料":
                 listItemView.statepic.setImageResource(R.drawable.s6);
                 break;
             case "签字验收":

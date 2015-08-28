@@ -298,6 +298,10 @@ public class DocEditActivity extends BaseActionBarActivity implements View.OnCli
 
 
     private void pubDoc() {
+        if(imgFile == null){
+            UIHelper.ToastMessage(AppContext.getInstance(), "请上传一张照片！");
+            return;
+        }
         String type = mDocEditType.getSelectedItem().toString();
         String desc = mDocEditDesc.getText().toString();
         final AlertDialog pubing = LightProgressDialog.create(this, "提交中...");
